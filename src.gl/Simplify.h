@@ -20,12 +20,12 @@ class SymetricMatrix {
 
 	SymetricMatrix(double a,double b,double c,double d)
 	{
-		m[0] = a*a;  m[1] = a*b;  m[2] = a*c;  m[3] = a*d; 
-		             m[4] = b*b;  m[5] = b*c;  m[6] = b*d; 
+		m[0] = a*a;  m[1] = a*b;  m[2] = a*c;  m[3] = a*d;
+		             m[4] = b*b;  m[5] = b*c;  m[6] = b*d;
 		                          m[7 ] =c*c; m[8 ] = c*d;
 		                                       m[9 ] = d*d;
 	}
-	
+
 	double operator[](int c) const { return m[c]; }
 
 	// Determinant
@@ -34,25 +34,25 @@ class SymetricMatrix {
 				int a21, int a22, int a23,
 				int a31, int a32, int a33)
 	{
-		double det =  m[a11]*m[a22]*m[a33] + m[a13]*m[a21]*m[a32] + m[a12]*m[a23]*m[a31] 
-					- m[a13]*m[a22]*m[a31] - m[a11]*m[a23]*m[a32]- m[a12]*m[a21]*m[a33]; 
+		double det =  m[a11]*m[a22]*m[a33] + m[a13]*m[a21]*m[a32] + m[a12]*m[a23]*m[a31]
+					- m[a13]*m[a22]*m[a31] - m[a11]*m[a23]*m[a32]- m[a12]*m[a21]*m[a33];
 		return det;
 	}
 
 	const SymetricMatrix operator+(const SymetricMatrix& n) const
-	{ 
-		return SymetricMatrix( m[0]+n[0],   m[1]+n[1],   m[2]+n[2],   m[3]+n[3], 
-						                    m[4]+n[4],   m[5]+n[5],   m[6]+n[6], 
+	{
+		return SymetricMatrix( m[0]+n[0],   m[1]+n[1],   m[2]+n[2],   m[3]+n[3],
+						                    m[4]+n[4],   m[5]+n[5],   m[6]+n[6],
 						                                 m[ 7]+n[ 7], m[ 8]+n[8 ],
 						                                              m[ 9]+n[9 ]);
 	}
 
 	SymetricMatrix& operator+=(const SymetricMatrix& n)
 	{
-		 m[0]+=n[0];   m[1]+=n[1];   m[2]+=n[2];   m[3]+=n[3]; 
-		 m[4]+=n[4];   m[5]+=n[5];   m[6]+=n[6];   m[7]+=n[7]; 
+		 m[0]+=n[0];   m[1]+=n[1];   m[2]+=n[2];   m[3]+=n[3];
+		 m[4]+=n[4];   m[5]+=n[5];   m[6]+=n[6];   m[7]+=n[7];
 		 m[8]+=n[8];   m[9]+=n[9];
-		return *this; 
+		return *this;
 	}
 
 	double m[10];
@@ -65,7 +65,7 @@ namespace Simplify
 
 	struct Triangle { int v[3];double err[4];int deleted,dirty;vec3f n; };
 	struct Vertex { vec3f p;int tstart,tcount;SymetricMatrix q;int border;};
-	struct Ref { int tid,tvertex; }; 
+	struct Ref { int tid,tvertex; };
 	std::vector<Triangle> triangles;
 	std::vector<Vertex> vertices;
 	std::vector<Ref> refs;
@@ -135,17 +135,14 @@ namespace Simplify
 				{
 					int i0=t.v[ j     ]; Vertex &v0 = vertices[i0]; 
 					int i1=t.v[(j+1)%3]; Vertex &v1 = vertices[i1];
-
 					// Border check
 					if(v0.border != v1.border)  continue;
 
 					// Compute vertex to collapse to
 					vec3f p;
 					calculate_error(i0,i1,p);
-
 					deleted0.resize(v0.tcount); // normals temporarily
 					deleted1.resize(v1.tcount); // normals temporarily
-
 					// don't remove if flipped
 					if( flipped(p,i0,i1,v0,v1,deleted0) ) continue;
 					if( flipped(p,i1,i0,v1,v0,deleted1) ) continue;
@@ -176,7 +173,6 @@ namespace Simplify
 				if(triangle_count-deleted_triangles<=target_count)break;
 			}
 		}
-
 		// clean up mesh
 		compact_mesh();
 
@@ -418,7 +414,6 @@ namespace Simplify
 		bool   border = vertices[id_v1].border & vertices[id_v2].border;
 		double error=0;
 		double det = q.det(0, 1, 2, 1, 4, 5, 2, 5, 7);
-
 		if ( det != 0 && !border )
 		{
 			// q_delta is invertible

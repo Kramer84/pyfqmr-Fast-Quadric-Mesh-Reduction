@@ -392,7 +392,6 @@ namespace Simplify
 
 				loopj(0,3)if(t.err[j]<threshold)
 				{
-
 					int i0=t.v[ j     ]; Vertex &v0 = vertices[i0];
 					int i1=t.v[(j+1)%3]; Vertex &v1 = vertices[i1];
 					// Border check
@@ -405,7 +404,6 @@ namespace Simplify
 					deleted1.resize(v1.tcount); // normals temporarily
 					// don't remove if flipped
 					if( flipped(p,i0,i1,v0,v1,deleted0) ) continue;
-
 					if( flipped(p,i1,i0,v1,v0,deleted1) ) continue;
 
 					if ( (t.attr & TEXCOORD) == TEXCOORD  )
@@ -784,12 +782,10 @@ namespace Simplify
 		double det = q.det(0, 1, 2, 1, 4, 5, 2, 5, 7);
 		if ( det != 0 && !border )
 		{
-
 			// q_delta is invertible
 			p_result.x = -1/det*(q.det(1, 2, 3, 4, 5, 6, 5, 7 , 8));	// vx = A41/det(q_delta)
 			p_result.y =  1/det*(q.det(0, 2, 3, 1, 5, 6, 2, 7 , 8));	// vy = A42/det(q_delta)
 			p_result.z = -1/det*(q.det(0, 1, 3, 1, 4, 6, 2, 5,  8));	// vz = A43/det(q_delta)
-
 			error = vertex_error(q, p_result.x, p_result.y, p_result.z);
 		}
 		else
