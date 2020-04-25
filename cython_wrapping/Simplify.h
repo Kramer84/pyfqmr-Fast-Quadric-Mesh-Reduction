@@ -821,15 +821,6 @@ namespace Simplify  //is not really a class but uses global variables
 		return error;
 	}
 
-	void set_params_from_obj_string(const char* obj_str[]){
-		vertices.clear()
-		triangles.clear()
-		}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////// K.S.:"Not Useful for Trimesh wrapper, we rather need to directly assign vertices, faces colors etc."
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	char *trimwhitespace(char *str)
 	{
 		char *end;
@@ -850,6 +841,145 @@ namespace Simplify  //is not really a class but uses global variables
 		return str;
 	}
 
+	void set_params_from_obj_string(std::string str_OBJ[])
+	{
+		vertices.clear();
+		triangles.clear();
+		// convert input string to stream (cause why not?)
+		stringstream ss;
+
+		// store string in stream
+		ss << str_OBJ;
+
+		char line[1000];
+		memset ( line,0,1000 );
+		int vertex_cnt = 0;
+		int material = -1;
+		std::map<std::string, int> material_map;
+		std::vector<vec3f> uvs;
+		std::vector<std::vector<int> > uvMap;
+
+		while(fgets(line, 1000, ss) != NULL)
+		{
+			Vertex v;
+			vec3f uv;
+
+			if (strncmp(line, "mtllib", 6) == 0)
+			{
+				mtllib = trimwhitespace(&line[7]);
+			}
+			if (strncmp(line, "usemtl", 6) == 0)
+			{
+				std::string usemtl = trimwhitespace(&line[7]);
+				if (material_map.find(usemtl) == material_map.end())
+				{
+					material_map[usemtl] = materials.size();
+					materials.push_back(usemtl);
+				}
+				material = material_map[usemtl];
+			}
+
+			if ( line[0] == 'v' && line[1] == 't' )
+			{
+				if ( line[2] == ' ' )
+				if(sscanf(line,"vt %lf %lf",
+					&uv.x,&uv.y)==2)
+				{
+					uv.z = 0;
+					uvs.push_back(uv);
+				} else
+				if(sscanf(line,"vt %lf %lf %lf",
+					&uv.x,&uv.y,&uv.z)==3)
+				{
+					uvs.push_back(uv);
+				}
+			}
+			else if ( line[0] == 'v' )
+			{
+				if ( line[1] == ' ' )
+				if(sscanf(line,"v %lf %lf %lf",
+					&v.p.x,	&v.p.y,	&v.p.z)==3)
+				{
+					vertices.push_back(v);
+				}
+			}
+			int integers[9];
+			if ( line[0] == 'f' )
+			{
+				Triangle t;
+				bool tri_ok = false;
+                bool has_uv = false;
+
+				if(sscanf(line,"f %d %d %d",
+					&integers[0],&integers[1],&integers[2])==3)
+				{
+					tri_ok = true;
+				}else
+				if(sscanf(line,"f %d// %d// %d//",
+					&integers[0],&integers[1],&integers[2])==3)
+				{
+					tri_ok = true;
+				}else
+				if(sscanf(line,"f %d//%d %d//%d %d//%d",
+					&integers[0],&integers[3],
+					&integers[1],&integers[4],
+					&integers[2],&integers[5])==6)
+				{
+					tri_ok = true;
+				}else
+				if(sscanf(line,"f %d/%d/%d %d/%d/%d %d/%d/%d",
+					&integers[0],&integers[6],&integers[3],
+					&integers[1],&integers[7],&integers[4],
+					&integers[2],&integers[8],&integers[5])==9)
+				{
+					tri_ok = true;
+					has_uv = true;
+				}
+				else
+				{
+					printf("unrecognized sequence\n");
+					printf("%s\n",line);
+					while(1);
+				}
+				if ( tri_ok )
+				{
+					t.v[0] = integers[0]-1-vertex_cnt;
+					t.v[1] = integers[1]-1-vertex_cnt;
+					t.v[2] = integers[2]-1-vertex_cnt;
+					t.attr = 0;
+
+					//if ( process_uv && has_uv )
+					//{
+					//	std::vector<int> indices;
+					//	indices.push_back(integers[6]-1-vertex_cnt);
+					//	indices.push_back(integers[7]-1-vertex_cnt);
+					//	indices.push_back(integers[8]-1-vertex_cnt);
+					//	uvMap.push_back(indices);
+					//	t.attr |= TEXCOORD;
+					//}
+
+					t.material = material;
+					//geo.triangles.push_back ( tri );
+					triangles.push_back(t);
+					//state_before = state;
+					//state ='f';
+				}
+			}
+		}
+
+		//if ( process_uv && uvs.size() )
+		//{
+		//	loopi(0,triangles.size())
+		//	{
+		//		loopj(0,3)
+		//		triangles[i].uvs[j] = uvs[uvMap[i][j]];
+		//	}
+		//}
+	} 
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////// K.S.:"Not Useful for Trimesh wrapper, we rather need to directly assign vertices, faces colors etc."
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Option : Load OBJ
 	void load_obj(const char* filename, bool process_uv=false){
