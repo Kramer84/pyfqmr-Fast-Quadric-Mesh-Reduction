@@ -557,7 +557,11 @@ public:
 	}
 
 	// ---------- Load Obj ------------ //
-
+	// ---------- and read Obj string - //
+	// ---------- For Usage with ------ //
+	// ---------- Trimesh ------------- //
+	// ---------- we already have ----- //
+	// ---------- The string in memory- //
 	void load_obj(const char* filename,float scale=1){
 
 		printf ( "\nLoading Objects %s ... \n",filename);
