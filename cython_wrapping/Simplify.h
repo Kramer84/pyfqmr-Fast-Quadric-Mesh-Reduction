@@ -304,11 +304,18 @@ class SymetricMatrix {
 
 	double m[10];
 };
-///////////////////////////////////////////
 
-namespace Simplify
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+namespace Simplify  //is not really a class but uses global variables
 {
 	// Global Variables & Strctures
+	// K.S. : "the wrapper directly modifies the global variables 'triangles' and 'vertices'
+	// I don't care about the color or materials for now"
 	enum Attributes {
 		NONE,
 		NORMAL = 2,
@@ -325,7 +332,7 @@ namespace Simplify
     std::vector<std::string> materials;
 
 	// Helper functions
-
+    // K.S. "These should not be used by the wrapper, only internaly" ///
 	double vertex_error(SymetricMatrix q, double x, double y, double z);
 	double calculate_error(int id_v1, int id_v2, vec3f &p_result);
 	bool flipped(vec3f p,int i0,int i1,Vertex &v0,Vertex &v1,std::vector<int> &deleted);
@@ -333,6 +340,7 @@ namespace Simplify
 	void update_triangles(int i0,Vertex &v,std::vector<int> &deleted,int &deleted_triangles);
 	void update_mesh(int iteration);
 	void compact_mesh();
+	// K.S. : "Main function to be accessible through the wrapper"
 	//
 	// Main simplification function
 	//
@@ -441,6 +449,8 @@ namespace Simplify
 		// clean up mesh
 		compact_mesh();
 	} //simplify_mesh()
+
+	// K.S. : "Second function to be accessible through the wrapper"
 
 	void simplify_mesh_lossless(bool verbose=false)
 	{
@@ -566,6 +576,7 @@ namespace Simplify
 		return false;
 	}
 
+	// clearly internal
     // update_uvs
 
 	void update_uvs(int i0,const Vertex &v,const vec3f &p,std::vector<int> &deleted)
@@ -583,6 +594,7 @@ namespace Simplify
 		}
 	}
 
+	// clearly internal
 	// Update triangle connections and edge error after a edge is collapsed
 
 	void update_triangles(int i0,Vertex &v,std::vector<int> &deleted,int &deleted_triangles)
@@ -609,6 +621,7 @@ namespace Simplify
 		}
 	}
 
+	// clearly internal
 	// compact triangles, compute edge error and build reference list
 
 	void update_mesh(int iteration)
@@ -729,6 +742,7 @@ namespace Simplify
 		}
 	}
 
+	// clearly internal
 	// Finally compact mesh before exiting
 
 	void compact_mesh()
@@ -762,6 +776,7 @@ namespace Simplify
 		vertices.resize(dst);
 	}
 
+	// clearly internal
 	// Error between vertex and Quadric
 
 	double vertex_error(SymetricMatrix q, double x, double y, double z)
@@ -770,6 +785,7 @@ namespace Simplify
  		     + 2*q[5]*y*z + 2*q[6]*y + q[7]*z*z + 2*q[8]*z + q[9];
 	}
 
+	// clearly internal
 	// Error for one edge
 
 	double calculate_error(int id_v1, int id_v2, vec3f &p_result)
@@ -805,6 +821,15 @@ namespace Simplify
 		return error;
 	}
 
+	void set_params_from_obj_string(const char* obj_str[]){
+		vertices.clear()
+		triangles.clear()
+		}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////// K.S.:"Not Useful for Trimesh wrapper, we rather need to directly assign vertices, faces colors etc."
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	char *trimwhitespace(char *str)
 	{
 		char *end;
@@ -825,9 +850,6 @@ namespace Simplify
 		return str;
 	}
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////// Not Useful for Trimesh wrapper, we rather need to directly assign vertices, faces colors etc. ////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Option : Load OBJ
 	void load_obj(const char* filename, bool process_uv=false){
@@ -1029,4 +1051,6 @@ namespace Simplify
 		fclose(file);
 	}
 };
-///////////////////////////////////////////
+
+
+////////////////////////////////////////
