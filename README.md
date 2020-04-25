@@ -1,7 +1,7 @@
 # Fast-Quadric-Mesh-Simplification - (future) python (or cython) mod
 Mesh triangle reduction using quadrics - for Windows, OSX and Linux (thx Chris Rorden)
 
-modification of this algorithm for use with the [Trimesh](https://trimsh.org/) library, in pure python. Could be using numpy or cython
+modification of sp4acerat's algorithm for use with python, and more precisely the [Trimesh](https://trimsh.org/) library. Also a project to get in touch with C++ and Cython bindings
 
 ![img](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification/blob/master/screenshot.png?raw=true)
 
