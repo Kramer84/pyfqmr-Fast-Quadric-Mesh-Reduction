@@ -11,7 +11,7 @@
 //
 // 5/2016: Chris Rorden created minimal version for OSX/Linux/Windows compile
 
-//#include <iostream>
+
 //#include <stddef.h>
 //#include <functional>
 //#include <sys/stat.h>
@@ -22,6 +22,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <map>
+
+#include <sstream>
+//#include <iostream>
+
 #include <vector>
 #include <string>
 #include <math.h>
@@ -841,36 +845,34 @@ namespace Simplify  //is not really a class but uses global variables
 		return str;
 	}
 
-	void set_params_from_obj_string(std::string str_OBJ[])
+	void set_params_from_obj_string(std::string str_OBJ)
 	{
 		vertices.clear();
 		triangles.clear();
-		// convert input string to stream (cause why not?)
-		stringstream ss;
 
-		// store string in stream
-		ss << str_OBJ;
+		std::istringstream stringStream;
+		std::string line;
 
-		char line[1000];
-		memset ( line,0,1000 );
+		stringStream.str(str_OBJ);
 		int vertex_cnt = 0;
 		int material = -1;
 		std::map<std::string, int> material_map;
 		std::vector<vec3f> uvs;
 		std::vector<std::vector<int> > uvMap;
 
-		while(fgets(line, 1000, ss) != NULL)
+		while(std::getline(stringStream, line, '\n'))
 		{
 			Vertex v;
 			vec3f uv;
+			char *lineChr = &line[0];
 
-			if (strncmp(line, "mtllib", 6) == 0)
+			if (strncmp(lineChr, "mtllib", 6) == 0)
 			{
-				mtllib = trimwhitespace(&line[7]);
+				mtllib = trimwhitespace(&lineChr[7]);
 			}
-			if (strncmp(line, "usemtl", 6) == 0)
+			if (strncmp(lineChr, "usemtl", 6) == 0)
 			{
-				std::string usemtl = trimwhitespace(&line[7]);
+				std::string usemtl = trimwhitespace(&lineChr[7]);
 				if (material_map.find(usemtl) == material_map.end())
 				{
 					material_map[usemtl] = materials.size();
@@ -879,55 +881,55 @@ namespace Simplify  //is not really a class but uses global variables
 				material = material_map[usemtl];
 			}
 
-			if ( line[0] == 'v' && line[1] == 't' )
+			if ( lineChr[0] == 'v' && lineChr[1] == 't' )
 			{
-				if ( line[2] == ' ' )
-				if(sscanf(line,"vt %lf %lf",
+				if ( lineChr[2] == ' ' )
+				if(sscanf(lineChr,"vt %lf %lf",
 					&uv.x,&uv.y)==2)
 				{
 					uv.z = 0;
 					uvs.push_back(uv);
 				} else
-				if(sscanf(line,"vt %lf %lf %lf",
+				if(sscanf(lineChr,"vt %lf %lf %lf",
 					&uv.x,&uv.y,&uv.z)==3)
 				{
 					uvs.push_back(uv);
 				}
 			}
-			else if ( line[0] == 'v' )
+			else if ( lineChr[0] == 'v' )
 			{
-				if ( line[1] == ' ' )
-				if(sscanf(line,"v %lf %lf %lf",
+				if ( lineChr[1] == ' ' )
+				if(sscanf(lineChr,"v %lf %lf %lf",
 					&v.p.x,	&v.p.y,	&v.p.z)==3)
 				{
 					vertices.push_back(v);
 				}
 			}
 			int integers[9];
-			if ( line[0] == 'f' )
+			if ( lineChr[0] == 'f' )
 			{
 				Triangle t;
 				bool tri_ok = false;
                 bool has_uv = false;
 
-				if(sscanf(line,"f %d %d %d",
+				if(sscanf(lineChr,"f %d %d %d",
 					&integers[0],&integers[1],&integers[2])==3)
 				{
 					tri_ok = true;
 				}else
-				if(sscanf(line,"f %d// %d// %d//",
+				if(sscanf(lineChr,"f %d// %d// %d//",
 					&integers[0],&integers[1],&integers[2])==3)
 				{
 					tri_ok = true;
 				}else
-				if(sscanf(line,"f %d//%d %d//%d %d//%d",
+				if(sscanf(lineChr,"f %d//%d %d//%d %d//%d",
 					&integers[0],&integers[3],
 					&integers[1],&integers[4],
 					&integers[2],&integers[5])==6)
 				{
 					tri_ok = true;
 				}else
-				if(sscanf(line,"f %d/%d/%d %d/%d/%d %d/%d/%d",
+				if(sscanf(lineChr,"f %d/%d/%d %d/%d/%d %d/%d/%d",
 					&integers[0],&integers[6],&integers[3],
 					&integers[1],&integers[7],&integers[4],
 					&integers[2],&integers[8],&integers[5])==9)
@@ -938,7 +940,7 @@ namespace Simplify  //is not really a class but uses global variables
 				else
 				{
 					printf("unrecognized sequence\n");
-					printf("%s\n",line);
+					printf("%s\n",lineChr);
 					while(1);
 				}
 				if ( tri_ok )

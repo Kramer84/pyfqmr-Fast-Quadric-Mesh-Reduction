@@ -23,20 +23,20 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////// Help may be included in python wrapper //////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-void showHelp(const char * argv[]) {
-    const char *cstr = (argv[0]);
-    printf("Usage: %s <input> <output> <ratio> <agressiveness)\n", cstr);
-    printf(" Input: name of existing OBJ format mesh\n");
-    printf(" Output: name for decimated OBJ format mesh\n");
-    printf(" Ratio: (default = 0.5) for example 0.2 will decimate 80%% of triangles\n");
-    printf(" Agressiveness: (default = 7.0) faster or better decimation\n");
-    printf("Examples :\n");
-#if defined(_WIN64) || defined(_WIN32)
-    printf("  %s c:\\dir\\in.obj c:\\dir\\out.obj 0.2\n", cstr);
-#else
-    printf("  %s ~/dir/in.obj ~/dir/out.obj 0.2\n", cstr);
-#endif
-} //showHelp()
+//void showHelp(const char * argv[]) {
+//    const char *cstr = (argv[0]);
+//    printf("Usage: %s <input> <output> <ratio> <agressiveness)\n", cstr);
+//    printf(" Input: name of existing OBJ format mesh\n");
+//    printf(" Output: name for decimated OBJ format mesh\n");
+//    printf(" Ratio: (default = 0.5) for example 0.2 will decimate 80%% of triangles\n");
+//    printf(" Agressiveness: (default = 7.0) faster or better decimation\n");
+//    printf("Examples :\n");
+//#if defined(_WIN64) || defined(_WIN32)
+//    printf("  %s c:\\dir\\in.obj c:\\dir\\out.obj 0.2\n", cstr);
+//#else
+//    printf("  %s ~/dir/in.obj ~/dir/out.obj 0.2\n", cstr);
+//#endif
+//} //showHelp()
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,10 +44,10 @@ void showHelp(const char * argv[]) {
 
 int main(int argc, const char * argv[]) {
     printf("Mesh Simplification (C)2014 by Sven Forstmann in 2014, MIT License (%zu-bit)\n", sizeof(size_t)*8);
-    if (argc < 3) {
-        showHelp(argv);
-        return EXIT_SUCCESS;
-    }
+    //if (argc < 3) {
+    //    showHelp(argv);
+    //    return EXIT_SUCCESS;
+    //}
 	Simplify::load_obj(argv[1]);
 	if ((Simplify::triangles.size() < 3) || (Simplify::vertices.size() < 3))
 		return EXIT_FAILURE;
