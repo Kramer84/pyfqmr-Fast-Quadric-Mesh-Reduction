@@ -1,85 +1,128 @@
-// Simple wrapper for Sven Forstmann's mesh simplification tool
+/////////////////////////////////////////////
 //
-// Loads a OBJ format mesh, decimates mesh, saves decimated mesh as OBJ format
-// http://voxels.blogspot.com/2014/05/quadric-mesh-simplification-with-source.html
-// https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification
-//To compile for Linux/OSX (GCC/LLVM)
-//  g++ Main.cpp -O3 -o simplify
-//To compile for Windows (Visual Studio)
-// vcvarsall amd64
-// cl /EHsc Main.cpp /osimplify
-//To execute
-//  ./simplify wall.obj out.obj 0.04
+// Mesh Simplification Tutorial
 //
-// Pascal Version by Chris Roden:
-// https://github.com/neurolabusc/Fast-Quadric-Mesh-Simplification-Pascal-
+// (C) by Sven Forstmann in 2014
 //
-
+// License : MIT
+// http://opensource.org/licenses/MIT
+/////////////////////////////////////////////
+// Mathlib included from 
+// http://sourceforge.net/projects/nebuladevice/
+///////////////////////////////////////////
+//int SCREEN_SIZE_X=1536;
+//int SCREEN_SIZE_Y=768;
+/////////////////////////////////////////////
+#include "Core.h"
+//#include "OBJ.h" we only need to pass a pointer from a numpy array
 #include "Simplify.h"
-#include <stdio.h>
-#include <time.h>  // clock_t, clock, CLOCKS_PER_SEC
-
-
-////////////////////////////////////////////////////////////////////////////////////////////
-////////// Help may be included in python wrapper //////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-//void showHelp(const char * argv[]) {
-//    const char *cstr = (argv[0]);
-//    printf("Usage: %s <input> <output> <ratio> <agressiveness)\n", cstr);
-//    printf(" Input: name of existing OBJ format mesh\n");
-//    printf(" Output: name for decimated OBJ format mesh\n");
-//    printf(" Ratio: (default = 0.5) for example 0.2 will decimate 80%% of triangles\n");
-//    printf(" Agressiveness: (default = 7.0) faster or better decimation\n");
-//    printf("Examples :\n");
-//#if defined(_WIN64) || defined(_WIN32)
-//    printf("  %s c:\\dir\\in.obj c:\\dir\\out.obj 0.2\n", cstr);
-//#else
-//    printf("  %s ~/dir/in.obj ~/dir/out.obj 0.2\n", cstr);
-//#endif
-//} //showHelp()
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-
-
-int main(int argc, const char * argv[]) {
-    printf("Mesh Simplification (C)2014 by Sven Forstmann in 2014, MIT License (%zu-bit)\n", sizeof(size_t)*8);
-    //if (argc < 3) {
-    //    showHelp(argv);
-    //    return EXIT_SUCCESS;
-    //}
-	Simplify::load_obj(argv[1]);
-	if ((Simplify::triangles.size() < 3) || (Simplify::vertices.size() < 3))
-		return EXIT_FAILURE;
-	int target_count =  Simplify::triangles.size() >> 1;
-    if (argc > 3) {
-    	float reduceFraction = atof(argv[3]);
-    	if (reduceFraction > 1.0) reduceFraction = 1.0; //lossless only
-    	if (reduceFraction <= 0.0) {
-    		printf("Ratio must be BETWEEN zero and one.\n");
-    		return EXIT_FAILURE;
-    	}
-    	target_count = round((float)Simplify::triangles.size() * atof(argv[3]));
-    }
-    if (target_count < 4) {
-		printf("Object will not survive such extreme decimation\n");
-    	return EXIT_FAILURE;
-    }
-    double agressiveness = 7.0;
-    if (argc > 4) {
-    	agressiveness = atof(argv[4]);
-    }
-	clock_t start = clock();
-	printf("Input: %zu vertices, %zu triangles (target %d)\n", Simplify::vertices.size(), Simplify::triangles.size(), target_count);
-	int startSize = Simplify::triangles.size();
-	Simplify::simplify_mesh(target_count, agressiveness, true);
-	//Simplify::simplify_mesh_lossless( false);
-	if ( Simplify::triangles.size() >= startSize) {
-		printf("Unable to reduce mesh.\n");
-    	return EXIT_FAILURE;
+///////////////////////////////////////////
+//
+// Mesh to Simplify
+//
+//OBJ obj("../data/bunny.obj",100);
+//OBJ obj("../data/wall.obj",1);
+//OBJ obj("../data/sphere.obj",4.0/256.0);
+///////////////////////////////////////////
+//extern float fps;
+//void DrawScene();
+///////////////////////////////////////////
+int main(int argc, char **argv) 
+{ 
+	// Setup Mesh for Simplification
+	
+	// Simplify::vertices[].p : vertex position
+	// Simplify::triangles[].v[0..2] : vertex indices
+	
+	loopi(0,obj.objects[0].points.size())
+	{
+		Simplify::Vertex v;
+		v.p=obj.objects[0].points[i];
+		Simplify::vertices.push_back(v);
 	}
-	Simplify::write_obj(argv[2]);
-	printf("Output: %zu vertices, %zu triangles (%f reduction; %.4f sec)\n",Simplify::vertices.size(), Simplify::triangles.size()
-		, (float)Simplify::triangles.size()/ (float) startSize  , ((float)(clock()-start))/CLOCKS_PER_SEC );
-	return EXIT_SUCCESS;
+	loopi(0,obj.objects[0].triangles.size())
+	{
+		Simplify::Triangle t;
+		loopj(0,3)t.v[j]=obj.objects[0].triangles[i].points[j];
+		Simplify::triangles.push_back(t);
+	}
+	printf("Input: %d triangles %d vertices\n",Simplify::triangles.size(),Simplify::vertices.size());
+	
+	// Simplification start
+	
+	Simplify::simplify_mesh(20000);
+	//Simplify::write_obj("../test_out.obj");
+	
+	// Simplification done;	
+	// Visualize the Result
+	
+	printf("Output: %d triangles %d vertices\n",Simplify::triangles.size(),Simplify::vertices.size());
+	
+	//loopi(0,Simplify::vertices.size())
+	//{
+	//	obj.objects[0].points[i]=Simplify::vertices[i].p;
+	//}
+	//int ofs=0;
+	//loopi(0,Simplify::triangles.size())
+	//{
+	//	if(!Simplify::triangles[i].deleted)
+	//	{
+	//		obj.objects[0].triangles[ofs] = obj.objects[0].triangles[i];
+	//		obj.objects[0].triangles[ofs].material=0;
+	//		loopj(0,3) obj.objects[0].triangles[ofs].points[j]=Simplify::triangles[i].v[j];
+	//		ofs++;
+	//	}
+	//}
+	//obj.objects[0].triangles.resize(ofs);
+	//
+	//CoreInit(DrawScene,argc, argv);
+	//try
+	//{
+	//	glutMainLoop();
+	//}
+	//catch (const char* msg)
+	//{
+	//	printf("exiting\n");
+	//}
 }
+///////////////////////////////////////////
+//void DrawScene()
+//{
+//	CoreKeyMouse();
+//
+//	glViewport(0,0,screen.window_width,screen.window_height);
+//	glClearDepth(1.0f);
+//	glClearColor(0,0,0,0);
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//
+//	glMatrixMode( GL_PROJECTION);
+//	glLoadIdentity();
+//	gluPerspective(60.0, (GLfloat)screen.window_width / (GLfloat) screen.window_height, 0.1, 10000.0);
+//	glMatrixMode( GL_MODELVIEW);
+//	glLoadIdentity();
+//	
+//	// Position
+//	glRotatef(screen.rot.z, 0,0,1);
+//	glRotatef(screen.rot.y, 1,0,0);
+//	glRotatef(screen.rot.x, 0,1,0);
+//	glTranslatef(screen.pos.x,screen.pos.y,screen.pos.z);
+//		
+//	obj.draw(vec3f(0,0,0) , vec3f(0,0,0) );
+//
+//	static int frame=0;frame++;
+//	if((frame&31)==0)
+//	{
+//		char txt[1000];int tcount=obj.objects[0].triangles.size();
+//		sprintf(txt,"Triangles:%d FPS: %f MT/S: %f",tcount,fps,float(tcount)*fps/1000000);
+//		glutSetWindowTitle(txt);
+//	}
+//
+//	printf("pos %2.2f %2.2f %2.2f rot %2.2f %2.2f %2.2f \r",		
+//		screen.pos.x,screen.pos.y,screen.pos.z,
+//		screen.rot.x,screen.rot.y,screen.rot.z	);
+//
+//	glDisable(GL_BLEND);
+//
+//	glutSwapBuffers();
+//}
+///////////////////////////////////////////
