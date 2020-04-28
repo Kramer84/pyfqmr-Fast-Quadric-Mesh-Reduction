@@ -31,9 +31,6 @@ int main(int argc, char **argv)
 { 
 	// Setup Mesh for Simplification
 	
-	// Simplify::vertices[].p : vertex position
-	// Simplify::triangles[].v[0..2] : vertex indices
-	
 	loopi(0,obj.objects[0].points.size())
 	{
 		Simplify::Vertex v;
@@ -51,13 +48,9 @@ int main(int argc, char **argv)
 	// Simplification start
 	
 	Simplify::simplify_mesh(20000);
-	//Simplify::write_obj("../test_out.obj");
-	
-	// Simplification done;	
-	// Visualize the Result
-	
+
 	printf("Output: %d triangles %d vertices\n",Simplify::triangles.size(),Simplify::vertices.size());
-	
+}
 	//loopi(0,Simplify::vertices.size())
 	//{
 	//	obj.objects[0].points[i]=Simplify::vertices[i].p;
@@ -84,7 +77,7 @@ int main(int argc, char **argv)
 	//{
 	//	printf("exiting\n");
 	//}
-}
+//}
 ///////////////////////////////////////////
 //void DrawScene()
 //{

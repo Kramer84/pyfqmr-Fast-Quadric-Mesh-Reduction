@@ -5,6 +5,7 @@
 #include <vector> 
 #include <string> 
 #include <stdio.h>
+#include <assert.h>  
 //#include <glew.h>
 //#include <wglew.h>
 //#include <GL/glut.h>// Header File For The GLUT Library 

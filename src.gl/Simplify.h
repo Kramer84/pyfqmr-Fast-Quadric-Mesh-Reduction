@@ -89,8 +89,8 @@ namespace Simplify
 	void simplify_mesh(int target_count, double agressiveness=7)
 	{
 		// init
-		printf("%s - start\n",__FUNCTION__);
-		int timeStart=timeGetTime();
+		//printf("%s - start\n",__FUNCTION__);
+		//int timeStart=timeGetTime();
 
 		loopi(0,triangles.size()) triangles[i].deleted=0;
 		
@@ -177,11 +177,11 @@ namespace Simplify
 		compact_mesh();
 
 		// ready
-		int timeEnd=timeGetTime();
-		printf("%s - %d/%d %d%% removed in %d ms\n",__FUNCTION__,
-			triangle_count-deleted_triangles,
-			triangle_count,deleted_triangles*100/triangle_count,
-			timeEnd-timeStart);
+		//int timeEnd=timeGetTime();
+		//printf("%s - %d/%d %d%% removed in %d ms\n",__FUNCTION__,
+		//	triangle_count-deleted_triangles,
+		//	triangle_count,deleted_triangles*100/triangle_count,
+		//	timeEnd-timeStart);
 		
 	}
 
