@@ -290,34 +290,26 @@ cdef class SymetricMatrix(object):
 cdef class Triangle :
     cdef public int [:] v 
     cdef public double [:] err
-    cdef public int deleted, dirty, attr
+    cdef public int deleted, dirty
     cdef public vector3d n 
-    cdef public vector3d uv0
-    cdef public vector3d uv1
-    cdef public vector3d uv2
-    cdef public int material
 
     def __cinit__(self,
                   int [:] v =np.zeros(3, dtype=int32),
                   double [:] err=np.zeros(3, dtype=float64),
                   int deleted=0, 
                   int dirty=0, 
-                  int attr=0,
-                  vector3d n = vector3d(),
-                  vector3d uv0 = vector3d(),
-                  vector3d uv1 = vector3d(),
-                  vector3d uv2 = vector3d(),
-                  int material = 0 ):
+                  vector3d n = vector3d()):
         self.v = v
         self.err = err
         self.deleted = deleted
         self.dirty = dirty
-        self.attr = attr
         self.n = n
-        self.uv0 = uv0
-        self.uv1 = uv1
-        self.uv2 = uv2
-        self.material = material
+
+    def __repr__(self):
+        str0 = 'Triangle :\n'
+        str1 = '  nodes : {} | {} | {}' .format(self.v[0], self.v[1], self.v[2])
+        str2 = '\n  deleted : {}\n  dirty : {}\n'.format(bool(self.deleted), bool(self.dirty))
+        return str0+str1+str2
 
 #############################################################################
 #############################################################################
@@ -328,13 +320,22 @@ cdef class Vertex :
     cdef public SymetricMatrix q 
     cdef public int border
 
-    def __cinit__(self, vector3d v=vector3d(), int tstart=0, 
+    def __cinit__(self, vector3d v, int tstart=0, 
         int tcount=0, SymetricMatrix q=SymetricMatrix(), int border=0):
         self.v
         self.tstart
         self.tcount
         self.q
         self.border
+        if self.v.x>.5:
+            print('x',self.v.x)
+        if self.v.y>.5:
+            print('y',self.v.y)
+
+    def __repr__(self):
+        str0 = 'Vertex :\n'
+        str1 = '  coords : {} | {} | {}\n' .format(self.v.x, self.v.y, self.v.z)
+        return str0+str1
 
 #############################################################################
 #############################################################################
@@ -350,31 +351,84 @@ cdef class Ref :
 #############################################################################
 
 
-def make_list():
-    l = []
-    for _ in range(10000):
-        l.append(Acl_cy(1, 2, 3, 'a', 'b', 'c'))
-    return l
+#def make_list():
+#    l = []
+#    for _ in range(10000):
+#        l.append(Acl_cy(1, 2, 3, 'a', 'b', 'c'))
+#    return l#
 
-def loop_typed():
-    cdef list l = make_list()
-    cdef Acl_cy itm
-    cdef int sum = 0
-    for itm in l:
-        sum += itm.s1
-    return sum
+#def loop_typed():
+#    cdef list l = make_list()
+#    cdef Acl_cy itm
+#    cdef int sum = 0
+#    for itm in l:
+#        sum += itm.s1
+#    return sum
+
+cdef list vertsOfView(double [:,:] vertices_view, 
+                            int nVerts):
+    cdef list vertsList = list()
+    cdef int i    
+    cdef double x    
+    cdef double y
+    cdef double z
+    for i in range(nVerts):
+        x = float64(vertices_view[i,0])
+        y = float64(vertices_view[i,1])
+        z = float64(vertices_view[i,2])
+        vertsList.append(Vertex(v=vector3d(x=x,y=y,z=z)))
+    return vertsList
+
+cdef list facesOfView(int [:,:] faces_view, 
+                      int nFaces):
+    cdef list facesList = list()
+    cdef int j
+    for j in range(nFaces):
+        facesList.append(Triangle(
+                            faces_view[j,:],
+                            np.zeros(3, dtype=float64),
+                            0,0,vector3d()))
+    return facesList              
+
 
 def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
-    vertsList = list()
-    facesList = list()
-    for i in range(nVerts)
-        vertsList.append(Vertex(
-                            vector3d(vertices_view[i,0],
-                                     vertices_view[i,1],
-                                     vertices_view[i,2]),
-                            0, 0, SymetricMatrix(), 0))
+    vertsList = vertsOfView(vertices_view, nVerts)
+    facesList = facesOfView(faces_view, nFaces)
+    return vertsList, facesList
+#############################################################################
+#############################################################################
+
+cdef class Simplify:
+    cdef list vertices 
+    cdef list faces            
+    cdef list refs
+
+    def __cinit__(self):
+        pass
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def test():
+    vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
+    vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)
+    return vertsList, facesList
+
+
+if __name__ == '__main__':
+    x,y = test()

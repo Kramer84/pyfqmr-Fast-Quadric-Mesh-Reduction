@@ -321,8 +321,8 @@ namespace Simplify
 	std::vector<Triangle> triangles;
 	std::vector<Vertex> vertices;
 	std::vector<Ref> refs;
-    std::string mtllib;
-    std::vector<std::string> materials;
+    std::string mtllib; //
+    std::vector<std::string> materials; //
 
 	// Helper functions
 
@@ -855,20 +855,20 @@ namespace Simplify
 			Vertex v;
 			vec3f uv;
 
-			if (strncmp(line, "mtllib", 6) == 0)
-			{
-				mtllib = trimwhitespace(&line[7]);
-			}
-			if (strncmp(line, "usemtl", 6) == 0)
-			{
-				std::string usemtl = trimwhitespace(&line[7]);
-				if (material_map.find(usemtl) == material_map.end())
-				{
-					material_map[usemtl] = materials.size();
-					materials.push_back(usemtl);
-				}
-				material = material_map[usemtl];
-			}
+			if (strncmp(line, "mtllib", 6) == 0)	///not important
+			{	///not important
+				mtllib = trimwhitespace(&line[7]);	///not important
+			}	///not important
+			if (strncmp(line, "usemtl", 6) == 0)	///not important
+			{	///not important
+				std::string usemtl = trimwhitespace(&line[7]);	///not important
+				if (material_map.find(usemtl) == material_map.end())	///not important
+				{	///not important
+					material_map[usemtl] = materials.size();	///not important
+					materials.push_back(usemtl);	///not important
+				}	///not important
+				material = material_map[usemtl];	///not important
+			}	///not important
 
 			if ( line[0] == 'v' && line[1] == 't' )
 			{
@@ -897,7 +897,7 @@ namespace Simplify
 			int integers[9];
 			if ( line[0] == 'f' )
 			{
-				Triangle t;
+				Triangle ²;
 				bool tri_ok = false;
                 bool has_uv = false;
 
