@@ -7,6 +7,21 @@ from numpy import int32,float64
 from numpy cimport int32_t, float64_t
 import trimesh as tr
 
+import functools
+import time
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper_timer(*args, **kwargs):
+        tic = time.perf_counter()
+        value = func(*args, **kwargs)
+        toc = time.perf_counter()
+        elapsed_time = toc - tic
+        print(f"Elapsed time: {elapsed_time:0.4f} seconds")
+        return value
+    return wrapper_timer
+
+
 # cython: boundscheck=False
 # cython: cython.wraparound=False
 
@@ -26,7 +41,7 @@ cdef trimeshMemoryView(vertices, faces):
     vertices = np.array(vertices,dtype=np.dtype(float64))
     faces = np.array(faces,dtype=np.dtype(int32))
     cdef double [:,:] vertices_view = vertices
-    cdef int [:,:] faces_view = faces
+    cdef int [:,:] faces_view = faces 
     return vertices_view, nVerts, faces_view,  nFaces
 
 cdef vector3d barycentric(vector3d vectP, vector3d vectA, vector3d vectB, vector3d vectC):
@@ -47,13 +62,13 @@ cdef vector3d barycentric(vector3d vectP, vector3d vectA, vector3d vectB, vector
     return vector3d(u, v, w)
 
 cdef vector3d interpolate(vector3d vectP, vector3d vectA, vector3d vectB, 
-                          vector3d vectC, vector3d attr0, vector3d attr1, vector3d attr2):
+                          vector3d vectC, vector3d attr0, vector3d attr1, vector3d attr2) :
     cdef vector3d bary, out
-    out = vector3d(0,0,0)
+    out = vector3d()
     bary = barycentric(vectP, vectA, vectB, vectC)
-    out = out + attr0 * bary.x
-    out = out + attr1 * bary.y
-    out = out + attr2 * bary.z
+    out = out + attr0 * bary[0]
+    out = out + attr1 * bary[1]
+    out = out + attr2 * bary[2]
     return out
 
 cdef double mini(double v1, double v2):
@@ -63,99 +78,93 @@ cdef double mini(double v1, double v2):
 #############################################################################
 #############################################################################
 cdef class vector3d: 
-    cdef public double x
-    cdef public double y
-    cdef public double z
+    cdef public double [:] xyz
 
-    def __cinit__(self, double x=.0, 
-                    double y=.0, double z=.0):
-        self.x = x
-        self.y = y
-        self.z = z
+    def __cinit__(self, double [:] xyz = np.zeros(3,dtype=float64)):
+        self.xyz = xyz
 
     def __repr__(self):
-        return 'Vector of coordinates \nx : {},\ny : {},\nz : {}'.format(round(self.x,4),
-                                                                       round(self.y,4),
-                                                                       round(self.z,4))
+        return 'Vector of coordinates \nx : {},\ny : {},\nz : {}'.format(round(self[0],4),
+                                                                       round(self[1],4),
+                                                                       round(self[2],4))
+
+    def __getitem__(self, int idx):
+        cdef double val
+        val = self.xyz[idx] 
+        return val 
 
     def __add__(self, vector3d vect):
-        return vector3d(self.x+vect.x, self.y+vect.y, self.z+vect.z)
+        return vector3d(self[:]+vect[:])
 
     def __iadd__(self, vector3d vect):
-        self.x+=vect.x
-        self.y+=vect.y
-        self.z+=vect.z
+        self[:]+=vect[:]
         return self
 
     def __sub__(self, vector3d vect):
-        return vector3d(self.x-vect.x, self.y-vect.y, self.z-vect.z)
+        return vector3d(self[:]-vect[:])
 
     def __isub__(self, vector3d vect):
-        self.x-=vect.x
-        self.y-=vect.y
-        self.z-=vect.z
+        self[:]-=vect[:]
         return self
 
     def __mul__(self, other):
         if isinstance(other, self.__class__) :
-            return vector3d(self.x*other.x, self.y*other.y, self.z*other.z)
+            return vector3d(self[:]*other[:])
         else :
-            return vector3d(self.x*other, self.y*other, self.z*other)
+            return vector3d(self[:]*other)
 
     def __imul__(self, other):
         if isinstance(other, self.__class__) :
-            self.x*=other.x
-            self.y*=other.y
-            self.z*=other.z
+            self[:]*=other[:]
             return self
         else :
-            self.x*=other
-            self.y*=other
-            self.z*=other
+            self[:]*=other
             return self
 
     def __div__(self, other):
         if isinstance(other, self.__class__) :
-            return vector3d(self.x/other.x, self.y/other.y, self.z/other.z)
+            return vector3d(self[:]/other[:])
+        elif other != 0 :
+            return vector3d(self[:]/other)
         else :
-            return vector3d(self.x/other, self.y/other, self.z/other)
+            raise NotImplementedError
 
     def __idiv__(self, other):
         if isinstance(other, self.__class__) :
-            self.x/=other.x
-            self.y/=other.y
-            self.z/=other.z
+            self[:]/=other[:]
+            return self
+        elif other != 0 :
+            self[:]/=other
             return self
         else :
-            self.x/=other
-            self.y/=other
-            self.z/=other
-            return self
+            raise NotImplementedError
 
     def dot(self, vector3d vect):
-        return self.x*vect.x+self.y*vect.y+self.z*vect.z
+        return self[0]*vect[0]+self[1]*vect[1]+self[2]*vect[2]
 
     def cross(self, vector3d vectA, vector3d vectB):
-        self.x = vectA.y * vectB.z - vectA.z * vectB.y
-        self.y = vectA.z * vectB.x - vectA.x * vectB.z
-        self.z = vectA.x * vectB.y - vectA.y * vectB.x
+        self[0] = vectA[1] * vectB[2] - vectA[2] * vectB[1]
+        self[1] = vectA[2] * vectB[0] - vectA[0] * vectB[2]
+        self[2] = vectA[0] * vectB[1] - vectA[1] * vectB[0]
         return self
 
     def length(self):
-        return sqrt(self.x*self.x+self.y*self.y+self.z*self.z)
+        return sqrt(pow(self[0],2)+pow(self[1],2)+pow(self[2],2))
 
     def angle(self, vector3d vect):
-        dotprod = vect.x*self.x + vect.y*self.y + vect.z*self.z
+        cdef double dotprod, lenmul, val
+        dotprod = vect[0]*self[0] + vect[1]*self[1] + vect[2]*self[2]
         lenmul = self.length()*vect.length()
-        if lenmul==0:
+        if lenmul==0.:
             lenmul=0.000001
         val = dotprod/lenmul
-        if val<-1: val=-1
-        if val>1:val=1
+        if val<-1.: val=-1.
+        if val>1.:val=1.
         return acos(val)
 
     def angle2(self, vector3d vectA, vector3d vectB):
-        dot = vectA.x*vectB.x + vectA.y*vectB.y + vectA.z*vectB.z
+        cdef double dot, lenmul, val
+        dot = vectA[0]*vectB[0] + vectA[1]*vectB[1] + vectA[2]*vectB[2]
         lenmul = vectA.length()*vectB.length()
         if lenmul==0:
             lenmul=0.000001
@@ -165,65 +174,62 @@ cdef class vector3d:
         return acos(val)
 
     def rot_x(self, double a):
-        yy = cos(a)*self.y + sin(a)*self.z
-        zz = cos(a)*self.z - sin(a)*self.y
-        self.y = yy
-        self.z = zz
+        cdef double yy, zz
+        yy = cos(a)*self[1] + sin(a)*self[2]
+        zz = cos(a)*self[2] - sin(a)*self[1]
+        self[1] = yy
+        self[2] = zz
         return self
 
     def rot_y(self, double a):
-        xx = cos(-a)*self.x + sin(-a)*self.z
-        zz = cos(-a)*self.z - sin(-a)*self.x
-        self.x = xx
-        self.z = zz
+        cdef double xx, zz
+        xx = cos(-a)*self[0] + sin(-a)*self[2]
+        zz = cos(-a)*self[2] - sin(-a)*self[0]
+        self[0] = xx
+        self[2] = zz
         return self
 
     def rot_z(self, double a):
-        yy = cos(a)*self.y + sin(a)*self.x
-        xx = cos(a)*self.x - sin(a)*self.y
-        self.y = yy
-        self.x = xx
+        cdef double yy, xx
+        yy = cos(a)*self[1] + sin(a)*self[0]
+        xx = cos(a)*self[0] - sin(a)*self[1]
+        self[1] = yy
+        self[0] = xx
         return self
 
     def clamp(self, double mini, double maxi):
-        if self.x < mini :
-            self.x = mini 
-        if self.y < mini :
-            self.y = mini
-        if self.z < mini :
-            self.z = mini
-        if self.x > maxi :
-            self.x = maxi 
-        if self.y > maxi :
-            self.y = maxi
-        if self.z > maxi :
-            self.z = maxi
+        if self[0] < mini :
+            self[0] = mini 
+        if self[1] < mini :
+            self[1] = mini
+        if self[2] < mini :
+            self[2] = mini
+        if self[0] > maxi :
+            self[0] = maxi 
+        if self[1] > maxi :
+            self[1] = maxi
+        if self[2] > maxi :
+            self[2] = maxi
 
     def invert(self):
-        self.x = -self.x
-        self.y = -self.y
-        self.z = -self.z
+        self *= -1.
         return self
 
     def frac(self):
-        return vector3d(float64(self.x - int(self.x)),
-                        float64(self.y - int(self.y)),
-                        float64(self.z - int(self.z)))
+        return vector3d(self[:]-np.asarray(self[:],dtype=int32))
 
     def integer(self):
-        return vector3d(float64(int(self.x)),
-                        float64(int(self.y)),
-                        float64(int(self.z)))        
+        return vector3d(np.asarray(self[:],dtype=int32).astype(float64))        
 
     def normalize(self):
-        square = sqrt(self.x*self.x+self.y*self.y+self.z*self.z)
-        self.x /= square
-        self.y /= square
-        self.z /= square
+        cdef double squar_
+        squar_ = sqrt(self[0]*self[0]+self[1]*self[1]+self[2]*self[2])
+        self[:] /= squar_
         return self
 
 #############################################################################
 #############################################################################
+
 cdef class SymetricMatrix(object):
     cdef double [10] mat
 
@@ -306,6 +312,7 @@ cdef class Triangle :
         self.n = n
 
     def __repr__(self):
+        cdef str str0, str1, str2
         str0 = 'Triangle :\n'
         str1 = '  nodes : {} | {} | {}' .format(self.v[0], self.v[1], self.v[2])
         str2 = '\n  deleted : {}\n  dirty : {}\n'.format(bool(self.deleted), bool(self.dirty))
@@ -320,21 +327,20 @@ cdef class Vertex :
     cdef public SymetricMatrix q 
     cdef public int border
 
-    def __cinit__(self, vector3d v, int tstart=0, 
+    def __cinit__(self, vector3d v = vector3d(), int tstart=0, 
         int tcount=0, SymetricMatrix q=SymetricMatrix(), int border=0):
-        self.v
-        self.tstart
-        self.tcount
-        self.q
-        self.border
-        if self.v.x>.5:
-            print('x',self.v.x)
-        if self.v.y>.5:
-            print('y',self.v.y)
+        self.v = v
+        self.tstart = tstart
+        self.tcount = tcount
+        self.q = q
+        self.border = border
 
     def __repr__(self):
+        cdef str str0, str1
         str0 = 'Vertex :\n'
-        str1 = '  coords : {} | {} | {}\n' .format(self.v.x, self.v.y, self.v.z)
+        str1 = '  coords : {} | {} | {}\n' .format(round(self.v[0],4),
+                                                   round(self.v[1],4),
+                                                   round(self.v[2],4))
         return str0+str1
 
 #############################################################################
@@ -373,10 +379,7 @@ cdef list vertsOfView(double [:,:] vertices_view,
     cdef double y
     cdef double z
     for i in range(nVerts):
-        x = float64(vertices_view[i,0])
-        y = float64(vertices_view[i,1])
-        z = float64(vertices_view[i,2])
-        vertsList.append(Vertex(v=vector3d(x=x,y=y,z=z)))
+        vertsList.append(Vertex(v=vector3d(vertices_view[i,:])))
     return vertsList
 
 cdef list facesOfView(int [:,:] faces_view, 
@@ -401,34 +404,65 @@ def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
 cdef class Simplify:
     cdef list vertices 
     cdef list faces            
-    cdef list refs
+    cdef list refs 
+    cdef int target_count 
+    cdef double agressiveness 
 
-    def __cinit__(self):
-        pass
+    def __cinit__(self, int target_count, double agressiveness=7):
+        self.target_count = target_count 
+        self.agressiveness = agressiveness
 
+    def setVertices(self, list vertices):
+        self.vertices = vertices
 
+    def setFaces(self, list vertices):
+        self.vertices = vertices
 
-
-
-
-
-
-
-
-
-
-
-
-
+    def simplify_mesh(self):
+        cdef int deleted_triangles = 0 
+        cdef list 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#https://cython.readthedocs.io/en/latest/src/userguide/pyrex_differences.html
+
+
+
+
+
+
+
+
+
+
+@timer
 def test():
     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
     vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)
     return vertsList, facesList
 
-
-if __name__ == '__main__':
-    x,y = test()
