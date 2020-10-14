@@ -75,8 +75,11 @@ cdef double mini(double v1, double v2):
     return fmin(v1,v2)
 
 
+
 #############################################################################
 #############################################################################
+
+
 cdef class vector3d: 
     cdef public double [:] xyz
 
@@ -227,8 +230,10 @@ cdef class vector3d:
         self[:] /= squar_
         return self
 
+
 #############################################################################
 #############################################################################
+
 
 cdef class SymetricMatrix(object):
     cdef double [10] mat
@@ -318,8 +323,10 @@ cdef class Triangle :
         str2 = '\n  deleted : {}\n  dirty : {}\n'.format(bool(self.deleted), bool(self.dirty))
         return str0+str1+str2
 
+
 #############################################################################
 #############################################################################
+
 
 cdef class Vertex :
     cdef public vector3d v
@@ -343,8 +350,10 @@ cdef class Vertex :
                                                    round(self.v[2],4))
         return str0+str1
 
+
 #############################################################################
 #############################################################################
+
 
 cdef class Ref :
     cdef public int tid 
@@ -352,6 +361,7 @@ cdef class Ref :
     def __cinit__(self, int tid=0, int tvertex=0):
         self.tid = tid
         self.tvertex = tvertex
+
 
 #############################################################################
 #############################################################################
@@ -398,8 +408,11 @@ def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
     vertsList = vertsOfView(vertices_view, nVerts)
     facesList = facesOfView(faces_view, nFaces)
     return vertsList, facesList
+
+
 #############################################################################
 #############################################################################
+
 
 cdef class Simplify:
     cdef list vertices 
