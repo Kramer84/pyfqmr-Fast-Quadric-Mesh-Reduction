@@ -8,52 +8,22 @@ from numpy cimport int32_t, float64_t
 import trimesh as tr
 from libc.stdlib cimport malloc, free
 
-ctypedef struct myTestStruct :
+cdef struct myTestStruct :
     int a
     int b
     int c 
 
-    def A(int u):
-        print('a before',a)
-        a+=u
-        print('a after',a)
+ctypedef myTestStruct theStruct
+
+cpdef object foo():
+    cdef theStruct ts
+    ts.a = 0
+    ts.b = 0
+    ts.c = 0
 
 
-class cdef myCLass :
-    cdef myTestStruct *_ptr
-
-    def __cinit__(self, int a):
-        self._ptr.a =a 
-
-    def __dealloc__(self):
-        # De-allocate if not null and flag is set
-        if self._ptr is not NULL and self.ptr_owner is True:
-            free(self._ptr)
-            self._ptr = NULL
-
-    # Extension class properties
-    @property
-    def a(self):
-        return self._ptr.a if self._ptr is not NULL else None
-
-    @property
-    def b(self):
-        return self._ptr.b if self._ptr is not NULL else None
-
-
-
-
-
-
-
-
-
-
-
-#############################################################################
-#############################################################################
-   #class Simplify :
-
+cdef inline int summer(int a, int b, int c):
+    return a*a*b+c
 
 
 

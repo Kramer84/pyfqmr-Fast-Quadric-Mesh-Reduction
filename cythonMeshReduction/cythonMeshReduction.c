@@ -1235,9 +1235,9 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "cythonMeshReduction.pyx":80
- * #############################################################################
- * #############################################################################
+/* "cythonMeshReduction.pyx":84
+ * 
+ * 
  * cdef class vector3d:             # <<<<<<<<<<<<<<
  *     cdef public double [:] xyz
  * 
@@ -1248,8 +1248,8 @@ struct __pyx_obj_19cythonMeshReduction_vector3d {
 };
 
 
-/* "cythonMeshReduction.pyx":233
- * #############################################################################
+/* "cythonMeshReduction.pyx":239
+ * 
  * 
  * cdef class SymetricMatrix(object):             # <<<<<<<<<<<<<<
  *     cdef double [10] mat
@@ -1261,7 +1261,7 @@ struct __pyx_obj_19cythonMeshReduction_SymetricMatrix {
 };
 
 
-/* "cythonMeshReduction.pyx":296
+/* "cythonMeshReduction.pyx":305
  * #############################################################################
  * 
  * cdef class Triangle :             # <<<<<<<<<<<<<<
@@ -1278,8 +1278,8 @@ struct __pyx_obj_19cythonMeshReduction_Triangle {
 };
 
 
-/* "cythonMeshReduction.pyx":324
- * #############################################################################
+/* "cythonMeshReduction.pyx":335
+ * 
  * 
  * cdef class Vertex :             # <<<<<<<<<<<<<<
  *     cdef public vector3d v
@@ -1295,8 +1295,8 @@ struct __pyx_obj_19cythonMeshReduction_Vertex {
 };
 
 
-/* "cythonMeshReduction.pyx":349
- * #############################################################################
+/* "cythonMeshReduction.pyx":362
+ * 
  * 
  * cdef class Ref :             # <<<<<<<<<<<<<<
  *     cdef public int tid
@@ -1309,8 +1309,8 @@ struct __pyx_obj_19cythonMeshReduction_Ref {
 };
 
 
-/* "cythonMeshReduction.pyx":404
- * #############################################################################
+/* "cythonMeshReduction.pyx":425
+ * #        cdef Triangle t = triangles[]
  * 
  * cdef class Simplify:             # <<<<<<<<<<<<<<
  *     cdef list vertices
@@ -1326,7 +1326,7 @@ struct __pyx_obj_19cythonMeshReduction_Simplify {
 };
 
 
-/* "cythonMeshReduction.pyx":13
+/* "cythonMeshReduction.pyx":14
  * import time
  * 
  * def timer(func):             # <<<<<<<<<<<<<<
@@ -2395,6 +2395,7 @@ static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
 static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *, PyObject *); /*proto*/
 static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshReduction_barycentric(struct __pyx_obj_19cythonMeshReduction_vector3d *, struct __pyx_obj_19cythonMeshReduction_vector3d *, struct __pyx_obj_19cythonMeshReduction_vector3d *, struct __pyx_obj_19cythonMeshReduction_vector3d *); /*proto*/
+static double __pyx_f_19cythonMeshReduction_fast_det(double *, int, int, int, int, int, int, int, int, int); /*proto*/
 static PyObject *__pyx_f_19cythonMeshReduction_vertsOfView(__Pyx_memviewslice, int); /*proto*/
 static PyObject *__pyx_f_19cythonMeshReduction_facesOfView(__Pyx_memviewslice, int); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
@@ -3059,7 +3060,7 @@ static PyObject *__pyx_codeobj__56;
 static PyObject *__pyx_codeobj__63;
 /* Late includes */
 
-/* "cythonMeshReduction.pyx":13
+/* "cythonMeshReduction.pyx":14
  * import time
  * 
  * def timer(func):             # <<<<<<<<<<<<<<
@@ -3081,7 +3082,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_1timer(PyObject *__pyx_self, PyO
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":15
+/* "cythonMeshReduction.pyx":16
  * def timer(func):
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):             # <<<<<<<<<<<<<<
@@ -3137,16 +3138,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   __pyx_outer_scope = (struct __pyx_obj_19cythonMeshReduction___pyx_scope_struct__timer *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "cythonMeshReduction.pyx":16
+  /* "cythonMeshReduction.pyx":17
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):
  *         tic = time.perf_counter()             # <<<<<<<<<<<<<<
  *         value = func(*args, **kwargs)
  *         toc = time.perf_counter()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_perf_counter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_perf_counter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3161,35 +3162,35 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_tic = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":17
+  /* "cythonMeshReduction.pyx":18
  *     def wrapper_timer(*args, **kwargs):
  *         tic = time.perf_counter()
  *         value = func(*args, **kwargs)             # <<<<<<<<<<<<<<
  *         toc = time.perf_counter()
  *         elapsed_time = toc - tic
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_func)) { __Pyx_RaiseClosureNameError("func"); __PYX_ERR(0, 17, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_cur_scope->__pyx_v_func, __pyx_v_args, __pyx_v_kwargs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_func)) { __Pyx_RaiseClosureNameError("func"); __PYX_ERR(0, 18, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_cur_scope->__pyx_v_func, __pyx_v_args, __pyx_v_kwargs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_value = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":18
+  /* "cythonMeshReduction.pyx":19
  *         tic = time.perf_counter()
  *         value = func(*args, **kwargs)
  *         toc = time.perf_counter()             # <<<<<<<<<<<<<<
  *         elapsed_time = toc - tic
  *         print(f"Elapsed time: {elapsed_time:0.4f} seconds")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_perf_counter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_perf_counter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -3204,32 +3205,32 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_toc = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":19
+  /* "cythonMeshReduction.pyx":20
  *         value = func(*args, **kwargs)
  *         toc = time.perf_counter()
  *         elapsed_time = toc - tic             # <<<<<<<<<<<<<<
  *         print(f"Elapsed time: {elapsed_time:0.4f} seconds")
  *         return value
  */
-  __pyx_t_1 = PyNumber_Subtract(__pyx_v_toc, __pyx_v_tic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_v_toc, __pyx_v_tic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_elapsed_time = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":20
+  /* "cythonMeshReduction.pyx":21
  *         toc = time.perf_counter()
  *         elapsed_time = toc - tic
  *         print(f"Elapsed time: {elapsed_time:0.4f} seconds")             # <<<<<<<<<<<<<<
  *         return value
  *     return wrapper_timer
  */
-  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = 0;
   __pyx_t_5 = 127;
@@ -3237,7 +3238,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   __pyx_t_4 += 14;
   __Pyx_GIVEREF(__pyx_kp_u_Elapsed_time);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_kp_u_Elapsed_time);
-  __pyx_t_2 = __Pyx_PyObject_Format(__pyx_v_elapsed_time, __pyx_kp_u_0_4f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Format(__pyx_v_elapsed_time, __pyx_kp_u_0_4f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_5) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_5;
   __pyx_t_4 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
@@ -3248,15 +3249,15 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   __pyx_t_4 += 8;
   __Pyx_GIVEREF(__pyx_kp_u_seconds);
   PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_seconds);
-  __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_1, 3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_1, 3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":21
+  /* "cythonMeshReduction.pyx":22
  *         elapsed_time = toc - tic
  *         print(f"Elapsed time: {elapsed_time:0.4f} seconds")
  *         return value             # <<<<<<<<<<<<<<
@@ -3268,7 +3269,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   __pyx_r = __pyx_v_value;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":15
+  /* "cythonMeshReduction.pyx":16
  * def timer(func):
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):             # <<<<<<<<<<<<<<
@@ -3293,7 +3294,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_5timer_wrapper_timer(PyObject *_
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":13
+/* "cythonMeshReduction.pyx":14
  * import time
  * 
  * def timer(func):             # <<<<<<<<<<<<<<
@@ -3318,7 +3319,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_timer(CYTHON_UNUSED PyObject *__
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_19cythonMeshReduction___pyx_scope_struct__timer *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 13, __pyx_L1_error)
+    __PYX_ERR(0, 14, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -3326,16 +3327,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_timer(CYTHON_UNUSED PyObject *__
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_func);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_func);
 
-  /* "cythonMeshReduction.pyx":14
+  /* "cythonMeshReduction.pyx":15
  * 
  * def timer(func):
  *     @functools.wraps(func)             # <<<<<<<<<<<<<<
  *     def wrapper_timer(*args, **kwargs):
  *         tic = time.perf_counter()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_functools); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_functools); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_wraps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_wraps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -3350,18 +3351,18 @@ static PyObject *__pyx_pf_19cythonMeshReduction_timer(CYTHON_UNUSED PyObject *__
   }
   __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_3, __pyx_cur_scope->__pyx_v_func) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_cur_scope->__pyx_v_func);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cythonMeshReduction.pyx":15
+  /* "cythonMeshReduction.pyx":16
  * def timer(func):
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):             # <<<<<<<<<<<<<<
  *         tic = time.perf_counter()
  *         value = func(*args, **kwargs)
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_19cythonMeshReduction_5timer_1wrapper_timer, 0, __pyx_n_s_timer_locals_wrapper_timer, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cythonMeshReduction, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_19cythonMeshReduction_5timer_1wrapper_timer, 0, __pyx_n_s_timer_locals_wrapper_timer, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cythonMeshReduction, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -3376,13 +3377,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_timer(CYTHON_UNUSED PyObject *__
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_wrapper_timer = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":22
+  /* "cythonMeshReduction.pyx":23
  *         print(f"Elapsed time: {elapsed_time:0.4f} seconds")
  *         return value
  *     return wrapper_timer             # <<<<<<<<<<<<<<
@@ -3394,7 +3395,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_timer(CYTHON_UNUSED PyObject *__
   __pyx_r = __pyx_v_wrapper_timer;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":13
+  /* "cythonMeshReduction.pyx":14
  * import time
  * 
  * def timer(func):             # <<<<<<<<<<<<<<
@@ -3418,7 +3419,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_timer(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":31
+/* "cythonMeshReduction.pyx":32
  * 
  * 
  * def getFacesVerticesView(mesh=mesh):             # <<<<<<<<<<<<<<
@@ -3459,7 +3460,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_3getFacesVerticesView(PyObject *
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getFacesVerticesView") < 0)) __PYX_ERR(0, 31, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getFacesVerticesView") < 0)) __PYX_ERR(0, 32, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3473,7 +3474,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_3getFacesVerticesView(PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("getFacesVerticesView", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 31, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("getFacesVerticesView", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 32, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.getFacesVerticesView", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3497,31 +3498,31 @@ static PyObject *__pyx_pf_19cythonMeshReduction_2getFacesVerticesView(CYTHON_UNU
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFacesVerticesView", 0);
 
-  /* "cythonMeshReduction.pyx":32
+  /* "cythonMeshReduction.pyx":33
  * 
  * def getFacesVerticesView(mesh=mesh):
  *     vertices = mesh.vertices             # <<<<<<<<<<<<<<
  *     faces = mesh.faces
  *     return trimeshMemoryView(vertices, faces)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mesh, __pyx_n_s_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mesh, __pyx_n_s_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vertices = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":33
+  /* "cythonMeshReduction.pyx":34
  * def getFacesVerticesView(mesh=mesh):
  *     vertices = mesh.vertices
  *     faces = mesh.faces             # <<<<<<<<<<<<<<
  *     return trimeshMemoryView(vertices, faces)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mesh, __pyx_n_s_faces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mesh, __pyx_n_s_faces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_faces = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":34
+  /* "cythonMeshReduction.pyx":35
  *     vertices = mesh.vertices
  *     faces = mesh.faces
  *     return trimeshMemoryView(vertices, faces)             # <<<<<<<<<<<<<<
@@ -3529,13 +3530,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_2getFacesVerticesView(CYTHON_UNU
  * cdef trimeshMemoryView(vertices, faces):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_19cythonMeshReduction_trimeshMemoryView(__pyx_v_vertices, __pyx_v_faces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_19cythonMeshReduction_trimeshMemoryView(__pyx_v_vertices, __pyx_v_faces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":31
+  /* "cythonMeshReduction.pyx":32
  * 
  * 
  * def getFacesVerticesView(mesh=mesh):             # <<<<<<<<<<<<<<
@@ -3556,7 +3557,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_2getFacesVerticesView(CYTHON_UNU
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":36
+/* "cythonMeshReduction.pyx":37
  *     return trimeshMemoryView(vertices, faces)
  * 
  * cdef trimeshMemoryView(vertices, faces):             # <<<<<<<<<<<<<<
@@ -3590,16 +3591,16 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   __Pyx_INCREF(__pyx_v_vertices);
   __Pyx_INCREF(__pyx_v_faces);
 
-  /* "cythonMeshReduction.pyx":37
+  /* "cythonMeshReduction.pyx":38
  * 
  * cdef trimeshMemoryView(vertices, faces):
  *     cdef int nVerts = np.shape(vertices)[0]             # <<<<<<<<<<<<<<
  *     cdef int edges = 3
  *     cdef int nFaces = np.shape(faces)[0]
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3614,17 +3615,17 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_vertices) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_vertices);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_nVerts = __pyx_t_4;
 
-  /* "cythonMeshReduction.pyx":38
+  /* "cythonMeshReduction.pyx":39
  * cdef trimeshMemoryView(vertices, faces):
  *     cdef int nVerts = np.shape(vertices)[0]
  *     cdef int edges = 3             # <<<<<<<<<<<<<<
@@ -3633,16 +3634,16 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
  */
   __pyx_v_edges = 3;
 
-  /* "cythonMeshReduction.pyx":39
+  /* "cythonMeshReduction.pyx":40
  *     cdef int nVerts = np.shape(vertices)[0]
  *     cdef int edges = 3
  *     cdef int nFaces = np.shape(faces)[0]             # <<<<<<<<<<<<<<
  *     cdef int dim = 3
  *     vertices = np.array(vertices,dtype=np.dtype(float64))
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -3657,17 +3658,17 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   }
   __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_1, __pyx_v_faces) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_faces);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_nFaces = __pyx_t_4;
 
-  /* "cythonMeshReduction.pyx":40
+  /* "cythonMeshReduction.pyx":41
  *     cdef int edges = 3
  *     cdef int nFaces = np.shape(faces)[0]
  *     cdef int dim = 3             # <<<<<<<<<<<<<<
@@ -3676,31 +3677,31 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
  */
   __pyx_v_dim = 3;
 
-  /* "cythonMeshReduction.pyx":41
+  /* "cythonMeshReduction.pyx":42
  *     cdef int nFaces = np.shape(faces)[0]
  *     cdef int dim = 3
  *     vertices = np.array(vertices,dtype=np.dtype(float64))             # <<<<<<<<<<<<<<
  *     faces = np.array(faces,dtype=np.dtype(int32))
  *     cdef double [:,:] vertices_view = vertices
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_vertices);
   __Pyx_GIVEREF(__pyx_v_vertices);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_vertices);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_dtype); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_dtype); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_float64); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_float64); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -3715,12 +3716,12 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   __pyx_t_5 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_8, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3728,31 +3729,31 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   __Pyx_DECREF_SET(__pyx_v_vertices, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "cythonMeshReduction.pyx":42
+  /* "cythonMeshReduction.pyx":43
  *     cdef int dim = 3
  *     vertices = np.array(vertices,dtype=np.dtype(float64))
  *     faces = np.array(faces,dtype=np.dtype(int32))             # <<<<<<<<<<<<<<
  *     cdef double [:,:] vertices_view = vertices
  *     cdef int [:,:] faces_view = faces
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_v_faces);
   __Pyx_GIVEREF(__pyx_v_faces);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_faces);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -3767,12 +3768,12 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_8, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -3780,31 +3781,31 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   __Pyx_DECREF_SET(__pyx_v_faces, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":43
+  /* "cythonMeshReduction.pyx":44
  *     vertices = np.array(vertices,dtype=np.dtype(float64))
  *     faces = np.array(faces,dtype=np.dtype(int32))
  *     cdef double [:,:] vertices_view = vertices             # <<<<<<<<<<<<<<
  *     cdef int [:,:] faces_view = faces
  *     return vertices_view, nVerts, faces_view,  nFaces
  */
-  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_vertices, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_vertices, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 44, __pyx_L1_error)
   __pyx_v_vertices_view = __pyx_t_9;
   __pyx_t_9.memview = NULL;
   __pyx_t_9.data = NULL;
 
-  /* "cythonMeshReduction.pyx":44
+  /* "cythonMeshReduction.pyx":45
  *     faces = np.array(faces,dtype=np.dtype(int32))
  *     cdef double [:,:] vertices_view = vertices
  *     cdef int [:,:] faces_view = faces             # <<<<<<<<<<<<<<
  *     return vertices_view, nVerts, faces_view,  nFaces
  * 
  */
-  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_faces, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_faces, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 45, __pyx_L1_error)
   __pyx_v_faces_view = __pyx_t_10;
   __pyx_t_10.memview = NULL;
   __pyx_t_10.data = NULL;
 
-  /* "cythonMeshReduction.pyx":45
+  /* "cythonMeshReduction.pyx":46
  *     cdef double [:,:] vertices_view = vertices
  *     cdef int [:,:] faces_view = faces
  *     return vertices_view, nVerts, faces_view,  nFaces             # <<<<<<<<<<<<<<
@@ -3812,15 +3813,15 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
  * cdef vector3d barycentric(vector3d vectP, vector3d vectA, vector3d vectB, vector3d vectC):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_vertices_view, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_vertices_view, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_nVerts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_nVerts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_faces_view, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_faces_view, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nFaces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nFaces); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -3838,7 +3839,7 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":36
+  /* "cythonMeshReduction.pyx":37
  *     return trimeshMemoryView(vertices, faces)
  * 
  * cdef trimeshMemoryView(vertices, faces):             # <<<<<<<<<<<<<<
@@ -3869,7 +3870,7 @@ static PyObject *__pyx_f_19cythonMeshReduction_trimeshMemoryView(PyObject *__pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":47
+/* "cythonMeshReduction.pyx":48
  *     return vertices_view, nVerts, faces_view,  nFaces
  * 
  * cdef vector3d barycentric(vector3d vectP, vector3d vectA, vector3d vectB, vector3d vectC):             # <<<<<<<<<<<<<<
@@ -3902,79 +3903,51 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("barycentric", 0);
 
-  /* "cythonMeshReduction.pyx":50
+  /* "cythonMeshReduction.pyx":51
  *     cdef vector3d v0, v1, v2
  *     cdef double d00, d01, d11, d20, d21, denom, u, v, w
  *     v0 = vectB - vectA             # <<<<<<<<<<<<<<
  *     v1 = vectC - vectA
  *     v2 = vectP - vectA
  */
-  __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_vectB), ((PyObject *)__pyx_v_vectA)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_vectB), ((PyObject *)__pyx_v_vectA)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 51, __pyx_L1_error)
   __pyx_v_v0 = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":51
+  /* "cythonMeshReduction.pyx":52
  *     cdef double d00, d01, d11, d20, d21, denom, u, v, w
  *     v0 = vectB - vectA
  *     v1 = vectC - vectA             # <<<<<<<<<<<<<<
  *     v2 = vectP - vectA
  *     d00 = v0.dot(v0)
  */
-  __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_vectC), ((PyObject *)__pyx_v_vectA)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_vectC), ((PyObject *)__pyx_v_vectA)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 52, __pyx_L1_error)
   __pyx_v_v1 = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":52
+  /* "cythonMeshReduction.pyx":53
  *     v0 = vectB - vectA
  *     v1 = vectC - vectA
  *     v2 = vectP - vectA             # <<<<<<<<<<<<<<
  *     d00 = v0.dot(v0)
  *     d01 = v0.dot(v1)
  */
-  __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_vectP), ((PyObject *)__pyx_v_vectA)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_vectP), ((PyObject *)__pyx_v_vectA)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 53, __pyx_L1_error)
   __pyx_v_v2 = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":53
+  /* "cythonMeshReduction.pyx":54
  *     v1 = vectC - vectA
  *     v2 = vectP - vectA
  *     d00 = v0.dot(v0)             # <<<<<<<<<<<<<<
  *     d01 = v0.dot(v1)
  *     d11 = v1.dot(v1)
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v0), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v0)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v0));
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_d00 = __pyx_t_4;
-
-  /* "cythonMeshReduction.pyx":54
- *     v2 = vectP - vectA
- *     d00 = v0.dot(v0)
- *     d01 = v0.dot(v1)             # <<<<<<<<<<<<<<
- *     d11 = v1.dot(v1)
- *     d20 = v2.dot(v0)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v0), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -3988,23 +3961,23 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
       __Pyx_DECREF_SET(__pyx_t_2, function);
     }
   }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v1)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v1));
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v0)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v0));
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_d01 = __pyx_t_4;
+  __pyx_v_d00 = __pyx_t_4;
 
   /* "cythonMeshReduction.pyx":55
+ *     v2 = vectP - vectA
  *     d00 = v0.dot(v0)
- *     d01 = v0.dot(v1)
- *     d11 = v1.dot(v1)             # <<<<<<<<<<<<<<
+ *     d01 = v0.dot(v1)             # <<<<<<<<<<<<<<
+ *     d11 = v1.dot(v1)
  *     d20 = v2.dot(v0)
- *     d21 = v2.dot(v1)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v1), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v0), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4023,44 +3996,16 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_d11 = __pyx_t_4;
+  __pyx_v_d01 = __pyx_t_4;
 
   /* "cythonMeshReduction.pyx":56
+ *     d00 = v0.dot(v0)
  *     d01 = v0.dot(v1)
- *     d11 = v1.dot(v1)
- *     d20 = v2.dot(v0)             # <<<<<<<<<<<<<<
- *     d21 = v2.dot(v1)
- *     denom = d00*d11-d01*d01
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v2), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v0)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v0));
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_d20 = __pyx_t_4;
-
-  /* "cythonMeshReduction.pyx":57
- *     d11 = v1.dot(v1)
+ *     d11 = v1.dot(v1)             # <<<<<<<<<<<<<<
  *     d20 = v2.dot(v0)
- *     d21 = v2.dot(v1)             # <<<<<<<<<<<<<<
- *     denom = d00*d11-d01*d01
- *     v = (d11 * d20 - d01 * d21) / denom
+ *     d21 = v2.dot(v1)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v2), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v1), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4074,14 +4019,70 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v1)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v1));
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_d11 = __pyx_t_4;
+
+  /* "cythonMeshReduction.pyx":57
+ *     d01 = v0.dot(v1)
+ *     d11 = v1.dot(v1)
+ *     d20 = v2.dot(v0)             # <<<<<<<<<<<<<<
+ *     d21 = v2.dot(v1)
+ *     denom = d00*d11-d01*d01
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v2), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v0)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v0));
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_d21 = __pyx_t_4;
+  __pyx_v_d20 = __pyx_t_4;
 
   /* "cythonMeshReduction.pyx":58
+ *     d11 = v1.dot(v1)
+ *     d20 = v2.dot(v0)
+ *     d21 = v2.dot(v1)             # <<<<<<<<<<<<<<
+ *     denom = d00*d11-d01*d01
+ *     v = (d11 * d20 - d01 * d21) / denom
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_v2), __pyx_n_s_dot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_v1)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_v1));
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 58, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_d21 = __pyx_t_4;
+
+  /* "cythonMeshReduction.pyx":59
  *     d20 = v2.dot(v0)
  *     d21 = v2.dot(v1)
  *     denom = d00*d11-d01*d01             # <<<<<<<<<<<<<<
@@ -4090,7 +4091,7 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
  */
   __pyx_v_denom = ((__pyx_v_d00 * __pyx_v_d11) - (__pyx_v_d01 * __pyx_v_d01));
 
-  /* "cythonMeshReduction.pyx":59
+  /* "cythonMeshReduction.pyx":60
  *     d21 = v2.dot(v1)
  *     denom = d00*d11-d01*d01
  *     v = (d11 * d20 - d01 * d21) / denom             # <<<<<<<<<<<<<<
@@ -4100,11 +4101,11 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __pyx_t_4 = ((__pyx_v_d11 * __pyx_v_d20) - (__pyx_v_d01 * __pyx_v_d21));
   if (unlikely(__pyx_v_denom == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 59, __pyx_L1_error)
+    __PYX_ERR(0, 60, __pyx_L1_error)
   }
   __pyx_v_v = (__pyx_t_4 / __pyx_v_denom);
 
-  /* "cythonMeshReduction.pyx":60
+  /* "cythonMeshReduction.pyx":61
  *     denom = d00*d11-d01*d01
  *     v = (d11 * d20 - d01 * d21) / denom
  *     w = (d00 * d21 - d01 * d20) / denom             # <<<<<<<<<<<<<<
@@ -4114,11 +4115,11 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __pyx_t_4 = ((__pyx_v_d00 * __pyx_v_d21) - (__pyx_v_d01 * __pyx_v_d20));
   if (unlikely(__pyx_v_denom == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 60, __pyx_L1_error)
+    __PYX_ERR(0, 61, __pyx_L1_error)
   }
   __pyx_v_w = (__pyx_t_4 / __pyx_v_denom);
 
-  /* "cythonMeshReduction.pyx":61
+  /* "cythonMeshReduction.pyx":62
  *     v = (d11 * d20 - d01 * d21) / denom
  *     w = (d00 * d21 - d01 * d20) / denom
  *     u = 1.0 - v - w             # <<<<<<<<<<<<<<
@@ -4127,7 +4128,7 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
  */
   __pyx_v_u = ((1.0 - __pyx_v_v) - __pyx_v_w);
 
-  /* "cythonMeshReduction.pyx":62
+  /* "cythonMeshReduction.pyx":63
  *     w = (d00 * d21 - d01 * d20) / denom
  *     u = 1.0 - v - w
  *     return vector3d(u, v, w)             # <<<<<<<<<<<<<<
@@ -4135,13 +4136,13 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
  * cdef vector3d interpolate(vector3d vectP, vector3d vectA, vector3d vectB,
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_u); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_u); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_w); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_w); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
@@ -4152,14 +4153,14 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_r = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_3);
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":47
+  /* "cythonMeshReduction.pyx":48
  *     return vertices_view, nVerts, faces_view,  nFaces
  * 
  * cdef vector3d barycentric(vector3d vectP, vector3d vectA, vector3d vectB, vector3d vectC):             # <<<<<<<<<<<<<<
@@ -4184,7 +4185,7 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":64
+/* "cythonMeshReduction.pyx":65
  *     return vector3d(u, v, w)
  * 
  * cdef vector3d interpolate(vector3d vectP, vector3d vectA, vector3d vectB,             # <<<<<<<<<<<<<<
@@ -4204,59 +4205,40 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("interpolate", 0);
 
-  /* "cythonMeshReduction.pyx":67
+  /* "cythonMeshReduction.pyx":68
  *                           vector3d vectC, vector3d attr0, vector3d attr1, vector3d attr2) :
  *     cdef vector3d bary, out
  *     out = vector3d()             # <<<<<<<<<<<<<<
  *     bary = barycentric(vectP, vectA, vectB, vectC)
  *     out = out + attr0 * bary[0]
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_out = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":68
+  /* "cythonMeshReduction.pyx":69
  *     cdef vector3d bary, out
  *     out = vector3d()
  *     bary = barycentric(vectP, vectA, vectB, vectC)             # <<<<<<<<<<<<<<
  *     out = out + attr0 * bary[0]
  *     out = out + attr1 * bary[1]
  */
-  __pyx_t_1 = ((PyObject *)__pyx_f_19cythonMeshReduction_barycentric(__pyx_v_vectP, __pyx_v_vectA, __pyx_v_vectB, __pyx_v_vectC)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_19cythonMeshReduction_barycentric(__pyx_v_vectP, __pyx_v_vectA, __pyx_v_vectB, __pyx_v_vectC)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_bary = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":69
+  /* "cythonMeshReduction.pyx":70
  *     out = vector3d()
  *     bary = barycentric(vectP, vectA, vectB, vectC)
  *     out = out + attr0 * bary[0]             # <<<<<<<<<<<<<<
  *     out = out + attr1 * bary[1]
  *     out = out + attr2 * bary[2]
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_bary), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_bary), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_attr0), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(((PyObject *)__pyx_v_out), __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_DECREF_SET(__pyx_v_out, ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1));
-  __pyx_t_1 = 0;
-
-  /* "cythonMeshReduction.pyx":70
- *     bary = barycentric(vectP, vectA, vectB, vectC)
- *     out = out + attr0 * bary[0]
- *     out = out + attr1 * bary[1]             # <<<<<<<<<<<<<<
- *     out = out + attr2 * bary[2]
- *     return out
- */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_bary), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_attr1), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_attr0), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyNumber_Add(((PyObject *)__pyx_v_out), __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
@@ -4267,15 +4249,15 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __pyx_t_1 = 0;
 
   /* "cythonMeshReduction.pyx":71
+ *     bary = barycentric(vectP, vectA, vectB, vectC)
  *     out = out + attr0 * bary[0]
- *     out = out + attr1 * bary[1]
- *     out = out + attr2 * bary[2]             # <<<<<<<<<<<<<<
+ *     out = out + attr1 * bary[1]             # <<<<<<<<<<<<<<
+ *     out = out + attr2 * bary[2]
  *     return out
- * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_bary), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_bary), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_attr2), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_attr1), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyNumber_Add(((PyObject *)__pyx_v_out), __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
@@ -4286,6 +4268,25 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __pyx_t_1 = 0;
 
   /* "cythonMeshReduction.pyx":72
+ *     out = out + attr0 * bary[0]
+ *     out = out + attr1 * bary[1]
+ *     out = out + attr2 * bary[2]             # <<<<<<<<<<<<<<
+ *     return out
+ * 
+ */
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_bary), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_attr2), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyNumber_Add(((PyObject *)__pyx_v_out), __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_DECREF_SET(__pyx_v_out, ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1));
+  __pyx_t_1 = 0;
+
+  /* "cythonMeshReduction.pyx":73
  *     out = out + attr1 * bary[1]
  *     out = out + attr2 * bary[2]
  *     return out             # <<<<<<<<<<<<<<
@@ -4297,7 +4298,7 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   __pyx_r = __pyx_v_out;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":64
+  /* "cythonMeshReduction.pyx":65
  *     return vector3d(u, v, w)
  * 
  * cdef vector3d interpolate(vector3d vectP, vector3d vectA, vector3d vectB,             # <<<<<<<<<<<<<<
@@ -4319,7 +4320,7 @@ static struct __pyx_obj_19cythonMeshReduction_vector3d *__pyx_f_19cythonMeshRedu
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":74
+/* "cythonMeshReduction.pyx":75
  *     return out
  * 
  * cdef double mini(double v1, double v2):             # <<<<<<<<<<<<<<
@@ -4332,7 +4333,7 @@ static double __pyx_f_19cythonMeshReduction_mini(double __pyx_v_v1, double __pyx
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("mini", 0);
 
-  /* "cythonMeshReduction.pyx":75
+  /* "cythonMeshReduction.pyx":76
  * 
  * cdef double mini(double v1, double v2):
  *     return fmin(v1,v2)             # <<<<<<<<<<<<<<
@@ -4342,7 +4343,7 @@ static double __pyx_f_19cythonMeshReduction_mini(double __pyx_v_v1, double __pyx
   __pyx_r = fmin(__pyx_v_v1, __pyx_v_v2);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":74
+  /* "cythonMeshReduction.pyx":75
  *     return out
  * 
  * cdef double mini(double v1, double v2):             # <<<<<<<<<<<<<<
@@ -4356,7 +4357,7 @@ static double __pyx_f_19cythonMeshReduction_mini(double __pyx_v_v1, double __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":83
+/* "cythonMeshReduction.pyx":87
  *     cdef public double [:] xyz
  * 
  *     def __cinit__(self, double [:] xyz = np.zeros(3,dtype=float64)):             # <<<<<<<<<<<<<<
@@ -4395,7 +4396,7 @@ static int __pyx_pw_19cythonMeshReduction_8vector3d_1__cinit__(PyObject *__pyx_v
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 83, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 87, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4406,7 +4407,7 @@ static int __pyx_pw_19cythonMeshReduction_8vector3d_1__cinit__(PyObject *__pyx_v
       }
     }
     if (values[0]) {
-      __pyx_v_xyz = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_xyz.memview)) __PYX_ERR(0, 83, __pyx_L3_error)
+      __pyx_v_xyz = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_xyz.memview)) __PYX_ERR(0, 87, __pyx_L3_error)
     } else {
       __pyx_v_xyz = __pyx_k__4;
       __PYX_INC_MEMVIEW(&__pyx_v_xyz, 1);
@@ -4414,7 +4415,7 @@ static int __pyx_pw_19cythonMeshReduction_8vector3d_1__cinit__(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 83, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 87, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.vector3d.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4432,7 +4433,7 @@ static int __pyx_pf_19cythonMeshReduction_8vector3d___cinit__(struct __pyx_obj_1
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "cythonMeshReduction.pyx":84
+  /* "cythonMeshReduction.pyx":88
  * 
  *     def __cinit__(self, double [:] xyz = np.zeros(3,dtype=float64)):
  *         self.xyz = xyz             # <<<<<<<<<<<<<<
@@ -4443,7 +4444,7 @@ static int __pyx_pf_19cythonMeshReduction_8vector3d___cinit__(struct __pyx_obj_1
   __PYX_INC_MEMVIEW(&__pyx_v_xyz, 0);
   __pyx_v_self->xyz = __pyx_v_xyz;
 
-  /* "cythonMeshReduction.pyx":83
+  /* "cythonMeshReduction.pyx":87
  *     cdef public double [:] xyz
  * 
  *     def __cinit__(self, double [:] xyz = np.zeros(3,dtype=float64)):             # <<<<<<<<<<<<<<
@@ -4458,7 +4459,7 @@ static int __pyx_pf_19cythonMeshReduction_8vector3d___cinit__(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":86
+/* "cythonMeshReduction.pyx":90
  *         self.xyz = xyz
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -4495,7 +4496,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "cythonMeshReduction.pyx":87
+  /* "cythonMeshReduction.pyx":91
  * 
  *     def __repr__(self):
  *         return 'Vector of coordinates \nx : {},\ny : {},\nz : {}'.format(round(self[0],4),             # <<<<<<<<<<<<<<
@@ -4503,11 +4504,11 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
  *                                                                        round(self[2],4))
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_Vector_of_coordinates_x_y_z, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_Vector_of_coordinates_x_y_z, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
@@ -4515,20 +4516,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_4);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cythonMeshReduction.pyx":88
+  /* "cythonMeshReduction.pyx":92
  *     def __repr__(self):
  *         return 'Vector of coordinates \nx : {},\ny : {},\nz : {}'.format(round(self[0],4),
  *                                                                        round(self[1],4),             # <<<<<<<<<<<<<<
  *                                                                        round(self[2],4))
  * 
  */
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
@@ -4536,20 +4537,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "cythonMeshReduction.pyx":89
+  /* "cythonMeshReduction.pyx":93
  *         return 'Vector of coordinates \nx : {},\ny : {},\nz : {}'.format(round(self[0],4),
  *                                                                        round(self[1],4),
  *                                                                        round(self[2],4))             # <<<<<<<<<<<<<<
  * 
  *     def __getitem__(self, int idx):
  */
-  __pyx_t_5 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
@@ -4557,7 +4558,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_int_4);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -4575,7 +4576,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_3, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4586,7 +4587,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_3, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4595,7 +4596,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   } else
   #endif
   {
-    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -4609,7 +4610,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
@@ -4618,7 +4619,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":86
+  /* "cythonMeshReduction.pyx":90
  *         self.xyz = xyz
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -4643,7 +4644,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_2__repr__(struct __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":91
+/* "cythonMeshReduction.pyx":95
  *                                                                        round(self[2],4))
  * 
  *     def __getitem__(self, int idx):             # <<<<<<<<<<<<<<
@@ -4662,7 +4663,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_5__getitem__(PyObject 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
   assert(__pyx_arg_idx); {
-    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L3_error)
+    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 95, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4689,14 +4690,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_4__getitem__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "cythonMeshReduction.pyx":93
+  /* "cythonMeshReduction.pyx":97
  *     def __getitem__(self, int idx):
  *         cdef double val
  *         val = self.xyz[idx]             # <<<<<<<<<<<<<<
  *         return val
  * 
  */
-  if (unlikely(!__pyx_v_self->xyz.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 93, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->xyz.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 97, __pyx_L1_error)}
   __pyx_t_1 = __pyx_v_idx;
   __pyx_t_2 = -1;
   if (__pyx_t_1 < 0) {
@@ -4705,11 +4706,11 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_4__getitem__(struct __
   } else if (unlikely(__pyx_t_1 >= __pyx_v_self->xyz.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 93, __pyx_L1_error)
+    __PYX_ERR(0, 97, __pyx_L1_error)
   }
   __pyx_v_val = (*((double *) ( /* dim=0 */ (__pyx_v_self->xyz.data + __pyx_t_1 * __pyx_v_self->xyz.strides[0]) )));
 
-  /* "cythonMeshReduction.pyx":94
+  /* "cythonMeshReduction.pyx":98
  *         cdef double val
  *         val = self.xyz[idx]
  *         return val             # <<<<<<<<<<<<<<
@@ -4717,13 +4718,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_4__getitem__(struct __
  *     def __add__(self, vector3d vect):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":91
+  /* "cythonMeshReduction.pyx":95
  *                                                                        round(self[2],4))
  * 
  *     def __getitem__(self, int idx):             # <<<<<<<<<<<<<<
@@ -4742,7 +4743,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_4__getitem__(struct __
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":96
+/* "cythonMeshReduction.pyx":100
  *         return val
  * 
  *     def __add__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -4759,7 +4760,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_7__add__(PyObject *__p
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__add__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 100, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_6__add__(((PyObject *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_vect));
 
   /* function exit code */
@@ -4782,7 +4783,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_6__add__(PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__add__", 0);
 
-  /* "cythonMeshReduction.pyx":97
+  /* "cythonMeshReduction.pyx":101
  * 
  *     def __add__(self, vector3d vect):
  *         return vector3d(self[:]+vect[:])             # <<<<<<<<<<<<<<
@@ -4790,22 +4791,22 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_6__add__(PyObject *__p
  *     def __iadd__(self, vector3d vect):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":96
+  /* "cythonMeshReduction.pyx":100
  *         return val
  * 
  *     def __add__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -4826,7 +4827,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_6__add__(PyObject *__p
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":99
+/* "cythonMeshReduction.pyx":103
  *         return vector3d(self[:]+vect[:])
  * 
  *     def __iadd__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -4843,7 +4844,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_9__iadd__(PyObject *__
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iadd__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 99, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 103, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_8__iadd__(((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_vect));
 
   /* function exit code */
@@ -4867,7 +4868,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_8__iadd__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__iadd__", 0);
 
-  /* "cythonMeshReduction.pyx":100
+  /* "cythonMeshReduction.pyx":104
  * 
  *     def __iadd__(self, vector3d vect):
  *         self[:]+=vect[:]             # <<<<<<<<<<<<<<
@@ -4876,19 +4877,19 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_8__iadd__(struct __pyx
  */
   __Pyx_INCREF(__pyx_slice__5);
   __pyx_t_1 = __pyx_slice__5;
-  __pyx_t_2 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_1, __pyx_t_4) < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_1, __pyx_t_4) < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":101
+  /* "cythonMeshReduction.pyx":105
  *     def __iadd__(self, vector3d vect):
  *         self[:]+=vect[:]
  *         return self             # <<<<<<<<<<<<<<
@@ -4900,7 +4901,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_8__iadd__(struct __pyx
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":99
+  /* "cythonMeshReduction.pyx":103
  *         return vector3d(self[:]+vect[:])
  * 
  *     def __iadd__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -4922,7 +4923,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_8__iadd__(struct __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":103
+/* "cythonMeshReduction.pyx":107
  *         return self
  * 
  *     def __sub__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -4939,7 +4940,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_11__sub__(PyObject *__
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__sub__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 103, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 107, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_10__sub__(((PyObject *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_vect));
 
   /* function exit code */
@@ -4962,7 +4963,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_10__sub__(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__sub__", 0);
 
-  /* "cythonMeshReduction.pyx":104
+  /* "cythonMeshReduction.pyx":108
  * 
  *     def __sub__(self, vector3d vect):
  *         return vector3d(self[:]-vect[:])             # <<<<<<<<<<<<<<
@@ -4970,22 +4971,22 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_10__sub__(PyObject *__
  *     def __isub__(self, vector3d vect):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":103
+  /* "cythonMeshReduction.pyx":107
  *         return self
  * 
  *     def __sub__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -5006,7 +5007,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_10__sub__(PyObject *__
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":106
+/* "cythonMeshReduction.pyx":110
  *         return vector3d(self[:]-vect[:])
  * 
  *     def __isub__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -5023,7 +5024,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_13__isub__(PyObject *_
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__isub__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 110, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_12__isub__(((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_vect));
 
   /* function exit code */
@@ -5047,7 +5048,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_12__isub__(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__isub__", 0);
 
-  /* "cythonMeshReduction.pyx":107
+  /* "cythonMeshReduction.pyx":111
  * 
  *     def __isub__(self, vector3d vect):
  *         self[:]-=vect[:]             # <<<<<<<<<<<<<<
@@ -5056,19 +5057,19 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_12__isub__(struct __py
  */
   __Pyx_INCREF(__pyx_slice__5);
   __pyx_t_1 = __pyx_slice__5;
-  __pyx_t_2 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_vect), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_InPlaceSubtract(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_InPlaceSubtract(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_1, __pyx_t_4) < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_1, __pyx_t_4) < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":108
+  /* "cythonMeshReduction.pyx":112
  *     def __isub__(self, vector3d vect):
  *         self[:]-=vect[:]
  *         return self             # <<<<<<<<<<<<<<
@@ -5080,7 +5081,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_12__isub__(struct __py
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":106
+  /* "cythonMeshReduction.pyx":110
  *         return vector3d(self[:]-vect[:])
  * 
  *     def __isub__(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -5102,7 +5103,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_12__isub__(struct __py
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":110
+/* "cythonMeshReduction.pyx":114
  *         return self
  * 
  *     def __mul__(self, other):             # <<<<<<<<<<<<<<
@@ -5136,21 +5137,21 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_14__mul__(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__mul__", 0);
 
-  /* "cythonMeshReduction.pyx":111
+  /* "cythonMeshReduction.pyx":115
  * 
  *     def __mul__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
  *             return vector3d(self[:]*other[:])
  *         else :
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "cythonMeshReduction.pyx":112
+    /* "cythonMeshReduction.pyx":116
  *     def __mul__(self, other):
  *         if isinstance(other, self.__class__) :
  *             return vector3d(self[:]*other[:])             # <<<<<<<<<<<<<<
@@ -5158,22 +5159,22 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_14__mul__(PyObject *__
  *             return vector3d(self[:]*other)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "cythonMeshReduction.pyx":111
+    /* "cythonMeshReduction.pyx":115
  * 
  *     def __mul__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
@@ -5182,7 +5183,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_14__mul__(PyObject *__
  */
   }
 
-  /* "cythonMeshReduction.pyx":114
+  /* "cythonMeshReduction.pyx":118
  *             return vector3d(self[:]*other[:])
  *         else :
  *             return vector3d(self[:]*other)             # <<<<<<<<<<<<<<
@@ -5191,12 +5192,12 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_14__mul__(PyObject *__
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyNumber_Multiply(__pyx_t_4, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Multiply(__pyx_t_4, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_r = __pyx_t_4;
@@ -5204,7 +5205,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_14__mul__(PyObject *__
     goto __pyx_L0;
   }
 
-  /* "cythonMeshReduction.pyx":110
+  /* "cythonMeshReduction.pyx":114
  *         return self
  * 
  *     def __mul__(self, other):             # <<<<<<<<<<<<<<
@@ -5225,7 +5226,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_14__mul__(PyObject *__
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":116
+/* "cythonMeshReduction.pyx":120
  *             return vector3d(self[:]*other)
  * 
  *     def __imul__(self, other):             # <<<<<<<<<<<<<<
@@ -5260,21 +5261,21 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__imul__", 0);
 
-  /* "cythonMeshReduction.pyx":117
+  /* "cythonMeshReduction.pyx":121
  * 
  *     def __imul__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
  *             self[:]*=other[:]
  *             return self
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "cythonMeshReduction.pyx":118
+    /* "cythonMeshReduction.pyx":122
  *     def __imul__(self, other):
  *         if isinstance(other, self.__class__) :
  *             self[:]*=other[:]             # <<<<<<<<<<<<<<
@@ -5283,19 +5284,19 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
  */
     __Pyx_INCREF(__pyx_slice__5);
     __pyx_t_4 = __pyx_slice__5;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyNumber_InPlaceMultiply(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_InPlaceMultiply(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_6) < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_6) < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "cythonMeshReduction.pyx":119
+    /* "cythonMeshReduction.pyx":123
  *         if isinstance(other, self.__class__) :
  *             self[:]*=other[:]
  *             return self             # <<<<<<<<<<<<<<
@@ -5307,7 +5308,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
     __pyx_r = ((PyObject *)__pyx_v_self);
     goto __pyx_L0;
 
-    /* "cythonMeshReduction.pyx":117
+    /* "cythonMeshReduction.pyx":121
  * 
  *     def __imul__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
@@ -5316,7 +5317,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
  */
   }
 
-  /* "cythonMeshReduction.pyx":121
+  /* "cythonMeshReduction.pyx":125
  *             return self
  *         else :
  *             self[:]*=other             # <<<<<<<<<<<<<<
@@ -5326,16 +5327,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
   /*else*/ {
     __Pyx_INCREF(__pyx_slice__5);
     __pyx_t_4 = __pyx_slice__5;
-    __pyx_t_6 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 125, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = PyNumber_InPlaceMultiply(__pyx_t_6, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_InPlaceMultiply(__pyx_t_6, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_5) < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_5) < 0)) __PYX_ERR(0, 125, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "cythonMeshReduction.pyx":122
+    /* "cythonMeshReduction.pyx":126
  *         else :
  *             self[:]*=other
  *             return self             # <<<<<<<<<<<<<<
@@ -5348,7 +5349,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
     goto __pyx_L0;
   }
 
-  /* "cythonMeshReduction.pyx":116
+  /* "cythonMeshReduction.pyx":120
  *             return vector3d(self[:]*other)
  * 
  *     def __imul__(self, other):             # <<<<<<<<<<<<<<
@@ -5370,7 +5371,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_16__imul__(struct __py
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":124
+/* "cythonMeshReduction.pyx":128
  *             return self
  * 
  *     def __div__(self, other):             # <<<<<<<<<<<<<<
@@ -5407,21 +5408,21 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__div__", 0);
 
-  /* "cythonMeshReduction.pyx":125
+  /* "cythonMeshReduction.pyx":129
  * 
  *     def __div__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
  *             return vector3d(self[:]/other[:])
  *         elif other != 0 :
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "cythonMeshReduction.pyx":126
+    /* "cythonMeshReduction.pyx":130
  *     def __div__(self, other):
  *         if isinstance(other, self.__class__) :
  *             return vector3d(self[:]/other[:])             # <<<<<<<<<<<<<<
@@ -5429,22 +5430,22 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
  *             return vector3d(self[:]/other)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "cythonMeshReduction.pyx":125
+    /* "cythonMeshReduction.pyx":129
  * 
  *     def __div__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
@@ -5453,20 +5454,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
  */
   }
 
-  /* "cythonMeshReduction.pyx":127
+  /* "cythonMeshReduction.pyx":131
  *         if isinstance(other, self.__class__) :
  *             return vector3d(self[:]/other[:])
  *         elif other != 0 :             # <<<<<<<<<<<<<<
  *             return vector3d(self[:]/other)
  *         else :
  */
-  __pyx_t_4 = __Pyx_PyInt_NeObjC(__pyx_v_other, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_NeObjC(__pyx_v_other, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (likely(__pyx_t_3)) {
 
-    /* "cythonMeshReduction.pyx":128
+    /* "cythonMeshReduction.pyx":132
  *             return vector3d(self[:]/other[:])
  *         elif other != 0 :
  *             return vector3d(self[:]/other)             # <<<<<<<<<<<<<<
@@ -5474,19 +5475,19 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
  *             raise NotImplementedError
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_self, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "cythonMeshReduction.pyx":127
+    /* "cythonMeshReduction.pyx":131
  *         if isinstance(other, self.__class__) :
  *             return vector3d(self[:]/other[:])
  *         elif other != 0 :             # <<<<<<<<<<<<<<
@@ -5495,7 +5496,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
  */
   }
 
-  /* "cythonMeshReduction.pyx":130
+  /* "cythonMeshReduction.pyx":134
  *             return vector3d(self[:]/other)
  *         else :
  *             raise NotImplementedError             # <<<<<<<<<<<<<<
@@ -5504,10 +5505,10 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
  */
   /*else*/ {
     __Pyx_Raise(__pyx_builtin_NotImplementedError, 0, 0, 0);
-    __PYX_ERR(0, 130, __pyx_L1_error)
+    __PYX_ERR(0, 134, __pyx_L1_error)
   }
 
-  /* "cythonMeshReduction.pyx":124
+  /* "cythonMeshReduction.pyx":128
  *             return self
  * 
  *     def __div__(self, other):             # <<<<<<<<<<<<<<
@@ -5529,7 +5530,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_18__div__(PyObject *__
 }
 #endif /*!(#if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000))*/
 
-/* "cythonMeshReduction.pyx":132
+/* "cythonMeshReduction.pyx":136
  *             raise NotImplementedError
  * 
  *     def __idiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5567,21 +5568,21 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__idiv__", 0);
 
-  /* "cythonMeshReduction.pyx":133
+  /* "cythonMeshReduction.pyx":137
  * 
  *     def __idiv__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
  *             self[:]/=other[:]
  *             return self
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_other, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "cythonMeshReduction.pyx":134
+    /* "cythonMeshReduction.pyx":138
  *     def __idiv__(self, other):
  *         if isinstance(other, self.__class__) :
  *             self[:]/=other[:]             # <<<<<<<<<<<<<<
@@ -5590,19 +5591,19 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
  */
     __Pyx_INCREF(__pyx_slice__5);
     __pyx_t_4 = __pyx_slice__5;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_other, 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyNumber_InPlaceDivide(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyNumber_InPlaceDivide(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_6) < 0)) __PYX_ERR(0, 134, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_6) < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "cythonMeshReduction.pyx":135
+    /* "cythonMeshReduction.pyx":139
  *         if isinstance(other, self.__class__) :
  *             self[:]/=other[:]
  *             return self             # <<<<<<<<<<<<<<
@@ -5614,7 +5615,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
     __pyx_r = ((PyObject *)__pyx_v_self);
     goto __pyx_L0;
 
-    /* "cythonMeshReduction.pyx":133
+    /* "cythonMeshReduction.pyx":137
  * 
  *     def __idiv__(self, other):
  *         if isinstance(other, self.__class__) :             # <<<<<<<<<<<<<<
@@ -5623,20 +5624,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
  */
   }
 
-  /* "cythonMeshReduction.pyx":136
+  /* "cythonMeshReduction.pyx":140
  *             self[:]/=other[:]
  *             return self
  *         elif other != 0 :             # <<<<<<<<<<<<<<
  *             self[:]/=other
  *             return self
  */
-  __pyx_t_6 = __Pyx_PyInt_NeObjC(__pyx_v_other, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_NeObjC(__pyx_v_other, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (likely(__pyx_t_3)) {
 
-    /* "cythonMeshReduction.pyx":137
+    /* "cythonMeshReduction.pyx":141
  *             return self
  *         elif other != 0 :
  *             self[:]/=other             # <<<<<<<<<<<<<<
@@ -5645,16 +5646,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
  */
     __Pyx_INCREF(__pyx_slice__5);
     __pyx_t_4 = __pyx_slice__5;
-    __pyx_t_6 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyNumber_InPlaceDivide(__pyx_t_6, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_InPlaceDivide(__pyx_t_6, __pyx_v_other); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_5) < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_4, __pyx_t_5) < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "cythonMeshReduction.pyx":138
+    /* "cythonMeshReduction.pyx":142
  *         elif other != 0 :
  *             self[:]/=other
  *             return self             # <<<<<<<<<<<<<<
@@ -5666,7 +5667,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
     __pyx_r = ((PyObject *)__pyx_v_self);
     goto __pyx_L0;
 
-    /* "cythonMeshReduction.pyx":136
+    /* "cythonMeshReduction.pyx":140
  *             self[:]/=other[:]
  *             return self
  *         elif other != 0 :             # <<<<<<<<<<<<<<
@@ -5675,7 +5676,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
  */
   }
 
-  /* "cythonMeshReduction.pyx":140
+  /* "cythonMeshReduction.pyx":144
  *             return self
  *         else :
  *             raise NotImplementedError             # <<<<<<<<<<<<<<
@@ -5684,10 +5685,10 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
  */
   /*else*/ {
     __Pyx_Raise(__pyx_builtin_NotImplementedError, 0, 0, 0);
-    __PYX_ERR(0, 140, __pyx_L1_error)
+    __PYX_ERR(0, 144, __pyx_L1_error)
   }
 
-  /* "cythonMeshReduction.pyx":132
+  /* "cythonMeshReduction.pyx":136
  *             raise NotImplementedError
  * 
  *     def __idiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5710,7 +5711,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_20__idiv__(struct __py
 }
 #endif /*!(#if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000))*/
 
-/* "cythonMeshReduction.pyx":142
+/* "cythonMeshReduction.pyx":146
  *             raise NotImplementedError
  * 
  *     def dot(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -5727,7 +5728,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_23dot(PyObject *__pyx_
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dot (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 142, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 146, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_22dot(((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_vect));
 
   /* function exit code */
@@ -5751,7 +5752,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_22dot(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("dot", 0);
 
-  /* "cythonMeshReduction.pyx":143
+  /* "cythonMeshReduction.pyx":147
  * 
  *     def dot(self, vector3d vect):
  *         return self[0]*vect[0]+self[1]*vect[1]+self[2]*vect[2]             # <<<<<<<<<<<<<<
@@ -5759,35 +5760,35 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_22dot(struct __pyx_obj
  *     def cross(self, vector3d vectA, vector3d vectB):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5795,7 +5796,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_22dot(struct __pyx_obj
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":142
+  /* "cythonMeshReduction.pyx":146
  *             raise NotImplementedError
  * 
  *     def dot(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -5817,7 +5818,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_22dot(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":145
+/* "cythonMeshReduction.pyx":149
  *         return self[0]*vect[0]+self[1]*vect[1]+self[2]*vect[2]
  * 
  *     def cross(self, vector3d vectA, vector3d vectB):             # <<<<<<<<<<<<<<
@@ -5859,11 +5860,11 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_25cross(PyObject *__py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_vectB)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross", 1, 2, 2, 1); __PYX_ERR(0, 145, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cross", 1, 2, 2, 1); __PYX_ERR(0, 149, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cross") < 0)) __PYX_ERR(0, 145, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cross") < 0)) __PYX_ERR(0, 149, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -5876,14 +5877,14 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_25cross(PyObject *__py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("cross", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 145, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("cross", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 149, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.vector3d.cross", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectA), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectA", 0))) __PYX_ERR(0, 145, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectB), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectB", 0))) __PYX_ERR(0, 145, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectA), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectA", 0))) __PYX_ERR(0, 149, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectB), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectB", 0))) __PYX_ERR(0, 149, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_24cross(((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_self), __pyx_v_vectA, __pyx_v_vectB);
 
   /* function exit code */
@@ -5907,97 +5908,97 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_24cross(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cross", 0);
 
-  /* "cythonMeshReduction.pyx":146
+  /* "cythonMeshReduction.pyx":150
  * 
  *     def cross(self, vector3d vectA, vector3d vectB):
  *         self[0] = vectA[1] * vectB[2] - vectA[2] * vectB[1]             # <<<<<<<<<<<<<<
  *         self[1] = vectA[2] * vectB[0] - vectA[0] * vectB[2]
  *         self[2] = vectA[0] * vectB[1] - vectA[1] * vectB[0]
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":147
+  /* "cythonMeshReduction.pyx":151
  *     def cross(self, vector3d vectA, vector3d vectB):
  *         self[0] = vectA[1] * vectB[2] - vectA[2] * vectB[1]
  *         self[1] = vectA[2] * vectB[0] - vectA[0] * vectB[2]             # <<<<<<<<<<<<<<
  *         self[2] = vectA[0] * vectB[1] - vectA[1] * vectB[0]
  *         return self
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":148
+  /* "cythonMeshReduction.pyx":152
  *         self[0] = vectA[1] * vectB[2] - vectA[2] * vectB[1]
  *         self[1] = vectA[2] * vectB[0] - vectA[0] * vectB[2]
  *         self[2] = vectA[0] * vectB[1] - vectA[1] * vectB[0]             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":149
+  /* "cythonMeshReduction.pyx":153
  *         self[1] = vectA[2] * vectB[0] - vectA[0] * vectB[2]
  *         self[2] = vectA[0] * vectB[1] - vectA[1] * vectB[0]
  *         return self             # <<<<<<<<<<<<<<
@@ -6009,7 +6010,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_24cross(struct __pyx_o
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":145
+  /* "cythonMeshReduction.pyx":149
  *         return self[0]*vect[0]+self[1]*vect[1]+self[2]*vect[2]
  * 
  *     def cross(self, vector3d vectA, vector3d vectB):             # <<<<<<<<<<<<<<
@@ -6031,7 +6032,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_24cross(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":151
+/* "cythonMeshReduction.pyx":155
  *         return self
  * 
  *     def length(self):             # <<<<<<<<<<<<<<
@@ -6064,7 +6065,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_26length(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("length", 0);
 
-  /* "cythonMeshReduction.pyx":152
+  /* "cythonMeshReduction.pyx":156
  * 
  *     def length(self):
  *         return sqrt(pow(self[0],2)+pow(self[1],2)+pow(self[2],2))             # <<<<<<<<<<<<<<
@@ -6072,25 +6073,25 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_26length(struct __pyx_
  *     def angle(self, vector3d vect):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_2 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyFloat_FromDouble(sqrt(((pow(__pyx_t_2, 2.0) + pow(__pyx_t_3, 2.0)) + pow(__pyx_t_4, 2.0)))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(sqrt(((pow(__pyx_t_2, 2.0) + pow(__pyx_t_3, 2.0)) + pow(__pyx_t_4, 2.0)))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":151
+  /* "cythonMeshReduction.pyx":155
  *         return self
  * 
  *     def length(self):             # <<<<<<<<<<<<<<
@@ -6109,7 +6110,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_26length(struct __pyx_
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":154
+/* "cythonMeshReduction.pyx":158
  *         return sqrt(pow(self[0],2)+pow(self[1],2)+pow(self[2],2))
  * 
  *     def angle(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -6126,7 +6127,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_29angle(PyObject *__py
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("angle (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vect), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vect", 0))) __PYX_ERR(0, 158, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_28angle(((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_vect));
 
   /* function exit code */
@@ -6155,57 +6156,57 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("angle", 0);
 
-  /* "cythonMeshReduction.pyx":156
+  /* "cythonMeshReduction.pyx":160
  *     def angle(self, vector3d vect):
  *         cdef double dotprod, lenmul, val
  *         dotprod = vect[0]*self[0] + vect[1]*self[1] + vect[2]*self[2]             # <<<<<<<<<<<<<<
  *         lenmul = self.length()*vect.length()
  *         if lenmul==0.:
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vect), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_dotprod = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":157
+  /* "cythonMeshReduction.pyx":161
  *         cdef double dotprod, lenmul, val
  *         dotprod = vect[0]*self[0] + vect[1]*self[1] + vect[2]*self[2]
  *         lenmul = self.length()*vect.length()             # <<<<<<<<<<<<<<
  *         if lenmul==0.:
  *             lenmul=0.000001
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6219,10 +6220,10 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
   }
   __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_vect), __pyx_n_s_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_vect), __pyx_n_s_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -6236,18 +6237,18 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
   }
   __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_lenmul = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":158
+  /* "cythonMeshReduction.pyx":162
  *         dotprod = vect[0]*self[0] + vect[1]*self[1] + vect[2]*self[2]
  *         lenmul = self.length()*vect.length()
  *         if lenmul==0.:             # <<<<<<<<<<<<<<
@@ -6257,7 +6258,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
   __pyx_t_6 = ((__pyx_v_lenmul == 0.) != 0);
   if (__pyx_t_6) {
 
-    /* "cythonMeshReduction.pyx":159
+    /* "cythonMeshReduction.pyx":163
  *         lenmul = self.length()*vect.length()
  *         if lenmul==0.:
  *             lenmul=0.000001             # <<<<<<<<<<<<<<
@@ -6266,7 +6267,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
  */
     __pyx_v_lenmul = 0.000001;
 
-    /* "cythonMeshReduction.pyx":158
+    /* "cythonMeshReduction.pyx":162
  *         dotprod = vect[0]*self[0] + vect[1]*self[1] + vect[2]*self[2]
  *         lenmul = self.length()*vect.length()
  *         if lenmul==0.:             # <<<<<<<<<<<<<<
@@ -6275,7 +6276,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
  */
   }
 
-  /* "cythonMeshReduction.pyx":160
+  /* "cythonMeshReduction.pyx":164
  *         if lenmul==0.:
  *             lenmul=0.000001
  *         val = dotprod/lenmul             # <<<<<<<<<<<<<<
@@ -6284,11 +6285,11 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
  */
   if (unlikely(__pyx_v_lenmul == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 160, __pyx_L1_error)
+    __PYX_ERR(0, 164, __pyx_L1_error)
   }
   __pyx_v_val = (__pyx_v_dotprod / __pyx_v_lenmul);
 
-  /* "cythonMeshReduction.pyx":161
+  /* "cythonMeshReduction.pyx":165
  *             lenmul=0.000001
  *         val = dotprod/lenmul
  *         if val<-1.: val=-1.             # <<<<<<<<<<<<<<
@@ -6300,7 +6301,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
     __pyx_v_val = -1.;
   }
 
-  /* "cythonMeshReduction.pyx":162
+  /* "cythonMeshReduction.pyx":166
  *         val = dotprod/lenmul
  *         if val<-1.: val=-1.
  *         if val>1.:val=1.             # <<<<<<<<<<<<<<
@@ -6312,7 +6313,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
     __pyx_v_val = 1.;
   }
 
-  /* "cythonMeshReduction.pyx":163
+  /* "cythonMeshReduction.pyx":167
  *         if val<-1.: val=-1.
  *         if val>1.:val=1.
  *         return acos(val)             # <<<<<<<<<<<<<<
@@ -6320,13 +6321,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
  *     def angle2(self, vector3d vectA, vector3d vectB):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(acos(__pyx_v_val)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(acos(__pyx_v_val)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":154
+  /* "cythonMeshReduction.pyx":158
  *         return sqrt(pow(self[0],2)+pow(self[1],2)+pow(self[2],2))
  * 
  *     def angle(self, vector3d vect):             # <<<<<<<<<<<<<<
@@ -6348,7 +6349,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_28angle(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":165
+/* "cythonMeshReduction.pyx":169
  *         return acos(val)
  * 
  *     def angle2(self, vector3d vectA, vector3d vectB):             # <<<<<<<<<<<<<<
@@ -6390,11 +6391,11 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_31angle2(PyObject *__p
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_vectB)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("angle2", 1, 2, 2, 1); __PYX_ERR(0, 165, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("angle2", 1, 2, 2, 1); __PYX_ERR(0, 169, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "angle2") < 0)) __PYX_ERR(0, 165, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "angle2") < 0)) __PYX_ERR(0, 169, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6407,14 +6408,14 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_31angle2(PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("angle2", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 165, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("angle2", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 169, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.vector3d.angle2", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectA), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectA", 0))) __PYX_ERR(0, 165, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectB), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectB", 0))) __PYX_ERR(0, 165, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectA), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectA", 0))) __PYX_ERR(0, 169, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vectB), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "vectB", 0))) __PYX_ERR(0, 169, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8vector3d_30angle2(((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_v_self), __pyx_v_vectA, __pyx_v_vectB);
 
   /* function exit code */
@@ -6443,57 +6444,57 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("angle2", 0);
 
-  /* "cythonMeshReduction.pyx":167
+  /* "cythonMeshReduction.pyx":171
  *     def angle2(self, vector3d vectA, vector3d vectB):
  *         cdef double dot, lenmul, val
  *         dot = vectA[0]*vectB[0] + vectA[1]*vectB[1] + vectA[2]*vectB[2]             # <<<<<<<<<<<<<<
  *         lenmul = vectA.length()*vectB.length()
  *         if lenmul==0:
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectA), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_vectB), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_dot = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":168
+  /* "cythonMeshReduction.pyx":172
  *         cdef double dot, lenmul, val
  *         dot = vectA[0]*vectB[0] + vectA[1]*vectB[1] + vectA[2]*vectB[2]
  *         lenmul = vectA.length()*vectB.length()             # <<<<<<<<<<<<<<
  *         if lenmul==0:
  *             lenmul=0.000001
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_vectA), __pyx_n_s_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_vectA), __pyx_n_s_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6507,10 +6508,10 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
   }
   __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_vectB), __pyx_n_s_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_vectB), __pyx_n_s_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -6524,18 +6525,18 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
   }
   __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_lenmul = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":169
+  /* "cythonMeshReduction.pyx":173
  *         dot = vectA[0]*vectB[0] + vectA[1]*vectB[1] + vectA[2]*vectB[2]
  *         lenmul = vectA.length()*vectB.length()
  *         if lenmul==0:             # <<<<<<<<<<<<<<
@@ -6545,7 +6546,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
   __pyx_t_6 = ((__pyx_v_lenmul == 0.0) != 0);
   if (__pyx_t_6) {
 
-    /* "cythonMeshReduction.pyx":170
+    /* "cythonMeshReduction.pyx":174
  *         lenmul = vectA.length()*vectB.length()
  *         if lenmul==0:
  *             lenmul=0.000001             # <<<<<<<<<<<<<<
@@ -6554,7 +6555,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
  */
     __pyx_v_lenmul = 0.000001;
 
-    /* "cythonMeshReduction.pyx":169
+    /* "cythonMeshReduction.pyx":173
  *         dot = vectA[0]*vectB[0] + vectA[1]*vectB[1] + vectA[2]*vectB[2]
  *         lenmul = vectA.length()*vectB.length()
  *         if lenmul==0:             # <<<<<<<<<<<<<<
@@ -6563,7 +6564,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
  */
   }
 
-  /* "cythonMeshReduction.pyx":171
+  /* "cythonMeshReduction.pyx":175
  *         if lenmul==0:
  *             lenmul=0.000001
  *         val = dot/lenmul             # <<<<<<<<<<<<<<
@@ -6572,11 +6573,11 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
  */
   if (unlikely(__pyx_v_lenmul == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 171, __pyx_L1_error)
+    __PYX_ERR(0, 175, __pyx_L1_error)
   }
   __pyx_v_val = (__pyx_v_dot / __pyx_v_lenmul);
 
-  /* "cythonMeshReduction.pyx":172
+  /* "cythonMeshReduction.pyx":176
  *             lenmul=0.000001
  *         val = dot/lenmul
  *         if val<-1: val=-1             # <<<<<<<<<<<<<<
@@ -6588,7 +6589,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
     __pyx_v_val = -1.0;
   }
 
-  /* "cythonMeshReduction.pyx":173
+  /* "cythonMeshReduction.pyx":177
  *         val = dot/lenmul
  *         if val<-1: val=-1
  *         if val>1:val=1             # <<<<<<<<<<<<<<
@@ -6600,7 +6601,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
     __pyx_v_val = 1.0;
   }
 
-  /* "cythonMeshReduction.pyx":174
+  /* "cythonMeshReduction.pyx":178
  *         if val<-1: val=-1
  *         if val>1:val=1
  *         return acos(val)             # <<<<<<<<<<<<<<
@@ -6608,13 +6609,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
  *     def rot_x(self, double a):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(acos(__pyx_v_val)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(acos(__pyx_v_val)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":165
+  /* "cythonMeshReduction.pyx":169
  *         return acos(val)
  * 
  *     def angle2(self, vector3d vectA, vector3d vectB):             # <<<<<<<<<<<<<<
@@ -6636,7 +6637,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_30angle2(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":176
+/* "cythonMeshReduction.pyx":180
  *         return acos(val)
  * 
  *     def rot_x(self, double a):             # <<<<<<<<<<<<<<
@@ -6655,7 +6656,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_33rot_x(PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("rot_x (wrapper)", 0);
   assert(__pyx_arg_a); {
-    __pyx_v_a = __pyx_PyFloat_AsDouble(__pyx_arg_a); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L3_error)
+    __pyx_v_a = __pyx_PyFloat_AsDouble(__pyx_arg_a); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 180, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6685,93 +6686,93 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_32rot_x(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("rot_x", 0);
 
-  /* "cythonMeshReduction.pyx":178
+  /* "cythonMeshReduction.pyx":182
  *     def rot_x(self, double a):
  *         cdef double yy, zz
  *         yy = cos(a)*self[1] + sin(a)*self[2]             # <<<<<<<<<<<<<<
  *         zz = cos(a)*self[2] - sin(a)*self[1]
  *         self[1] = yy
  */
-  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_yy = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":179
+  /* "cythonMeshReduction.pyx":183
  *         cdef double yy, zz
  *         yy = cos(a)*self[1] + sin(a)*self[2]
  *         zz = cos(a)*self[2] - sin(a)*self[1]             # <<<<<<<<<<<<<<
  *         self[1] = yy
  *         self[2] = zz
  */
-  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_zz = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":180
+  /* "cythonMeshReduction.pyx":184
  *         yy = cos(a)*self[1] + sin(a)*self[2]
  *         zz = cos(a)*self[2] - sin(a)*self[1]
  *         self[1] = yy             # <<<<<<<<<<<<<<
  *         self[2] = zz
  *         return self
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_yy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_yy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 180, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":181
+  /* "cythonMeshReduction.pyx":185
  *         zz = cos(a)*self[2] - sin(a)*self[1]
  *         self[1] = yy
  *         self[2] = zz             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_zz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_zz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":182
+  /* "cythonMeshReduction.pyx":186
  *         self[1] = yy
  *         self[2] = zz
  *         return self             # <<<<<<<<<<<<<<
@@ -6783,7 +6784,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_32rot_x(struct __pyx_o
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":176
+  /* "cythonMeshReduction.pyx":180
  *         return acos(val)
  * 
  *     def rot_x(self, double a):             # <<<<<<<<<<<<<<
@@ -6805,7 +6806,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_32rot_x(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":184
+/* "cythonMeshReduction.pyx":188
  *         return self
  * 
  *     def rot_y(self, double a):             # <<<<<<<<<<<<<<
@@ -6824,7 +6825,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_35rot_y(PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("rot_y (wrapper)", 0);
   assert(__pyx_arg_a); {
-    __pyx_v_a = __pyx_PyFloat_AsDouble(__pyx_arg_a); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L3_error)
+    __pyx_v_a = __pyx_PyFloat_AsDouble(__pyx_arg_a); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6854,93 +6855,93 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_34rot_y(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("rot_y", 0);
 
-  /* "cythonMeshReduction.pyx":186
+  /* "cythonMeshReduction.pyx":190
  *     def rot_y(self, double a):
  *         cdef double xx, zz
  *         xx = cos(-a)*self[0] + sin(-a)*self[2]             # <<<<<<<<<<<<<<
  *         zz = cos(-a)*self[2] - sin(-a)*self[0]
  *         self[0] = xx
  */
-  __pyx_t_1 = PyFloat_FromDouble(cos((-__pyx_v_a))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(cos((-__pyx_v_a))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyFloat_FromDouble(sin((-__pyx_v_a))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(sin((-__pyx_v_a))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_xx = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":187
+  /* "cythonMeshReduction.pyx":191
  *         cdef double xx, zz
  *         xx = cos(-a)*self[0] + sin(-a)*self[2]
  *         zz = cos(-a)*self[2] - sin(-a)*self[0]             # <<<<<<<<<<<<<<
  *         self[0] = xx
  *         self[2] = zz
  */
-  __pyx_t_1 = PyFloat_FromDouble(cos((-__pyx_v_a))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(cos((-__pyx_v_a))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyFloat_FromDouble(sin((-__pyx_v_a))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(sin((-__pyx_v_a))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_zz = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":188
+  /* "cythonMeshReduction.pyx":192
  *         xx = cos(-a)*self[0] + sin(-a)*self[2]
  *         zz = cos(-a)*self[2] - sin(-a)*self[0]
  *         self[0] = xx             # <<<<<<<<<<<<<<
  *         self[2] = zz
  *         return self
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_xx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_xx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 188, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":189
+  /* "cythonMeshReduction.pyx":193
  *         zz = cos(-a)*self[2] - sin(-a)*self[0]
  *         self[0] = xx
  *         self[2] = zz             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_zz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_zz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 189, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":190
+  /* "cythonMeshReduction.pyx":194
  *         self[0] = xx
  *         self[2] = zz
  *         return self             # <<<<<<<<<<<<<<
@@ -6952,7 +6953,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_34rot_y(struct __pyx_o
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":184
+  /* "cythonMeshReduction.pyx":188
  *         return self
  * 
  *     def rot_y(self, double a):             # <<<<<<<<<<<<<<
@@ -6974,7 +6975,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_34rot_y(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":192
+/* "cythonMeshReduction.pyx":196
  *         return self
  * 
  *     def rot_z(self, double a):             # <<<<<<<<<<<<<<
@@ -6993,7 +6994,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_37rot_z(PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("rot_z (wrapper)", 0);
   assert(__pyx_arg_a); {
-    __pyx_v_a = __pyx_PyFloat_AsDouble(__pyx_arg_a); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 192, __pyx_L3_error)
+    __pyx_v_a = __pyx_PyFloat_AsDouble(__pyx_arg_a); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7023,93 +7024,93 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_36rot_z(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("rot_z", 0);
 
-  /* "cythonMeshReduction.pyx":194
+  /* "cythonMeshReduction.pyx":198
  *     def rot_z(self, double a):
  *         cdef double yy, xx
  *         yy = cos(a)*self[1] + sin(a)*self[0]             # <<<<<<<<<<<<<<
  *         xx = cos(a)*self[0] - sin(a)*self[1]
  *         self[1] = yy
  */
-  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_yy = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":195
+  /* "cythonMeshReduction.pyx":199
  *         cdef double yy, xx
  *         yy = cos(a)*self[1] + sin(a)*self[0]
  *         xx = cos(a)*self[0] - sin(a)*self[1]             # <<<<<<<<<<<<<<
  *         self[1] = yy
  *         self[0] = xx
  */
-  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(cos(__pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(sin(__pyx_v_a)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_xx = __pyx_t_5;
 
-  /* "cythonMeshReduction.pyx":196
+  /* "cythonMeshReduction.pyx":200
  *         yy = cos(a)*self[1] + sin(a)*self[0]
  *         xx = cos(a)*self[0] - sin(a)*self[1]
  *         self[1] = yy             # <<<<<<<<<<<<<<
  *         self[0] = xx
  *         return self
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_yy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_yy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":197
+  /* "cythonMeshReduction.pyx":201
  *         xx = cos(a)*self[0] - sin(a)*self[1]
  *         self[1] = yy
  *         self[0] = xx             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_xx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_xx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 197, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":198
+  /* "cythonMeshReduction.pyx":202
  *         self[1] = yy
  *         self[0] = xx
  *         return self             # <<<<<<<<<<<<<<
@@ -7121,7 +7122,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_36rot_z(struct __pyx_o
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":192
+  /* "cythonMeshReduction.pyx":196
  *         return self
  * 
  *     def rot_z(self, double a):             # <<<<<<<<<<<<<<
@@ -7143,7 +7144,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_36rot_z(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":200
+/* "cythonMeshReduction.pyx":204
  *         return self
  * 
  *     def clamp(self, double mini, double maxi):             # <<<<<<<<<<<<<<
@@ -7185,11 +7186,11 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_39clamp(PyObject *__py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_maxi)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("clamp", 1, 2, 2, 1); __PYX_ERR(0, 200, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("clamp", 1, 2, 2, 1); __PYX_ERR(0, 204, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "clamp") < 0)) __PYX_ERR(0, 200, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "clamp") < 0)) __PYX_ERR(0, 204, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -7197,12 +7198,12 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8vector3d_39clamp(PyObject *__py
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_mini = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mini == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L3_error)
-    __pyx_v_maxi = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_maxi == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L3_error)
+    __pyx_v_mini = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mini == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L3_error)
+    __pyx_v_maxi = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_maxi == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("clamp", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 200, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("clamp", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 204, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.vector3d.clamp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7227,92 +7228,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_38clamp(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("clamp", 0);
 
-  /* "cythonMeshReduction.pyx":201
- * 
- *     def clamp(self, double mini, double maxi):
- *         if self[0] < mini :             # <<<<<<<<<<<<<<
- *             self[0] = mini
- *         if self[1] < mini :
- */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__pyx_t_4) {
-
-    /* "cythonMeshReduction.pyx":202
- *     def clamp(self, double mini, double maxi):
- *         if self[0] < mini :
- *             self[0] = mini             # <<<<<<<<<<<<<<
- *         if self[1] < mini :
- *             self[1] = mini
- */
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 202, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 202, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-    /* "cythonMeshReduction.pyx":201
- * 
- *     def clamp(self, double mini, double maxi):
- *         if self[0] < mini :             # <<<<<<<<<<<<<<
- *             self[0] = mini
- *         if self[1] < mini :
- */
-  }
-
-  /* "cythonMeshReduction.pyx":203
- *         if self[0] < mini :
- *             self[0] = mini
- *         if self[1] < mini :             # <<<<<<<<<<<<<<
- *             self[1] = mini
- *         if self[2] < mini :
- */
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 203, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_4) {
-
-    /* "cythonMeshReduction.pyx":204
- *             self[0] = mini
- *         if self[1] < mini :
- *             self[1] = mini             # <<<<<<<<<<<<<<
- *         if self[2] < mini :
- *             self[2] = mini
- */
-    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "cythonMeshReduction.pyx":203
- *         if self[0] < mini :
- *             self[0] = mini
- *         if self[1] < mini :             # <<<<<<<<<<<<<<
- *             self[1] = mini
- *         if self[2] < mini :
- */
-  }
-
   /* "cythonMeshReduction.pyx":205
+ * 
+ *     def clamp(self, double mini, double maxi):
+ *         if self[0] < mini :             # <<<<<<<<<<<<<<
+ *             self[0] = mini
  *         if self[1] < mini :
- *             self[1] = mini
- *         if self[2] < mini :             # <<<<<<<<<<<<<<
- *             self[2] = mini
- *         if self[0] > maxi :
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -7324,18 +7247,96 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_38clamp(struct __pyx_o
   if (__pyx_t_4) {
 
     /* "cythonMeshReduction.pyx":206
+ *     def clamp(self, double mini, double maxi):
+ *         if self[0] < mini :
+ *             self[0] = mini             # <<<<<<<<<<<<<<
+ *         if self[1] < mini :
+ *             self[1] = mini
+ */
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "cythonMeshReduction.pyx":205
+ * 
+ *     def clamp(self, double mini, double maxi):
+ *         if self[0] < mini :             # <<<<<<<<<<<<<<
+ *             self[0] = mini
+ *         if self[1] < mini :
+ */
+  }
+
+  /* "cythonMeshReduction.pyx":207
+ *         if self[0] < mini :
+ *             self[0] = mini
+ *         if self[1] < mini :             # <<<<<<<<<<<<<<
+ *             self[1] = mini
+ *         if self[2] < mini :
+ */
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_4) {
+
+    /* "cythonMeshReduction.pyx":208
+ *             self[0] = mini
+ *         if self[1] < mini :
+ *             self[1] = mini             # <<<<<<<<<<<<<<
+ *         if self[2] < mini :
+ *             self[2] = mini
+ */
+    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 208, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "cythonMeshReduction.pyx":207
+ *         if self[0] < mini :
+ *             self[0] = mini
+ *         if self[1] < mini :             # <<<<<<<<<<<<<<
+ *             self[1] = mini
+ *         if self[2] < mini :
+ */
+  }
+
+  /* "cythonMeshReduction.pyx":209
+ *         if self[1] < mini :
+ *             self[1] = mini
+ *         if self[2] < mini :             # <<<<<<<<<<<<<<
+ *             self[2] = mini
+ *         if self[0] > maxi :
+ */
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__pyx_t_4) {
+
+    /* "cythonMeshReduction.pyx":210
  *             self[1] = mini
  *         if self[2] < mini :
  *             self[2] = mini             # <<<<<<<<<<<<<<
  *         if self[0] > maxi :
  *             self[0] = maxi
  */
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_mini); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 210, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 210, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "cythonMeshReduction.pyx":205
+    /* "cythonMeshReduction.pyx":209
  *         if self[1] < mini :
  *             self[1] = mini
  *         if self[2] < mini :             # <<<<<<<<<<<<<<
@@ -7344,92 +7345,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_38clamp(struct __pyx_o
  */
   }
 
-  /* "cythonMeshReduction.pyx":207
- *         if self[2] < mini :
- *             self[2] = mini
- *         if self[0] > maxi :             # <<<<<<<<<<<<<<
- *             self[0] = maxi
- *         if self[1] > maxi :
- */
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 207, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_4) {
-
-    /* "cythonMeshReduction.pyx":208
- *             self[2] = mini
- *         if self[0] > maxi :
- *             self[0] = maxi             # <<<<<<<<<<<<<<
- *         if self[1] > maxi :
- *             self[1] = maxi
- */
-    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 208, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "cythonMeshReduction.pyx":207
- *         if self[2] < mini :
- *             self[2] = mini
- *         if self[0] > maxi :             # <<<<<<<<<<<<<<
- *             self[0] = maxi
- *         if self[1] > maxi :
- */
-  }
-
-  /* "cythonMeshReduction.pyx":209
- *         if self[0] > maxi :
- *             self[0] = maxi
- *         if self[1] > maxi :             # <<<<<<<<<<<<<<
- *             self[1] = maxi
- *         if self[2] > maxi :
- */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__pyx_t_4) {
-
-    /* "cythonMeshReduction.pyx":210
- *             self[0] = maxi
- *         if self[1] > maxi :
- *             self[1] = maxi             # <<<<<<<<<<<<<<
- *         if self[2] > maxi :
- *             self[2] = maxi
- */
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 210, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 210, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-    /* "cythonMeshReduction.pyx":209
- *         if self[0] > maxi :
- *             self[0] = maxi
- *         if self[1] > maxi :             # <<<<<<<<<<<<<<
- *             self[1] = maxi
- *         if self[2] > maxi :
- */
-  }
-
   /* "cythonMeshReduction.pyx":211
+ *         if self[2] < mini :
+ *             self[2] = mini
+ *         if self[0] > maxi :             # <<<<<<<<<<<<<<
+ *             self[0] = maxi
  *         if self[1] > maxi :
- *             self[1] = maxi
- *         if self[2] > maxi :             # <<<<<<<<<<<<<<
- *             self[2] = maxi
- * 
  */
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -7441,18 +7364,96 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_38clamp(struct __pyx_o
   if (__pyx_t_4) {
 
     /* "cythonMeshReduction.pyx":212
+ *             self[2] = mini
+ *         if self[0] > maxi :
+ *             self[0] = maxi             # <<<<<<<<<<<<<<
+ *         if self[1] > maxi :
+ *             self[1] = maxi
+ */
+    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "cythonMeshReduction.pyx":211
+ *         if self[2] < mini :
+ *             self[2] = mini
+ *         if self[0] > maxi :             # <<<<<<<<<<<<<<
+ *             self[0] = maxi
+ *         if self[1] > maxi :
+ */
+  }
+
+  /* "cythonMeshReduction.pyx":213
+ *         if self[0] > maxi :
+ *             self[0] = maxi
+ *         if self[1] > maxi :             # <<<<<<<<<<<<<<
+ *             self[1] = maxi
+ *         if self[2] > maxi :
+ */
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__pyx_t_4) {
+
+    /* "cythonMeshReduction.pyx":214
+ *             self[0] = maxi
+ *         if self[1] > maxi :
+ *             self[1] = maxi             # <<<<<<<<<<<<<<
+ *         if self[2] > maxi :
+ *             self[2] = maxi
+ */
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 1, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "cythonMeshReduction.pyx":213
+ *         if self[0] > maxi :
+ *             self[0] = maxi
+ *         if self[1] > maxi :             # <<<<<<<<<<<<<<
+ *             self[1] = maxi
+ *         if self[2] > maxi :
+ */
+  }
+
+  /* "cythonMeshReduction.pyx":215
+ *         if self[1] > maxi :
+ *             self[1] = maxi
+ *         if self[2] > maxi :             # <<<<<<<<<<<<<<
+ *             self[2] = maxi
+ * 
+ */
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_4) {
+
+    /* "cythonMeshReduction.pyx":216
  *             self[1] = maxi
  *         if self[2] > maxi :
  *             self[2] = maxi             # <<<<<<<<<<<<<<
  * 
  *     def invert(self):
  */
-    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_maxi); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 212, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(((PyObject *)__pyx_v_self), 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "cythonMeshReduction.pyx":211
+    /* "cythonMeshReduction.pyx":215
  *         if self[1] > maxi :
  *             self[1] = maxi
  *         if self[2] > maxi :             # <<<<<<<<<<<<<<
@@ -7461,7 +7462,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_38clamp(struct __pyx_o
  */
   }
 
-  /* "cythonMeshReduction.pyx":200
+  /* "cythonMeshReduction.pyx":204
  *         return self
  * 
  *     def clamp(self, double mini, double maxi):             # <<<<<<<<<<<<<<
@@ -7484,7 +7485,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_38clamp(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":214
+/* "cythonMeshReduction.pyx":218
  *             self[2] = maxi
  * 
  *     def invert(self):             # <<<<<<<<<<<<<<
@@ -7515,20 +7516,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_40invert(struct __pyx_
   __Pyx_RefNannySetupContext("invert", 0);
   __Pyx_INCREF((PyObject *)__pyx_v_self);
 
-  /* "cythonMeshReduction.pyx":215
+  /* "cythonMeshReduction.pyx":219
  * 
  *     def invert(self):
  *         self *= -1.             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = PyNumber_InPlaceMultiply(((PyObject *)__pyx_v_self), __pyx_float_neg_1_); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_InPlaceMultiply(((PyObject *)__pyx_v_self), __pyx_float_neg_1_); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 215, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_DECREF_SET(__pyx_v_self, ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_1));
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":216
+  /* "cythonMeshReduction.pyx":220
  *     def invert(self):
  *         self *= -1.
  *         return self             # <<<<<<<<<<<<<<
@@ -7540,7 +7541,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_40invert(struct __pyx_
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":214
+  /* "cythonMeshReduction.pyx":218
  *             self[2] = maxi
  * 
  *     def invert(self):             # <<<<<<<<<<<<<<
@@ -7560,7 +7561,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_40invert(struct __pyx_
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":218
+/* "cythonMeshReduction.pyx":222
  *         return self
  * 
  *     def frac(self):             # <<<<<<<<<<<<<<
@@ -7594,7 +7595,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_42frac(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("frac", 0);
 
-  /* "cythonMeshReduction.pyx":219
+  /* "cythonMeshReduction.pyx":223
  * 
  *     def frac(self):
  *         return vector3d(self[:]-np.asarray(self[:],dtype=int32))             # <<<<<<<<<<<<<<
@@ -7602,43 +7603,43 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_42frac(struct __pyx_ob
  *     def integer(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_self), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_self), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_self), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_self), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":218
+  /* "cythonMeshReduction.pyx":222
  *         return self
  * 
  *     def frac(self):             # <<<<<<<<<<<<<<
@@ -7661,7 +7662,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_42frac(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":221
+/* "cythonMeshReduction.pyx":225
  *         return vector3d(self[:]-np.asarray(self[:],dtype=int32))
  * 
  *     def integer(self):             # <<<<<<<<<<<<<<
@@ -7695,7 +7696,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_44integer(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("integer", 0);
 
-  /* "cythonMeshReduction.pyx":222
+  /* "cythonMeshReduction.pyx":226
  * 
  *     def integer(self):
  *         return vector3d(np.asarray(self[:],dtype=int32).astype(float64))             # <<<<<<<<<<<<<<
@@ -7703,33 +7704,33 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_44integer(struct __pyx
  *     def normalize(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_self), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_self), 0, 0, NULL, NULL, &__pyx_slice__5, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_astype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_astype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -7744,17 +7745,17 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_44integer(struct __pyx
   __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":221
+  /* "cythonMeshReduction.pyx":225
  *         return vector3d(self[:]-np.asarray(self[:],dtype=int32))
  * 
  *     def integer(self):             # <<<<<<<<<<<<<<
@@ -7777,7 +7778,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_44integer(struct __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":224
+/* "cythonMeshReduction.pyx":228
  *         return vector3d(np.asarray(self[:],dtype=int32).astype(float64))
  * 
  *     def normalize(self):             # <<<<<<<<<<<<<<
@@ -7813,50 +7814,50 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_46normalize(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("normalize", 0);
 
-  /* "cythonMeshReduction.pyx":226
+  /* "cythonMeshReduction.pyx":230
  *     def normalize(self):
  *         cdef double squar_
  *         squar_ = sqrt(self[0]*self[0]+self[1]*self[1]+self[2]*self[2])             # <<<<<<<<<<<<<<
  *         self[:] /= squar_
  *         return self
  */
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_squar_ = sqrt(__pyx_t_5);
 
-  /* "cythonMeshReduction.pyx":227
+  /* "cythonMeshReduction.pyx":231
  *         cdef double squar_
  *         squar_ = sqrt(self[0]*self[0]+self[1]*self[1]+self[2]*self[2])
  *         self[:] /= squar_             # <<<<<<<<<<<<<<
@@ -7865,31 +7866,31 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_46normalize(struct __p
  */
   __Pyx_INCREF(__pyx_slice__5);
   __pyx_t_6 = __pyx_slice__5;
-  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_squar_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_squar_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyNumber_InPlaceDivide(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyNumber_InPlaceDivide(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_6, __pyx_t_1) < 0)) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_self), __pyx_t_6, __pyx_t_1) < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "cythonMeshReduction.pyx":228
+  /* "cythonMeshReduction.pyx":232
  *         squar_ = sqrt(self[0]*self[0]+self[1]*self[1]+self[2]*self[2])
  *         self[:] /= squar_
  *         return self             # <<<<<<<<<<<<<<
  * 
- * #############################################################################
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":224
+  /* "cythonMeshReduction.pyx":228
  *         return vector3d(np.asarray(self[:],dtype=int32).astype(float64))
  * 
  *     def normalize(self):             # <<<<<<<<<<<<<<
@@ -7912,8 +7913,8 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_46normalize(struct __p
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":81
- * #############################################################################
+/* "cythonMeshReduction.pyx":85
+ * 
  * cdef class vector3d:
  *     cdef public double [:] xyz             # <<<<<<<<<<<<<<
  * 
@@ -7942,8 +7943,8 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_3xyz___get__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_self->xyz.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 81, __pyx_L1_error)}
-  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_self->xyz, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->xyz.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 85, __pyx_L1_error)}
+  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_self->xyz, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7981,7 +7982,7 @@ static int __pyx_pf_19cythonMeshReduction_8vector3d_3xyz_2__set__(struct __pyx_o
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_value, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_value, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 85, __pyx_L1_error)
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->xyz, 0);
   __pyx_v_self->xyz = __pyx_t_1;
   __pyx_t_1.memview = NULL;
@@ -8112,7 +8113,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8vector3d_50__setstate_cython__(
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":236
+/* "cythonMeshReduction.pyx":242
  *     cdef double [10] mat
  * 
  *     def __cinit__(self,             # <<<<<<<<<<<<<<
@@ -8232,7 +8233,7 @@ static int __pyx_pw_19cythonMeshReduction_14SymetricMatrix_1__cinit__(PyObject *
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 236, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 242, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -8261,59 +8262,59 @@ static int __pyx_pw_19cythonMeshReduction_14SymetricMatrix_1__cinit__(PyObject *
       }
     }
     if (values[0]) {
-      __pyx_v_m11 = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_m11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 237, __pyx_L3_error)
+      __pyx_v_m11 = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_m11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L3_error)
     } else {
       __pyx_v_m11 = ((double).0);
     }
     if (values[1]) {
-      __pyx_v_m12 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_m12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 237, __pyx_L3_error)
+      __pyx_v_m12 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_m12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L3_error)
     } else {
       __pyx_v_m12 = ((double).0);
     }
     if (values[2]) {
-      __pyx_v_m13 = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_m13 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 237, __pyx_L3_error)
+      __pyx_v_m13 = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_m13 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L3_error)
     } else {
       __pyx_v_m13 = ((double).0);
     }
     if (values[3]) {
-      __pyx_v_m14 = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_m14 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 237, __pyx_L3_error)
+      __pyx_v_m14 = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_m14 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L3_error)
     } else {
       __pyx_v_m14 = ((double).0);
     }
     if (values[4]) {
-      __pyx_v_m22 = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_m22 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L3_error)
+      __pyx_v_m22 = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_m22 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
     } else {
       __pyx_v_m22 = ((double).0);
     }
     if (values[5]) {
-      __pyx_v_m23 = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_m23 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L3_error)
+      __pyx_v_m23 = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_m23 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
     } else {
       __pyx_v_m23 = ((double).0);
     }
     if (values[6]) {
-      __pyx_v_m24 = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_m24 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L3_error)
+      __pyx_v_m24 = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_m24 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
     } else {
       __pyx_v_m24 = ((double).0);
     }
     if (values[7]) {
-      __pyx_v_m33 = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_m33 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 239, __pyx_L3_error)
+      __pyx_v_m33 = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_m33 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 245, __pyx_L3_error)
     } else {
       __pyx_v_m33 = ((double).0);
     }
     if (values[8]) {
-      __pyx_v_m34 = __pyx_PyFloat_AsDouble(values[8]); if (unlikely((__pyx_v_m34 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 239, __pyx_L3_error)
+      __pyx_v_m34 = __pyx_PyFloat_AsDouble(values[8]); if (unlikely((__pyx_v_m34 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 245, __pyx_L3_error)
     } else {
       __pyx_v_m34 = ((double).0);
     }
     if (values[9]) {
-      __pyx_v_m44 = __pyx_PyFloat_AsDouble(values[9]); if (unlikely((__pyx_v_m44 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 240, __pyx_L3_error)
+      __pyx_v_m44 = __pyx_PyFloat_AsDouble(values[9]); if (unlikely((__pyx_v_m44 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 246, __pyx_L3_error)
     } else {
       __pyx_v_m44 = ((double).0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 236, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 242, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.SymetricMatrix.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -8331,7 +8332,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "cythonMeshReduction.pyx":241
+  /* "cythonMeshReduction.pyx":247
  *                                           double m33=.0, double m34=.0,
  *                                                          double m44=.0 ):
  *         self.mat[0] = m11             # <<<<<<<<<<<<<<
@@ -8340,7 +8341,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[0]) = __pyx_v_m11;
 
-  /* "cythonMeshReduction.pyx":242
+  /* "cythonMeshReduction.pyx":248
  *                                                          double m44=.0 ):
  *         self.mat[0] = m11
  *         self.mat[1] = m12             # <<<<<<<<<<<<<<
@@ -8349,7 +8350,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[1]) = __pyx_v_m12;
 
-  /* "cythonMeshReduction.pyx":243
+  /* "cythonMeshReduction.pyx":249
  *         self.mat[0] = m11
  *         self.mat[1] = m12
  *         self.mat[2] = m13             # <<<<<<<<<<<<<<
@@ -8358,7 +8359,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[2]) = __pyx_v_m13;
 
-  /* "cythonMeshReduction.pyx":244
+  /* "cythonMeshReduction.pyx":250
  *         self.mat[1] = m12
  *         self.mat[2] = m13
  *         self.mat[3] = m14             # <<<<<<<<<<<<<<
@@ -8367,7 +8368,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[3]) = __pyx_v_m14;
 
-  /* "cythonMeshReduction.pyx":245
+  /* "cythonMeshReduction.pyx":251
  *         self.mat[2] = m13
  *         self.mat[3] = m14
  *         self.mat[4] = m22             # <<<<<<<<<<<<<<
@@ -8376,7 +8377,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[4]) = __pyx_v_m22;
 
-  /* "cythonMeshReduction.pyx":246
+  /* "cythonMeshReduction.pyx":252
  *         self.mat[3] = m14
  *         self.mat[4] = m22
  *         self.mat[5] = m23             # <<<<<<<<<<<<<<
@@ -8385,7 +8386,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[5]) = __pyx_v_m23;
 
-  /* "cythonMeshReduction.pyx":247
+  /* "cythonMeshReduction.pyx":253
  *         self.mat[4] = m22
  *         self.mat[5] = m23
  *         self.mat[6] = m24             # <<<<<<<<<<<<<<
@@ -8394,7 +8395,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[6]) = __pyx_v_m24;
 
-  /* "cythonMeshReduction.pyx":248
+  /* "cythonMeshReduction.pyx":254
  *         self.mat[5] = m23
  *         self.mat[6] = m24
  *         self.mat[7] = m33             # <<<<<<<<<<<<<<
@@ -8403,7 +8404,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[7]) = __pyx_v_m33;
 
-  /* "cythonMeshReduction.pyx":249
+  /* "cythonMeshReduction.pyx":255
  *         self.mat[6] = m24
  *         self.mat[7] = m33
  *         self.mat[8] = m34             # <<<<<<<<<<<<<<
@@ -8412,7 +8413,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[8]) = __pyx_v_m34;
 
-  /* "cythonMeshReduction.pyx":250
+  /* "cythonMeshReduction.pyx":256
  *         self.mat[7] = m33
  *         self.mat[8] = m34
  *         self.mat[9] = m44             # <<<<<<<<<<<<<<
@@ -8421,7 +8422,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
  */
   (__pyx_v_self->mat[9]) = __pyx_v_m44;
 
-  /* "cythonMeshReduction.pyx":236
+  /* "cythonMeshReduction.pyx":242
  *     cdef double [10] mat
  * 
  *     def __cinit__(self,             # <<<<<<<<<<<<<<
@@ -8435,7 +8436,7 @@ static int __pyx_pf_19cythonMeshReduction_14SymetricMatrix___cinit__(struct __py
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":252
+/* "cythonMeshReduction.pyx":258
  *         self.mat[9] = m44
  * 
  *     def __getitem__(self,int idx):             # <<<<<<<<<<<<<<
@@ -8454,7 +8455,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_3__getitem__(Py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
   assert(__pyx_arg_idx); {
-    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
+    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 258, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8478,7 +8479,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_2__getitem__(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "cythonMeshReduction.pyx":253
+  /* "cythonMeshReduction.pyx":259
  * 
  *     def __getitem__(self,int idx):
  *         return self.mat[idx]             # <<<<<<<<<<<<<<
@@ -8486,13 +8487,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_2__getitem__(st
  *     def __add__(self, SymetricMatrix other):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_v_idx])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_v_idx])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":252
+  /* "cythonMeshReduction.pyx":258
  *         self.mat[9] = m44
  * 
  *     def __getitem__(self,int idx):             # <<<<<<<<<<<<<<
@@ -8511,7 +8512,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_2__getitem__(st
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":255
+/* "cythonMeshReduction.pyx":261
  *         return self.mat[idx]
  * 
  *     def __add__(self, SymetricMatrix other):             # <<<<<<<<<<<<<<
@@ -8528,7 +8529,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_5__add__(PyObje
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__add__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_19cythonMeshReduction_SymetricMatrix, 1, "other", 0))) __PYX_ERR(0, 255, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_19cythonMeshReduction_SymetricMatrix, 1, "other", 0))) __PYX_ERR(0, 261, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_14SymetricMatrix_4__add__(((PyObject *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_SymetricMatrix *)__pyx_v_other));
 
   /* function exit code */
@@ -8560,7 +8561,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_4__add__(PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__add__", 0);
 
-  /* "cythonMeshReduction.pyx":256
+  /* "cythonMeshReduction.pyx":262
  * 
  *     def __add__(self, SymetricMatrix other):
  *         return SymetricMatrix(             # <<<<<<<<<<<<<<
@@ -8569,156 +8570,156 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_4__add__(PyObje
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "cythonMeshReduction.pyx":257
+  /* "cythonMeshReduction.pyx":263
  *     def __add__(self, SymetricMatrix other):
  *         return SymetricMatrix(
  *             self.mat[0]+other[0], self.mat[1]+other[1], self.mat[2]+other[2], self.mat[3]+other[3],             # <<<<<<<<<<<<<<
  *                                   self.mat[4]+other[4], self.mat[5]+other[5], self.mat[6]+other[6],
  *                                                         self.mat[7]+other[7], self.mat[8]+other[8],
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":258
+  /* "cythonMeshReduction.pyx":264
  *         return SymetricMatrix(
  *             self.mat[0]+other[0], self.mat[1]+other[1], self.mat[2]+other[2], self.mat[3]+other[3],
  *                                   self.mat[4]+other[4], self.mat[5]+other[5], self.mat[6]+other[6],             # <<<<<<<<<<<<<<
  *                                                         self.mat[7]+other[7], self.mat[8]+other[8],
  *                                                                               self.mat[9]+other[9])
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_8 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_9 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_9 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":259
+  /* "cythonMeshReduction.pyx":265
  *             self.mat[0]+other[0], self.mat[1]+other[1], self.mat[2]+other[2], self.mat[3]+other[3],
  *                                   self.mat[4]+other[4], self.mat[5]+other[5], self.mat[6]+other[6],
  *                                                         self.mat[7]+other[7], self.mat[8]+other[8],             # <<<<<<<<<<<<<<
  *                                                                               self.mat[9]+other[9])
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_10 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_10 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_11 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":260
+  /* "cythonMeshReduction.pyx":266
  *                                   self.mat[4]+other[4], self.mat[5]+other[5], self.mat[6]+other[6],
  *                                                         self.mat[7]+other[7], self.mat[8]+other[8],
  *                                                                               self.mat[9]+other[9])             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(self, SymetricMatrix other):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_12 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_12 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":256
+  /* "cythonMeshReduction.pyx":262
  * 
  *     def __add__(self, SymetricMatrix other):
  *         return SymetricMatrix(             # <<<<<<<<<<<<<<
  *             self.mat[0]+other[0], self.mat[1]+other[1], self.mat[2]+other[2], self.mat[3]+other[3],
  *                                   self.mat[4]+other[4], self.mat[5]+other[5], self.mat[6]+other[6],
  */
-  __pyx_t_1 = PyTuple_New(10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
@@ -8750,14 +8751,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_4__add__(PyObje
   __pyx_t_10 = 0;
   __pyx_t_11 = 0;
   __pyx_t_12 = 0;
-  __pyx_t_12 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix), __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix), __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_12;
   __pyx_t_12 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":255
+  /* "cythonMeshReduction.pyx":261
  *         return self.mat[idx]
  * 
  *     def __add__(self, SymetricMatrix other):             # <<<<<<<<<<<<<<
@@ -8787,7 +8788,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_4__add__(PyObje
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":262
+/* "cythonMeshReduction.pyx":268
  *                                                                               self.mat[9]+other[9])
  * 
  *     def __iadd__(self, SymetricMatrix other):             # <<<<<<<<<<<<<<
@@ -8804,7 +8805,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_7__iadd__(PyObj
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iadd__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_19cythonMeshReduction_SymetricMatrix, 1, "other", 0))) __PYX_ERR(0, 262, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_19cythonMeshReduction_SymetricMatrix, 1, "other", 0))) __PYX_ERR(0, 268, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(((struct __pyx_obj_19cythonMeshReduction_SymetricMatrix *)__pyx_v_self), ((struct __pyx_obj_19cythonMeshReduction_SymetricMatrix *)__pyx_v_other));
 
   /* function exit code */
@@ -8829,7 +8830,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__iadd__", 0);
 
-  /* "cythonMeshReduction.pyx":263
+  /* "cythonMeshReduction.pyx":269
  * 
  *     def __iadd__(self, SymetricMatrix other):
  *         self.mat[0]+=other[0]             # <<<<<<<<<<<<<<
@@ -8837,129 +8838,9 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
  *         self.mat[2]+=other[2]
  */
   __pyx_t_1 = 0;
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 263, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
-
-  /* "cythonMeshReduction.pyx":264
- *     def __iadd__(self, SymetricMatrix other):
- *         self.mat[0]+=other[0]
- *         self.mat[1]+=other[1]             # <<<<<<<<<<<<<<
- *         self.mat[2]+=other[2]
- *         self.mat[3]+=other[3]
- */
-  __pyx_t_1 = 1;
-  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 264, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 264, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 264, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
-
-  /* "cythonMeshReduction.pyx":265
- *         self.mat[0]+=other[0]
- *         self.mat[1]+=other[1]
- *         self.mat[2]+=other[2]             # <<<<<<<<<<<<<<
- *         self.mat[3]+=other[3]
- *         self.mat[4]+=other[4]
- */
-  __pyx_t_1 = 2;
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
-
-  /* "cythonMeshReduction.pyx":266
- *         self.mat[1]+=other[1]
- *         self.mat[2]+=other[2]
- *         self.mat[3]+=other[3]             # <<<<<<<<<<<<<<
- *         self.mat[4]+=other[4]
- *         self.mat[5]+=other[5]
- */
-  __pyx_t_1 = 3;
-  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
-
-  /* "cythonMeshReduction.pyx":267
- *         self.mat[2]+=other[2]
- *         self.mat[3]+=other[3]
- *         self.mat[4]+=other[4]             # <<<<<<<<<<<<<<
- *         self.mat[5]+=other[5]
- *         self.mat[6]+=other[6]
- */
-  __pyx_t_1 = 4;
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
-
-  /* "cythonMeshReduction.pyx":268
- *         self.mat[3]+=other[3]
- *         self.mat[4]+=other[4]
- *         self.mat[5]+=other[5]             # <<<<<<<<<<<<<<
- *         self.mat[6]+=other[6]
- *         self.mat[7]+=other[7]
- */
-  __pyx_t_1 = 5;
-  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
-
-  /* "cythonMeshReduction.pyx":269
- *         self.mat[4]+=other[4]
- *         self.mat[5]+=other[5]
- *         self.mat[6]+=other[6]             # <<<<<<<<<<<<<<
- *         self.mat[7]+=other[7]
- *         self.mat[8]+=other[8]
- */
-  __pyx_t_1 = 6;
   __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 269, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -8970,16 +8851,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
 
   /* "cythonMeshReduction.pyx":270
- *         self.mat[5]+=other[5]
- *         self.mat[6]+=other[6]
- *         self.mat[7]+=other[7]             # <<<<<<<<<<<<<<
- *         self.mat[8]+=other[8]
- *         self.mat[9]+=other[9]
+ *     def __iadd__(self, SymetricMatrix other):
+ *         self.mat[0]+=other[0]
+ *         self.mat[1]+=other[1]             # <<<<<<<<<<<<<<
+ *         self.mat[2]+=other[2]
+ *         self.mat[3]+=other[3]
  */
-  __pyx_t_1 = 7;
+  __pyx_t_1 = 1;
   __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -8990,16 +8871,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
 
   /* "cythonMeshReduction.pyx":271
- *         self.mat[6]+=other[6]
- *         self.mat[7]+=other[7]
- *         self.mat[8]+=other[8]             # <<<<<<<<<<<<<<
- *         self.mat[9]+=other[9]
- *         return self
+ *         self.mat[0]+=other[0]
+ *         self.mat[1]+=other[1]
+ *         self.mat[2]+=other[2]             # <<<<<<<<<<<<<<
+ *         self.mat[3]+=other[3]
+ *         self.mat[4]+=other[4]
  */
-  __pyx_t_1 = 8;
+  __pyx_t_1 = 2;
   __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -9010,16 +8891,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
 
   /* "cythonMeshReduction.pyx":272
- *         self.mat[7]+=other[7]
- *         self.mat[8]+=other[8]
- *         self.mat[9]+=other[9]             # <<<<<<<<<<<<<<
- *         return self
- * 
+ *         self.mat[1]+=other[1]
+ *         self.mat[2]+=other[2]
+ *         self.mat[3]+=other[3]             # <<<<<<<<<<<<<<
+ *         self.mat[4]+=other[4]
+ *         self.mat[5]+=other[5]
  */
-  __pyx_t_1 = 9;
+  __pyx_t_1 = 3;
   __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -9030,6 +8911,126 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
 
   /* "cythonMeshReduction.pyx":273
+ *         self.mat[2]+=other[2]
+ *         self.mat[3]+=other[3]
+ *         self.mat[4]+=other[4]             # <<<<<<<<<<<<<<
+ *         self.mat[5]+=other[5]
+ *         self.mat[6]+=other[6]
+ */
+  __pyx_t_1 = 4;
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
+
+  /* "cythonMeshReduction.pyx":274
+ *         self.mat[3]+=other[3]
+ *         self.mat[4]+=other[4]
+ *         self.mat[5]+=other[5]             # <<<<<<<<<<<<<<
+ *         self.mat[6]+=other[6]
+ *         self.mat[7]+=other[7]
+ */
+  __pyx_t_1 = 5;
+  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
+
+  /* "cythonMeshReduction.pyx":275
+ *         self.mat[4]+=other[4]
+ *         self.mat[5]+=other[5]
+ *         self.mat[6]+=other[6]             # <<<<<<<<<<<<<<
+ *         self.mat[7]+=other[7]
+ *         self.mat[8]+=other[8]
+ */
+  __pyx_t_1 = 6;
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
+
+  /* "cythonMeshReduction.pyx":276
+ *         self.mat[5]+=other[5]
+ *         self.mat[6]+=other[6]
+ *         self.mat[7]+=other[7]             # <<<<<<<<<<<<<<
+ *         self.mat[8]+=other[8]
+ *         self.mat[9]+=other[9]
+ */
+  __pyx_t_1 = 7;
+  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
+
+  /* "cythonMeshReduction.pyx":277
+ *         self.mat[6]+=other[6]
+ *         self.mat[7]+=other[7]
+ *         self.mat[8]+=other[8]             # <<<<<<<<<<<<<<
+ *         self.mat[9]+=other[9]
+ *         return self
+ */
+  __pyx_t_1 = 8;
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
+
+  /* "cythonMeshReduction.pyx":278
+ *         self.mat[7]+=other[7]
+ *         self.mat[8]+=other[8]
+ *         self.mat[9]+=other[9]             # <<<<<<<<<<<<<<
+ *         return self
+ * 
+ */
+  __pyx_t_1 = 9;
+  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_self->mat[__pyx_t_1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_other), 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 278, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  (__pyx_v_self->mat[__pyx_t_1]) = __pyx_t_5;
+
+  /* "cythonMeshReduction.pyx":279
  *         self.mat[8]+=other[8]
  *         self.mat[9]+=other[9]
  *         return self             # <<<<<<<<<<<<<<
@@ -9041,7 +9042,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":262
+  /* "cythonMeshReduction.pyx":268
  *                                                                               self.mat[9]+other[9])
  * 
  *     def __iadd__(self, SymetricMatrix other):             # <<<<<<<<<<<<<<
@@ -9062,7 +9063,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_6__iadd__(struc
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":275
+/* "cythonMeshReduction.pyx":281
  *         return self
  * 
  *     def det(self, int a11, int a12, int a13,             # <<<<<<<<<<<<<<
@@ -9125,53 +9126,53 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_9det(PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a12)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 1); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 1); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a13)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 2); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 2); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a21)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 3); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 3); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a22)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 4); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 4); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a23)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 5); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 5); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a31)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 6); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 6); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a32)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 7); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 7); __PYX_ERR(0, 281, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
         if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a33)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 8); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, 8); __PYX_ERR(0, 281, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "det") < 0)) __PYX_ERR(0, 275, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "det") < 0)) __PYX_ERR(0, 281, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -9186,19 +9187,19 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_9det(PyObject *
       values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
-    __pyx_v_a11 = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_a11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L3_error)
-    __pyx_v_a12 = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_a12 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L3_error)
-    __pyx_v_a13 = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_a13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L3_error)
-    __pyx_v_a21 = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_a21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 276, __pyx_L3_error)
-    __pyx_v_a22 = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_a22 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 276, __pyx_L3_error)
-    __pyx_v_a23 = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_a23 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 276, __pyx_L3_error)
-    __pyx_v_a31 = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_a31 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
-    __pyx_v_a32 = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_a32 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
-    __pyx_v_a33 = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_a33 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
+    __pyx_v_a11 = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_a11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 281, __pyx_L3_error)
+    __pyx_v_a12 = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_a12 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 281, __pyx_L3_error)
+    __pyx_v_a13 = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_a13 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 281, __pyx_L3_error)
+    __pyx_v_a21 = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_a21 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 282, __pyx_L3_error)
+    __pyx_v_a22 = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_a22 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 282, __pyx_L3_error)
+    __pyx_v_a23 = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_a23 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 282, __pyx_L3_error)
+    __pyx_v_a31 = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_a31 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 283, __pyx_L3_error)
+    __pyx_v_a32 = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_a32 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 283, __pyx_L3_error)
+    __pyx_v_a33 = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_a33 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 283, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 275, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("det", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 281, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.SymetricMatrix.det", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9212,7 +9213,6 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_9det(PyObject *
 }
 
 static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_8det(struct __pyx_obj_19cythonMeshReduction_SymetricMatrix *__pyx_v_self, int __pyx_v_a11, int __pyx_v_a12, int __pyx_v_a13, int __pyx_v_a21, int __pyx_v_a22, int __pyx_v_a23, int __pyx_v_a31, int __pyx_v_a32, int __pyx_v_a33) {
-  double __pyx_v_det;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -9222,29 +9222,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_8det(struct __p
   __Pyx_RefNannySetupContext("det", 0);
 
   /* "cythonMeshReduction.pyx":284
- *              - self.mat[a13]*self.mat[a22]*self.mat[a31] \
- *              - self.mat[a11]*self.mat[a23]*self.mat[a32] \
- *              - self.mat[a12]*self.mat[a21]*self.mat[a33]             # <<<<<<<<<<<<<<
- *         return det
- * 
- */
-  __pyx_v_det = ((((((((__pyx_v_self->mat[__pyx_v_a11]) * (__pyx_v_self->mat[__pyx_v_a22])) * (__pyx_v_self->mat[__pyx_v_a33])) + (((__pyx_v_self->mat[__pyx_v_a13]) * (__pyx_v_self->mat[__pyx_v_a21])) * (__pyx_v_self->mat[__pyx_v_a32]))) + (((__pyx_v_self->mat[__pyx_v_a12]) * (__pyx_v_self->mat[__pyx_v_a23])) * (__pyx_v_self->mat[__pyx_v_a31]))) - (((__pyx_v_self->mat[__pyx_v_a13]) * (__pyx_v_self->mat[__pyx_v_a22])) * (__pyx_v_self->mat[__pyx_v_a31]))) - (((__pyx_v_self->mat[__pyx_v_a11]) * (__pyx_v_self->mat[__pyx_v_a23])) * (__pyx_v_self->mat[__pyx_v_a32]))) - (((__pyx_v_self->mat[__pyx_v_a12]) * (__pyx_v_self->mat[__pyx_v_a21])) * (__pyx_v_self->mat[__pyx_v_a33])));
-
-  /* "cythonMeshReduction.pyx":285
- *              - self.mat[a11]*self.mat[a23]*self.mat[a32] \
- *              - self.mat[a12]*self.mat[a21]*self.mat[a33]
- *         return det             # <<<<<<<<<<<<<<
+ *             int a21, int a22, int a23,
+ *             int a31, int a32, int a33):
+ *         return fast_det(self.mat,a11, a12, a13, a21, a22, a23, a31, a32, a33)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_det); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_19cythonMeshReduction_fast_det(__pyx_v_self->mat, __pyx_v_a11, __pyx_v_a12, __pyx_v_a13, __pyx_v_a21, __pyx_v_a22, __pyx_v_a23, __pyx_v_a31, __pyx_v_a32, __pyx_v_a33)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":275
+  /* "cythonMeshReduction.pyx":281
  *         return self
  * 
  *     def det(self, int a11, int a12, int a13,             # <<<<<<<<<<<<<<
@@ -9263,7 +9254,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_8det(struct __p
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":288
+/* "cythonMeshReduction.pyx":287
  * 
  *     @staticmethod
  *     def makePlane(double a, double b,             # <<<<<<<<<<<<<<
@@ -9312,23 +9303,23 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_11makePlane(CYT
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, 1); __PYX_ERR(0, 288, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, 1); __PYX_ERR(0, 287, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_c)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, 2); __PYX_ERR(0, 288, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, 2); __PYX_ERR(0, 287, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_d)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, 3); __PYX_ERR(0, 288, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, 3); __PYX_ERR(0, 287, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "makePlane") < 0)) __PYX_ERR(0, 288, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "makePlane") < 0)) __PYX_ERR(0, 287, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -9338,14 +9329,14 @@ static PyObject *__pyx_pw_19cythonMeshReduction_14SymetricMatrix_11makePlane(CYT
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_a = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L3_error)
-    __pyx_v_b = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_b == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L3_error)
-    __pyx_v_c = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 289, __pyx_L3_error)
-    __pyx_v_d = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_d == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 289, __pyx_L3_error)
+    __pyx_v_a = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_a == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 287, __pyx_L3_error)
+    __pyx_v_b = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_b == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 287, __pyx_L3_error)
+    __pyx_v_c = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L3_error)
+    __pyx_v_d = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_d == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 288, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("makePlane", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 287, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.SymetricMatrix.makePlane", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9377,7 +9368,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_10makePlane(dou
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("makePlane", 0);
 
-  /* "cythonMeshReduction.pyx":290
+  /* "cythonMeshReduction.pyx":289
  *     def makePlane(double a, double b,
  *                   double c, double d):
  *         return SymetricMatrix(a*a, a*b, a*c, a*d,             # <<<<<<<<<<<<<<
@@ -9385,43 +9376,43 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_10makePlane(dou
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_a)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_b)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_b)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_c)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_c)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_d)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble((__pyx_v_a * __pyx_v_d)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "cythonMeshReduction.pyx":291
+  /* "cythonMeshReduction.pyx":290
  *                   double c, double d):
  *         return SymetricMatrix(a*a, a*b, a*c, a*d,
  *                         b*b, b*c, b*d, c*c, c*d, d*d)             # <<<<<<<<<<<<<<
  * 
- * #############################################################################
+ * 
  */
-  __pyx_t_5 = PyFloat_FromDouble((__pyx_v_b * __pyx_v_b)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_5 = PyFloat_FromDouble((__pyx_v_b * __pyx_v_b)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyFloat_FromDouble((__pyx_v_b * __pyx_v_c)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_6 = PyFloat_FromDouble((__pyx_v_b * __pyx_v_c)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = PyFloat_FromDouble((__pyx_v_b * __pyx_v_d)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble((__pyx_v_b * __pyx_v_d)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyFloat_FromDouble((__pyx_v_c * __pyx_v_c)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_8 = PyFloat_FromDouble((__pyx_v_c * __pyx_v_c)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = PyFloat_FromDouble((__pyx_v_c * __pyx_v_d)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_9 = PyFloat_FromDouble((__pyx_v_c * __pyx_v_d)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = PyFloat_FromDouble((__pyx_v_d * __pyx_v_d)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_10 = PyFloat_FromDouble((__pyx_v_d * __pyx_v_d)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
 
-  /* "cythonMeshReduction.pyx":290
+  /* "cythonMeshReduction.pyx":289
  *     def makePlane(double a, double b,
  *                   double c, double d):
  *         return SymetricMatrix(a*a, a*b, a*c, a*d,             # <<<<<<<<<<<<<<
  *                         b*b, b*c, b*d, c*c, c*d, d*d)
  * 
  */
-  __pyx_t_11 = PyTuple_New(10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_1);
@@ -9453,14 +9444,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_10makePlane(dou
   __pyx_t_8 = 0;
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix), __pyx_t_11, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix), __pyx_t_11, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_r = __pyx_t_10;
   __pyx_t_10 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":288
+  /* "cythonMeshReduction.pyx":287
  * 
  *     @staticmethod
  *     def makePlane(double a, double b,             # <<<<<<<<<<<<<<
@@ -9602,7 +9593,54 @@ static PyObject *__pyx_pf_19cythonMeshReduction_14SymetricMatrix_14__setstate_cy
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":302
+/* "cythonMeshReduction.pyx":293
+ * 
+ * 
+ * cdef double fast_det(double [10] mat, int a11, int a12, int a13,             # <<<<<<<<<<<<<<
+ *                      int a21, int a22, int a23,
+ *                      int a31, int a32, int a33):
+ */
+
+static double __pyx_f_19cythonMeshReduction_fast_det(double *__pyx_v_mat, int __pyx_v_a11, int __pyx_v_a12, int __pyx_v_a13, int __pyx_v_a21, int __pyx_v_a22, int __pyx_v_a23, int __pyx_v_a31, int __pyx_v_a32, int __pyx_v_a33) {
+  double __pyx_v_det;
+  double __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("fast_det", 0);
+
+  /* "cythonMeshReduction.pyx":299
+ *     det = mat[a11]*mat[a22]*mat[a33] + mat[a13]*mat[a21]*mat[a32] \
+ *          + mat[a12]*mat[a23]*mat[a31] - mat[a13]*mat[a22]*mat[a31] \
+ *          - mat[a11]*mat[a23]*mat[a32] - mat[a12]*mat[a21]*mat[a33]             # <<<<<<<<<<<<<<
+ *     return det
+ * 
+ */
+  __pyx_v_det = ((((((((__pyx_v_mat[__pyx_v_a11]) * (__pyx_v_mat[__pyx_v_a22])) * (__pyx_v_mat[__pyx_v_a33])) + (((__pyx_v_mat[__pyx_v_a13]) * (__pyx_v_mat[__pyx_v_a21])) * (__pyx_v_mat[__pyx_v_a32]))) + (((__pyx_v_mat[__pyx_v_a12]) * (__pyx_v_mat[__pyx_v_a23])) * (__pyx_v_mat[__pyx_v_a31]))) - (((__pyx_v_mat[__pyx_v_a13]) * (__pyx_v_mat[__pyx_v_a22])) * (__pyx_v_mat[__pyx_v_a31]))) - (((__pyx_v_mat[__pyx_v_a11]) * (__pyx_v_mat[__pyx_v_a23])) * (__pyx_v_mat[__pyx_v_a32]))) - (((__pyx_v_mat[__pyx_v_a12]) * (__pyx_v_mat[__pyx_v_a21])) * (__pyx_v_mat[__pyx_v_a33])));
+
+  /* "cythonMeshReduction.pyx":300
+ *          + mat[a12]*mat[a23]*mat[a31] - mat[a13]*mat[a22]*mat[a31] \
+ *          - mat[a11]*mat[a23]*mat[a32] - mat[a12]*mat[a21]*mat[a33]
+ *     return det             # <<<<<<<<<<<<<<
+ * 
+ * #############################################################################
+ */
+  __pyx_r = __pyx_v_det;
+  goto __pyx_L0;
+
+  /* "cythonMeshReduction.pyx":293
+ * 
+ * 
+ * cdef double fast_det(double [10] mat, int a11, int a12, int a13,             # <<<<<<<<<<<<<<
+ *                      int a21, int a22, int a23,
+ *                      int a31, int a32, int a33):
+ */
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "cythonMeshReduction.pyx":311
  *     cdef public vector3d n
  * 
  *     def __cinit__(self,             # <<<<<<<<<<<<<<
@@ -9678,7 +9716,7 @@ static int __pyx_pw_19cythonMeshReduction_8Triangle_1__cinit__(PyObject *__pyx_v
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 302, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 311, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9697,24 +9735,24 @@ static int __pyx_pw_19cythonMeshReduction_8Triangle_1__cinit__(PyObject *__pyx_v
       }
     }
     if (values[0]) {
-      __pyx_v_v = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_v.memview)) __PYX_ERR(0, 303, __pyx_L3_error)
+      __pyx_v_v = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_v.memview)) __PYX_ERR(0, 312, __pyx_L3_error)
     } else {
       __pyx_v_v = __pyx_k__11;
       __PYX_INC_MEMVIEW(&__pyx_v_v, 1);
     }
     if (values[1]) {
-      __pyx_v_err = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_err.memview)) __PYX_ERR(0, 304, __pyx_L3_error)
+      __pyx_v_err = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_err.memview)) __PYX_ERR(0, 313, __pyx_L3_error)
     } else {
       __pyx_v_err = __pyx_k__12;
       __PYX_INC_MEMVIEW(&__pyx_v_err, 1);
     }
     if (values[2]) {
-      __pyx_v_deleted = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deleted == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 305, __pyx_L3_error)
+      __pyx_v_deleted = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deleted == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 314, __pyx_L3_error)
     } else {
       __pyx_v_deleted = ((int)0);
     }
     if (values[3]) {
-      __pyx_v_dirty = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_dirty == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_v_dirty = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_dirty == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L3_error)
     } else {
       __pyx_v_dirty = ((int)0);
     }
@@ -9722,13 +9760,13 @@ static int __pyx_pw_19cythonMeshReduction_8Triangle_1__cinit__(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 302, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 311, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.Triangle.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_n), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "n", 0))) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_n), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "n", 0))) __PYX_ERR(0, 316, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(((struct __pyx_obj_19cythonMeshReduction_Triangle *)__pyx_v_self), __pyx_v_v, __pyx_v_err, __pyx_v_deleted, __pyx_v_dirty, __pyx_v_n);
 
   /* function exit code */
@@ -9745,7 +9783,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "cythonMeshReduction.pyx":308
+  /* "cythonMeshReduction.pyx":317
  *                   int dirty=0,
  *                   vector3d n = vector3d()):
  *         self.v = v             # <<<<<<<<<<<<<<
@@ -9756,7 +9794,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
   __PYX_INC_MEMVIEW(&__pyx_v_v, 0);
   __pyx_v_self->v = __pyx_v_v;
 
-  /* "cythonMeshReduction.pyx":309
+  /* "cythonMeshReduction.pyx":318
  *                   vector3d n = vector3d()):
  *         self.v = v
  *         self.err = err             # <<<<<<<<<<<<<<
@@ -9767,7 +9805,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
   __PYX_INC_MEMVIEW(&__pyx_v_err, 0);
   __pyx_v_self->err = __pyx_v_err;
 
-  /* "cythonMeshReduction.pyx":310
+  /* "cythonMeshReduction.pyx":319
  *         self.v = v
  *         self.err = err
  *         self.deleted = deleted             # <<<<<<<<<<<<<<
@@ -9776,7 +9814,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
  */
   __pyx_v_self->deleted = __pyx_v_deleted;
 
-  /* "cythonMeshReduction.pyx":311
+  /* "cythonMeshReduction.pyx":320
  *         self.err = err
  *         self.deleted = deleted
  *         self.dirty = dirty             # <<<<<<<<<<<<<<
@@ -9785,7 +9823,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
  */
   __pyx_v_self->dirty = __pyx_v_dirty;
 
-  /* "cythonMeshReduction.pyx":312
+  /* "cythonMeshReduction.pyx":321
  *         self.deleted = deleted
  *         self.dirty = dirty
  *         self.n = n             # <<<<<<<<<<<<<<
@@ -9798,7 +9836,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
   __Pyx_DECREF(((PyObject *)__pyx_v_self->n));
   __pyx_v_self->n = __pyx_v_n;
 
-  /* "cythonMeshReduction.pyx":302
+  /* "cythonMeshReduction.pyx":311
  *     cdef public vector3d n
  * 
  *     def __cinit__(self,             # <<<<<<<<<<<<<<
@@ -9814,7 +9852,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle___cinit__(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":314
+/* "cythonMeshReduction.pyx":323
  *         self.n = n
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -9856,7 +9894,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "cythonMeshReduction.pyx":316
+  /* "cythonMeshReduction.pyx":325
  *     def __repr__(self):
  *         cdef str str0, str1, str2
  *         str0 = 'Triangle :\n'             # <<<<<<<<<<<<<<
@@ -9866,16 +9904,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   __Pyx_INCREF(__pyx_kp_u_Triangle);
   __pyx_v_str0 = __pyx_kp_u_Triangle;
 
-  /* "cythonMeshReduction.pyx":317
+  /* "cythonMeshReduction.pyx":326
  *         cdef str str0, str1, str2
  *         str0 = 'Triangle :\n'
  *         str1 = '  nodes : {} | {} | {}' .format(self.v[0], self.v[1], self.v[2])             # <<<<<<<<<<<<<<
  *         str2 = '\n  deleted : {}\n  dirty : {}\n'.format(bool(self.deleted), bool(self.dirty))
  *         return str0+str1+str2
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_nodes, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_nodes, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 317, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 326, __pyx_L1_error)}
   __pyx_t_3 = 0;
   __pyx_t_4 = -1;
   if (__pyx_t_3 < 0) {
@@ -9884,11 +9922,11 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   } else if (unlikely(__pyx_t_3 >= __pyx_v_self->v.shape[0])) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 317, __pyx_L1_error)
+    __PYX_ERR(0, 326, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->v.data + __pyx_t_3 * __pyx_v_self->v.strides[0]) )))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->v.data + __pyx_t_3 * __pyx_v_self->v.strides[0]) )))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 317, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 326, __pyx_L1_error)}
   __pyx_t_3 = 1;
   __pyx_t_4 = -1;
   if (__pyx_t_3 < 0) {
@@ -9897,11 +9935,11 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   } else if (unlikely(__pyx_t_3 >= __pyx_v_self->v.shape[0])) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 317, __pyx_L1_error)
+    __PYX_ERR(0, 326, __pyx_L1_error)
   }
-  __pyx_t_6 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->v.data + __pyx_t_3 * __pyx_v_self->v.strides[0]) )))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->v.data + __pyx_t_3 * __pyx_v_self->v.strides[0]) )))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 317, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 326, __pyx_L1_error)}
   __pyx_t_3 = 2;
   __pyx_t_4 = -1;
   if (__pyx_t_3 < 0) {
@@ -9910,9 +9948,9 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   } else if (unlikely(__pyx_t_3 >= __pyx_v_self->v.shape[0])) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 317, __pyx_L1_error)
+    __PYX_ERR(0, 326, __pyx_L1_error)
   }
-  __pyx_t_7 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->v.data + __pyx_t_3 * __pyx_v_self->v.strides[0]) )))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->v.data + __pyx_t_3 * __pyx_v_self->v.strides[0]) )))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   __pyx_t_4 = 0;
@@ -9929,7 +9967,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_8, __pyx_t_5, __pyx_t_6, __pyx_t_7};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 3+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 3+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -9940,7 +9978,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_8, __pyx_t_5, __pyx_t_6, __pyx_t_7};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 3+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 3+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -9949,7 +9987,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   } else
   #endif
   {
-    __pyx_t_9 = PyTuple_New(3+__pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(3+__pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     if (__pyx_t_8) {
       __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
@@ -9963,35 +10001,35 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
     __pyx_t_7 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 317, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 326, __pyx_L1_error)
   __pyx_v_str1 = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":318
+  /* "cythonMeshReduction.pyx":327
  *         str0 = 'Triangle :\n'
  *         str1 = '  nodes : {} | {} | {}' .format(self.v[0], self.v[1], self.v[2])
  *         str2 = '\n  deleted : {}\n  dirty : {}\n'.format(bool(self.deleted), bool(self.dirty))             # <<<<<<<<<<<<<<
  *         return str0+str1+str2
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_deleted_dirty, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_deleted_dirty, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_self->deleted); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_self->deleted); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyBool_FromLong((!(!__pyx_t_10))); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyBool_FromLong((!(!__pyx_t_10))); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->dirty); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->dirty); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyBool_FromLong((!(!__pyx_t_10))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyBool_FromLong((!(!__pyx_t_10))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = NULL;
   __pyx_t_4 = 0;
@@ -10008,7 +10046,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_9, __pyx_t_7};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -10018,7 +10056,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_9, __pyx_t_7};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -10026,7 +10064,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   } else
   #endif
   {
-    __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 318, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -10037,33 +10075,33 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
     PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_t_7);
     __pyx_t_9 = 0;
     __pyx_t_7 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 318, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 327, __pyx_L1_error)
   __pyx_v_str2 = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":319
+  /* "cythonMeshReduction.pyx":328
  *         str1 = '  nodes : {} | {} | {}' .format(self.v[0], self.v[1], self.v[2])
  *         str2 = '\n  deleted : {}\n  dirty : {}\n'.format(bool(self.deleted), bool(self.dirty))
  *         return str0+str1+str2             # <<<<<<<<<<<<<<
  * 
- * #############################################################################
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyUnicode_ConcatSafe(__pyx_v_str0, __pyx_v_str1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 319, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyUnicode_ConcatSafe(__pyx_v_str0, __pyx_v_str1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyUnicode_ConcatSafe(__pyx_t_1, __pyx_v_str2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 319, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyUnicode_ConcatSafe(__pyx_t_1, __pyx_v_str2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":314
+  /* "cythonMeshReduction.pyx":323
  *         self.n = n
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -10091,7 +10129,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_2__repr__(struct __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":297
+/* "cythonMeshReduction.pyx":306
  * 
  * cdef class Triangle :
  *     cdef public int [:] v             # <<<<<<<<<<<<<<
@@ -10121,8 +10159,8 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_1v___get__(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 297, __pyx_L1_error)}
-  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_self->v, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 297, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->v.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 306, __pyx_L1_error)}
+  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_self->v, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10160,7 +10198,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_1v_2__set__(struct __pyx_obj
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_value, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 297, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_value, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 306, __pyx_L1_error)
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->v, 0);
   __pyx_v_self->v = __pyx_t_1;
   __pyx_t_1.memview = NULL;
@@ -10178,7 +10216,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_1v_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":298
+/* "cythonMeshReduction.pyx":307
  * cdef class Triangle :
  *     cdef public int [:] v
  *     cdef public double [:] err             # <<<<<<<<<<<<<<
@@ -10208,8 +10246,8 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_3err___get__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_self->err.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 298, __pyx_L1_error)}
-  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_self->err, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 298, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->err.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 307, __pyx_L1_error)}
+  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_self->err, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10247,7 +10285,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_3err_2__set__(struct __pyx_o
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_value, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_value, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 307, __pyx_L1_error)
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->err, 0);
   __pyx_v_self->err = __pyx_t_1;
   __pyx_t_1.memview = NULL;
@@ -10265,7 +10303,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_3err_2__set__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":299
+/* "cythonMeshReduction.pyx":308
  *     cdef public int [:] v
  *     cdef public double [:] err
  *     cdef public int deleted, dirty             # <<<<<<<<<<<<<<
@@ -10295,7 +10333,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_7deleted___get__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->deleted); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->deleted); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10333,7 +10371,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_7deleted_2__set__(struct __p
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 308, __pyx_L1_error)
   __pyx_v_self->deleted = __pyx_t_1;
 
   /* function exit code */
@@ -10369,7 +10407,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_5dirty___get__(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->dirty); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->dirty); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10407,7 +10445,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_5dirty_2__set__(struct __pyx
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 308, __pyx_L1_error)
   __pyx_v_self->dirty = __pyx_t_1;
 
   /* function exit code */
@@ -10421,7 +10459,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_5dirty_2__set__(struct __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":300
+/* "cythonMeshReduction.pyx":309
  *     cdef public double [:] err
  *     cdef public int deleted, dirty
  *     cdef public vector3d n             # <<<<<<<<<<<<<<
@@ -10479,7 +10517,7 @@ static int __pyx_pf_19cythonMeshReduction_8Triangle_1n_2__set__(struct __pyx_obj
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 300, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 309, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -10642,7 +10680,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Triangle_6__setstate_cython__(C
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":330
+/* "cythonMeshReduction.pyx":341
  *     cdef public int border
  * 
  *     def __cinit__(self, vector3d v = vector3d(), int tstart=0,             # <<<<<<<<<<<<<<
@@ -10719,7 +10757,7 @@ static int __pyx_pw_19cythonMeshReduction_6Vertex_1__cinit__(PyObject *__pyx_v_s
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 330, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 341, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -10739,32 +10777,32 @@ static int __pyx_pw_19cythonMeshReduction_6Vertex_1__cinit__(PyObject *__pyx_v_s
     }
     __pyx_v_v = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)values[0]);
     if (values[1]) {
-      __pyx_v_tstart = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_tstart == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 330, __pyx_L3_error)
+      __pyx_v_tstart = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_tstart == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 341, __pyx_L3_error)
     } else {
       __pyx_v_tstart = ((int)0);
     }
     if (values[2]) {
-      __pyx_v_tcount = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_tcount == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 331, __pyx_L3_error)
+      __pyx_v_tcount = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_tcount == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 342, __pyx_L3_error)
     } else {
       __pyx_v_tcount = ((int)0);
     }
     __pyx_v_q = ((struct __pyx_obj_19cythonMeshReduction_SymetricMatrix *)values[3]);
     if (values[4]) {
-      __pyx_v_border = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_border == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 331, __pyx_L3_error)
+      __pyx_v_border = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_border == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 342, __pyx_L3_error)
     } else {
       __pyx_v_border = ((int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 330, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 341, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.Vertex.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_v), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "v", 0))) __PYX_ERR(0, 330, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_q), __pyx_ptype_19cythonMeshReduction_SymetricMatrix, 1, "q", 0))) __PYX_ERR(0, 331, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_v), __pyx_ptype_19cythonMeshReduction_vector3d, 1, "v", 0))) __PYX_ERR(0, 341, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_q), __pyx_ptype_19cythonMeshReduction_SymetricMatrix, 1, "q", 0))) __PYX_ERR(0, 342, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(((struct __pyx_obj_19cythonMeshReduction_Vertex *)__pyx_v_self), __pyx_v_v, __pyx_v_tstart, __pyx_v_tcount, __pyx_v_q, __pyx_v_border);
 
   /* function exit code */
@@ -10781,7 +10819,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "cythonMeshReduction.pyx":332
+  /* "cythonMeshReduction.pyx":343
  *     def __cinit__(self, vector3d v = vector3d(), int tstart=0,
  *         int tcount=0, SymetricMatrix q=SymetricMatrix(), int border=0):
  *         self.v = v             # <<<<<<<<<<<<<<
@@ -10794,7 +10832,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
   __Pyx_DECREF(((PyObject *)__pyx_v_self->v));
   __pyx_v_self->v = __pyx_v_v;
 
-  /* "cythonMeshReduction.pyx":333
+  /* "cythonMeshReduction.pyx":344
  *         int tcount=0, SymetricMatrix q=SymetricMatrix(), int border=0):
  *         self.v = v
  *         self.tstart = tstart             # <<<<<<<<<<<<<<
@@ -10803,7 +10841,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
  */
   __pyx_v_self->tstart = __pyx_v_tstart;
 
-  /* "cythonMeshReduction.pyx":334
+  /* "cythonMeshReduction.pyx":345
  *         self.v = v
  *         self.tstart = tstart
  *         self.tcount = tcount             # <<<<<<<<<<<<<<
@@ -10812,7 +10850,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
  */
   __pyx_v_self->tcount = __pyx_v_tcount;
 
-  /* "cythonMeshReduction.pyx":335
+  /* "cythonMeshReduction.pyx":346
  *         self.tstart = tstart
  *         self.tcount = tcount
  *         self.q = q             # <<<<<<<<<<<<<<
@@ -10825,7 +10863,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
   __Pyx_DECREF(((PyObject *)__pyx_v_self->q));
   __pyx_v_self->q = __pyx_v_q;
 
-  /* "cythonMeshReduction.pyx":336
+  /* "cythonMeshReduction.pyx":347
  *         self.tcount = tcount
  *         self.q = q
  *         self.border = border             # <<<<<<<<<<<<<<
@@ -10834,7 +10872,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
  */
   __pyx_v_self->border = __pyx_v_border;
 
-  /* "cythonMeshReduction.pyx":330
+  /* "cythonMeshReduction.pyx":341
  *     cdef public int border
  * 
  *     def __cinit__(self, vector3d v = vector3d(), int tstart=0,             # <<<<<<<<<<<<<<
@@ -10848,7 +10886,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex___cinit__(struct __pyx_obj_19c
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":338
+/* "cythonMeshReduction.pyx":349
  *         self.border = border
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -10887,7 +10925,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "cythonMeshReduction.pyx":340
+  /* "cythonMeshReduction.pyx":351
  *     def __repr__(self):
  *         cdef str str0, str1
  *         str0 = 'Vertex :\n'             # <<<<<<<<<<<<<<
@@ -10897,18 +10935,18 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   __Pyx_INCREF(__pyx_kp_u_Vertex);
   __pyx_v_str0 = __pyx_kp_u_Vertex;
 
-  /* "cythonMeshReduction.pyx":341
+  /* "cythonMeshReduction.pyx":352
  *         cdef str str0, str1
  *         str0 = 'Vertex :\n'
  *         str1 = '  coords : {} | {} | {}\n' .format(round(self.v[0],4),             # <<<<<<<<<<<<<<
  *                                                    round(self.v[1],4),
  *                                                    round(self.v[2],4))
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_coords, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_coords, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self->v), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self->v), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
@@ -10916,20 +10954,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_4);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cythonMeshReduction.pyx":342
+  /* "cythonMeshReduction.pyx":353
  *         str0 = 'Vertex :\n'
  *         str1 = '  coords : {} | {} | {}\n' .format(round(self.v[0],4),
  *                                                    round(self.v[1],4),             # <<<<<<<<<<<<<<
  *                                                    round(self.v[2],4))
  *         return str0+str1
  */
-  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self->v), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self->v), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
@@ -10937,20 +10975,20 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "cythonMeshReduction.pyx":343
+  /* "cythonMeshReduction.pyx":354
  *         str1 = '  coords : {} | {} | {}\n' .format(round(self.v[0],4),
  *                                                    round(self.v[1],4),
  *                                                    round(self.v[2],4))             # <<<<<<<<<<<<<<
  *         return str0+str1
  * 
  */
-  __pyx_t_5 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self->v), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self->v), 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
@@ -10958,7 +10996,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_int_4);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -10976,7 +11014,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_3, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 341, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10987,7 +11025,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_3, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 341, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10996,7 +11034,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   } else
   #endif
   {
-    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 341, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -11010,38 +11048,38 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 341, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":341
+  /* "cythonMeshReduction.pyx":352
  *         cdef str str0, str1
  *         str0 = 'Vertex :\n'
  *         str1 = '  coords : {} | {} | {}\n' .format(round(self.v[0],4),             # <<<<<<<<<<<<<<
  *                                                    round(self.v[1],4),
  *                                                    round(self.v[2],4))
  */
-  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 341, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 352, __pyx_L1_error)
   __pyx_v_str1 = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":344
+  /* "cythonMeshReduction.pyx":355
  *                                                    round(self.v[1],4),
  *                                                    round(self.v[2],4))
  *         return str0+str1             # <<<<<<<<<<<<<<
  * 
- * #############################################################################
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyUnicode_ConcatSafe(__pyx_v_str0, __pyx_v_str1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyUnicode_ConcatSafe(__pyx_v_str0, __pyx_v_str1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":338
+  /* "cythonMeshReduction.pyx":349
  *         self.border = border
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -11068,7 +11106,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_2__repr__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":325
+/* "cythonMeshReduction.pyx":336
  * 
  * cdef class Vertex :
  *     cdef public vector3d v             # <<<<<<<<<<<<<<
@@ -11126,7 +11164,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_1v_2__set__(struct __pyx_obj_1
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 325, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_19cythonMeshReduction_vector3d))))) __PYX_ERR(0, 336, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -11176,7 +11214,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_1v_4__del__(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":326
+/* "cythonMeshReduction.pyx":337
  * cdef class Vertex :
  *     cdef public vector3d v
  *     cdef public int tstart, tcount             # <<<<<<<<<<<<<<
@@ -11206,7 +11244,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_6tstart___get__(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tstart); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tstart); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11244,7 +11282,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_6tstart_2__set__(struct __pyx_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L1_error)
   __pyx_v_self->tstart = __pyx_t_1;
 
   /* function exit code */
@@ -11280,7 +11318,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_6tcount___get__(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tcount); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tcount); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11318,7 +11356,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_6tcount_2__set__(struct __pyx_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L1_error)
   __pyx_v_self->tcount = __pyx_t_1;
 
   /* function exit code */
@@ -11332,7 +11370,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_6tcount_2__set__(struct __pyx_
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":327
+/* "cythonMeshReduction.pyx":338
  *     cdef public vector3d v
  *     cdef public int tstart, tcount
  *     cdef public SymetricMatrix q             # <<<<<<<<<<<<<<
@@ -11390,7 +11428,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_1q_2__set__(struct __pyx_obj_1
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_19cythonMeshReduction_SymetricMatrix))))) __PYX_ERR(0, 327, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_19cythonMeshReduction_SymetricMatrix))))) __PYX_ERR(0, 338, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -11440,7 +11478,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_1q_4__del__(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":328
+/* "cythonMeshReduction.pyx":339
  *     cdef public int tstart, tcount
  *     cdef public SymetricMatrix q
  *     cdef public int border             # <<<<<<<<<<<<<<
@@ -11470,7 +11508,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_6border___get__(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->border); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->border); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11508,7 +11546,7 @@ static int __pyx_pf_19cythonMeshReduction_6Vertex_6border_2__set__(struct __pyx_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 339, __pyx_L1_error)
   __pyx_v_self->border = __pyx_t_1;
 
   /* function exit code */
@@ -11635,7 +11673,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6Vertex_6__setstate_cython__(CYT
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":352
+/* "cythonMeshReduction.pyx":365
  *     cdef public int tid
  *     cdef public int tvertex
  *     def __cinit__(self, int tid=0, int tvertex=0):             # <<<<<<<<<<<<<<
@@ -11683,7 +11721,7 @@ static int __pyx_pw_19cythonMeshReduction_3Ref_1__cinit__(PyObject *__pyx_v_self
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 352, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 365, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -11696,19 +11734,19 @@ static int __pyx_pw_19cythonMeshReduction_3Ref_1__cinit__(PyObject *__pyx_v_self
       }
     }
     if (values[0]) {
-      __pyx_v_tid = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_tid == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 352, __pyx_L3_error)
+      __pyx_v_tid = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_tid == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 365, __pyx_L3_error)
     } else {
       __pyx_v_tid = ((int)0);
     }
     if (values[1]) {
-      __pyx_v_tvertex = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_tvertex == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 352, __pyx_L3_error)
+      __pyx_v_tvertex = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_tvertex == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 365, __pyx_L3_error)
     } else {
       __pyx_v_tvertex = ((int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 352, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 365, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.Ref.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11726,7 +11764,7 @@ static int __pyx_pf_19cythonMeshReduction_3Ref___cinit__(struct __pyx_obj_19cyth
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "cythonMeshReduction.pyx":353
+  /* "cythonMeshReduction.pyx":366
  *     cdef public int tvertex
  *     def __cinit__(self, int tid=0, int tvertex=0):
  *         self.tid = tid             # <<<<<<<<<<<<<<
@@ -11735,16 +11773,16 @@ static int __pyx_pf_19cythonMeshReduction_3Ref___cinit__(struct __pyx_obj_19cyth
  */
   __pyx_v_self->tid = __pyx_v_tid;
 
-  /* "cythonMeshReduction.pyx":354
+  /* "cythonMeshReduction.pyx":367
  *     def __cinit__(self, int tid=0, int tvertex=0):
  *         self.tid = tid
  *         self.tvertex = tvertex             # <<<<<<<<<<<<<<
  * 
- * #############################################################################
+ * 
  */
   __pyx_v_self->tvertex = __pyx_v_tvertex;
 
-  /* "cythonMeshReduction.pyx":352
+  /* "cythonMeshReduction.pyx":365
  *     cdef public int tid
  *     cdef public int tvertex
  *     def __cinit__(self, int tid=0, int tvertex=0):             # <<<<<<<<<<<<<<
@@ -11758,7 +11796,7 @@ static int __pyx_pf_19cythonMeshReduction_3Ref___cinit__(struct __pyx_obj_19cyth
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":350
+/* "cythonMeshReduction.pyx":363
  * 
  * cdef class Ref :
  *     cdef public int tid             # <<<<<<<<<<<<<<
@@ -11788,7 +11826,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_3Ref_3tid___get__(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 363, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11826,7 +11864,7 @@ static int __pyx_pf_19cythonMeshReduction_3Ref_3tid_2__set__(struct __pyx_obj_19
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 350, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 363, __pyx_L1_error)
   __pyx_v_self->tid = __pyx_t_1;
 
   /* function exit code */
@@ -11840,7 +11878,7 @@ static int __pyx_pf_19cythonMeshReduction_3Ref_3tid_2__set__(struct __pyx_obj_19
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":351
+/* "cythonMeshReduction.pyx":364
  * cdef class Ref :
  *     cdef public int tid
  *     cdef public int tvertex             # <<<<<<<<<<<<<<
@@ -11870,7 +11908,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_3Ref_7tvertex___get__(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tvertex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 351, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->tvertex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11908,7 +11946,7 @@ static int __pyx_pf_19cythonMeshReduction_3Ref_7tvertex_2__set__(struct __pyx_ob
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 351, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 364, __pyx_L1_error)
   __pyx_v_self->tvertex = __pyx_t_1;
 
   /* function exit code */
@@ -12035,7 +12073,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_3Ref_4__setstate_cython__(CYTHON
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":374
+/* "cythonMeshReduction.pyx":388
  * #    return sum
  * 
  * cdef list vertsOfView(double [:,:] vertices_view,             # <<<<<<<<<<<<<<
@@ -12061,19 +12099,19 @@ static PyObject *__pyx_f_19cythonMeshReduction_vertsOfView(__Pyx_memviewslice __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("vertsOfView", 0);
 
-  /* "cythonMeshReduction.pyx":376
+  /* "cythonMeshReduction.pyx":390
  * cdef list vertsOfView(double [:,:] vertices_view,
  *                             int nVerts):
  *     cdef list vertsList = list()             # <<<<<<<<<<<<<<
  *     cdef int i
  *     cdef double x
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vertsList = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":381
+  /* "cythonMeshReduction.pyx":395
  *     cdef double y
  *     cdef double z
  *     for i in range(nVerts):             # <<<<<<<<<<<<<<
@@ -12085,14 +12123,14 @@ static PyObject *__pyx_f_19cythonMeshReduction_vertsOfView(__Pyx_memviewslice __
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "cythonMeshReduction.pyx":382
+    /* "cythonMeshReduction.pyx":396
  *     cdef double z
  *     for i in range(nVerts):
  *         vertsList.append(Vertex(v=vector3d(vertices_view[i,:])))             # <<<<<<<<<<<<<<
  *     return vertsList
  * 
  */
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_5.data = __pyx_v_vertices_view.data;
     __pyx_t_5.memview = __pyx_v_vertices_view.memview;
@@ -12106,7 +12144,7 @@ static PyObject *__pyx_f_19cythonMeshReduction_vertsOfView(__Pyx_memviewslice __
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 0)");
-            __PYX_ERR(0, 382, __pyx_L1_error)
+            __PYX_ERR(0, 396, __pyx_L1_error)
         }
         __pyx_t_5.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
@@ -12115,24 +12153,24 @@ __pyx_t_5.shape[0] = __pyx_v_vertices_view.shape[1];
 __pyx_t_5.strides[0] = __pyx_v_vertices_view.strides[1];
     __pyx_t_5.suboffsets[0] = -1;
 
-__pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 382, __pyx_L1_error)
+__pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
     __pyx_t_5.memview = NULL;
     __pyx_t_5.data = NULL;
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d), __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_v, __pyx_t_7) < 0) __PYX_ERR(0, 382, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_v, __pyx_t_7) < 0) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_Vertex), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_Vertex), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_vertsList, __pyx_t_7); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_vertsList, __pyx_t_7); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
 
-  /* "cythonMeshReduction.pyx":383
+  /* "cythonMeshReduction.pyx":397
  *     for i in range(nVerts):
  *         vertsList.append(Vertex(v=vector3d(vertices_view[i,:])))
  *     return vertsList             # <<<<<<<<<<<<<<
@@ -12144,7 +12182,7 @@ __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
   __pyx_r = __pyx_v_vertsList;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":374
+  /* "cythonMeshReduction.pyx":388
  * #    return sum
  * 
  * cdef list vertsOfView(double [:,:] vertices_view,             # <<<<<<<<<<<<<<
@@ -12167,7 +12205,7 @@ __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":385
+/* "cythonMeshReduction.pyx":399
  *     return vertsList
  * 
  * cdef list facesOfView(int [:,:] faces_view,             # <<<<<<<<<<<<<<
@@ -12194,19 +12232,19 @@ static PyObject *__pyx_f_19cythonMeshReduction_facesOfView(__Pyx_memviewslice __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("facesOfView", 0);
 
-  /* "cythonMeshReduction.pyx":387
+  /* "cythonMeshReduction.pyx":401
  * cdef list facesOfView(int [:,:] faces_view,
  *                       int nFaces):
  *     cdef list facesList = list()             # <<<<<<<<<<<<<<
  *     cdef int j
  *     for j in range(nFaces):
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_facesList = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":389
+  /* "cythonMeshReduction.pyx":403
  *     cdef list facesList = list()
  *     cdef int j
  *     for j in range(nFaces):             # <<<<<<<<<<<<<<
@@ -12218,7 +12256,7 @@ static PyObject *__pyx_f_19cythonMeshReduction_facesOfView(__Pyx_memviewslice __
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_j = __pyx_t_4;
 
-    /* "cythonMeshReduction.pyx":391
+    /* "cythonMeshReduction.pyx":405
  *     for j in range(nFaces):
  *         facesList.append(Triangle(
  *                             faces_view[j,:],             # <<<<<<<<<<<<<<
@@ -12237,7 +12275,7 @@ static PyObject *__pyx_f_19cythonMeshReduction_facesOfView(__Pyx_memviewslice __
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 0)");
-            __PYX_ERR(0, 391, __pyx_L1_error)
+            __PYX_ERR(0, 405, __pyx_L1_error)
         }
         __pyx_t_5.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
@@ -12246,53 +12284,53 @@ __pyx_t_5.shape[0] = __pyx_v_faces_view.shape[1];
 __pyx_t_5.strides[0] = __pyx_v_faces_view.strides[1];
     __pyx_t_5.suboffsets[0] = -1;
 
-__pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 391, __pyx_L1_error)
+__pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 405, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
     __pyx_t_5.memview = NULL;
     __pyx_t_5.data = NULL;
 
-    /* "cythonMeshReduction.pyx":392
+    /* "cythonMeshReduction.pyx":406
  *         facesList.append(Triangle(
  *                             faces_view[j,:],
  *                             np.zeros(3, dtype=float64),             # <<<<<<<<<<<<<<
  *                             0,0,vector3d()))
  *     return facesList
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 392, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 392, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 392, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 392, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 392, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__21, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 392, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__21, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "cythonMeshReduction.pyx":393
+    /* "cythonMeshReduction.pyx":407
  *                             faces_view[j,:],
  *                             np.zeros(3, dtype=float64),
  *                             0,0,vector3d()))             # <<<<<<<<<<<<<<
  *     return facesList
  * 
  */
-    __pyx_t_6 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 393, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 407, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
 
-    /* "cythonMeshReduction.pyx":390
+    /* "cythonMeshReduction.pyx":404
  *     cdef int j
  *     for j in range(nFaces):
  *         facesList.append(Triangle(             # <<<<<<<<<<<<<<
  *                             faces_view[j,:],
  *                             np.zeros(3, dtype=float64),
  */
-    __pyx_t_7 = PyTuple_New(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 404, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
@@ -12309,14 +12347,14 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
     __pyx_t_1 = 0;
     __pyx_t_8 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_Triangle), __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_19cythonMeshReduction_Triangle), __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 404, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_facesList, __pyx_t_6); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 390, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_facesList, __pyx_t_6); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 404, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
 
-  /* "cythonMeshReduction.pyx":394
+  /* "cythonMeshReduction.pyx":408
  *                             np.zeros(3, dtype=float64),
  *                             0,0,vector3d()))
  *     return facesList             # <<<<<<<<<<<<<<
@@ -12328,7 +12366,7 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
   __pyx_r = __pyx_v_facesList;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":385
+  /* "cythonMeshReduction.pyx":399
  *     return vertsList
  * 
  * cdef list facesOfView(int [:,:] faces_view,             # <<<<<<<<<<<<<<
@@ -12352,7 +12390,7 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":397
+/* "cythonMeshReduction.pyx":411
  * 
  * 
  * def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):             # <<<<<<<<<<<<<<
@@ -12401,23 +12439,23 @@ static PyObject *__pyx_pw_19cythonMeshReduction_5makeVertsTrianglesRefs(PyObject
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_nVerts)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, 1); __PYX_ERR(0, 397, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, 1); __PYX_ERR(0, 411, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_faces_view)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, 2); __PYX_ERR(0, 397, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, 2); __PYX_ERR(0, 411, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_nFaces)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, 3); __PYX_ERR(0, 397, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, 3); __PYX_ERR(0, 411, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "makeVertsTrianglesRefs") < 0)) __PYX_ERR(0, 397, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "makeVertsTrianglesRefs") < 0)) __PYX_ERR(0, 411, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -12434,7 +12472,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_5makeVertsTrianglesRefs(PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 397, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("makeVertsTrianglesRefs", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 411, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.makeVertsTrianglesRefs", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12461,16 +12499,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_4makeVertsTrianglesRefs(CYTHON_U
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("makeVertsTrianglesRefs", 0);
 
-  /* "cythonMeshReduction.pyx":398
+  /* "cythonMeshReduction.pyx":412
  * 
  * def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
  *     vertsList = vertsOfView(vertices_view, nVerts)             # <<<<<<<<<<<<<<
  *     facesList = facesOfView(faces_view, nFaces)
  *     return vertsList, facesList
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_vertices_view, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 398, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_nVerts); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 398, __pyx_L1_error)
-  __pyx_t_3 = __pyx_f_19cythonMeshReduction_vertsOfView(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 398, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_vertices_view, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 412, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_nVerts); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 412, __pyx_L1_error)
+  __pyx_t_3 = __pyx_f_19cythonMeshReduction_vertsOfView(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 412, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL;
@@ -12478,16 +12516,16 @@ static PyObject *__pyx_pf_19cythonMeshReduction_4makeVertsTrianglesRefs(CYTHON_U
   __pyx_v_vertsList = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":399
+  /* "cythonMeshReduction.pyx":413
  * def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
  *     vertsList = vertsOfView(vertices_view, nVerts)
  *     facesList = facesOfView(faces_view, nFaces)             # <<<<<<<<<<<<<<
  *     return vertsList, facesList
- * #############################################################################
+ * 
  */
-  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_faces_view, PyBUF_WRITABLE); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 399, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_nFaces); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 399, __pyx_L1_error)
-  __pyx_t_3 = __pyx_f_19cythonMeshReduction_facesOfView(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_faces_view, PyBUF_WRITABLE); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_nFaces); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_t_3 = __pyx_f_19cythonMeshReduction_facesOfView(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XDEC_MEMVIEW(&__pyx_t_4, 1);
   __pyx_t_4.memview = NULL;
@@ -12495,15 +12533,15 @@ static PyObject *__pyx_pf_19cythonMeshReduction_4makeVertsTrianglesRefs(CYTHON_U
   __pyx_v_facesList = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":400
+  /* "cythonMeshReduction.pyx":414
  *     vertsList = vertsOfView(vertices_view, nVerts)
  *     facesList = facesOfView(faces_view, nFaces)
  *     return vertsList, facesList             # <<<<<<<<<<<<<<
- * #############################################################################
- * #############################################################################
+ * 
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 414, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_vertsList);
   __Pyx_GIVEREF(__pyx_v_vertsList);
@@ -12515,7 +12553,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_4makeVertsTrianglesRefs(CYTHON_U
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":397
+  /* "cythonMeshReduction.pyx":411
  * 
  * 
  * def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):             # <<<<<<<<<<<<<<
@@ -12538,7 +12576,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_4makeVertsTrianglesRefs(CYTHON_U
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":411
+/* "cythonMeshReduction.pyx":432
  *     cdef double agressiveness
  * 
  *     def __cinit__(self, int target_count, double agressiveness=7):             # <<<<<<<<<<<<<<
@@ -12584,7 +12622,7 @@ static int __pyx_pw_19cythonMeshReduction_8Simplify_1__cinit__(PyObject *__pyx_v
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 411, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 432, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -12595,16 +12633,16 @@ static int __pyx_pw_19cythonMeshReduction_8Simplify_1__cinit__(PyObject *__pyx_v
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_target_count = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_target_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 411, __pyx_L3_error)
+    __pyx_v_target_count = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_target_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 432, __pyx_L3_error)
     if (values[1]) {
-      __pyx_v_agressiveness = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_agressiveness == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 411, __pyx_L3_error)
+      __pyx_v_agressiveness = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_agressiveness == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 432, __pyx_L3_error)
     } else {
       __pyx_v_agressiveness = ((double)7.0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 411, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 432, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cythonMeshReduction.Simplify.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12622,7 +12660,7 @@ static int __pyx_pf_19cythonMeshReduction_8Simplify___cinit__(struct __pyx_obj_1
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "cythonMeshReduction.pyx":412
+  /* "cythonMeshReduction.pyx":433
  * 
  *     def __cinit__(self, int target_count, double agressiveness=7):
  *         self.target_count = target_count             # <<<<<<<<<<<<<<
@@ -12631,7 +12669,7 @@ static int __pyx_pf_19cythonMeshReduction_8Simplify___cinit__(struct __pyx_obj_1
  */
   __pyx_v_self->target_count = __pyx_v_target_count;
 
-  /* "cythonMeshReduction.pyx":413
+  /* "cythonMeshReduction.pyx":434
  *     def __cinit__(self, int target_count, double agressiveness=7):
  *         self.target_count = target_count
  *         self.agressiveness = agressiveness             # <<<<<<<<<<<<<<
@@ -12640,7 +12678,7 @@ static int __pyx_pf_19cythonMeshReduction_8Simplify___cinit__(struct __pyx_obj_1
  */
   __pyx_v_self->agressiveness = __pyx_v_agressiveness;
 
-  /* "cythonMeshReduction.pyx":411
+  /* "cythonMeshReduction.pyx":432
  *     cdef double agressiveness
  * 
  *     def __cinit__(self, int target_count, double agressiveness=7):             # <<<<<<<<<<<<<<
@@ -12654,7 +12692,7 @@ static int __pyx_pf_19cythonMeshReduction_8Simplify___cinit__(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":415
+/* "cythonMeshReduction.pyx":436
  *         self.agressiveness = agressiveness
  * 
  *     def setVertices(self, list vertices):             # <<<<<<<<<<<<<<
@@ -12671,7 +12709,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8Simplify_3setVertices(PyObject 
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setVertices (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vertices), (&PyList_Type), 1, "vertices", 1))) __PYX_ERR(0, 415, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vertices), (&PyList_Type), 1, "vertices", 1))) __PYX_ERR(0, 436, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8Simplify_2setVertices(((struct __pyx_obj_19cythonMeshReduction_Simplify *)__pyx_v_self), ((PyObject*)__pyx_v_vertices));
 
   /* function exit code */
@@ -12688,7 +12726,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_2setVertices(struct __
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setVertices", 0);
 
-  /* "cythonMeshReduction.pyx":416
+  /* "cythonMeshReduction.pyx":437
  * 
  *     def setVertices(self, list vertices):
  *         self.vertices = vertices             # <<<<<<<<<<<<<<
@@ -12701,7 +12739,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_2setVertices(struct __
   __Pyx_DECREF(__pyx_v_self->vertices);
   __pyx_v_self->vertices = __pyx_v_vertices;
 
-  /* "cythonMeshReduction.pyx":415
+  /* "cythonMeshReduction.pyx":436
  *         self.agressiveness = agressiveness
  * 
  *     def setVertices(self, list vertices):             # <<<<<<<<<<<<<<
@@ -12716,7 +12754,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_2setVertices(struct __
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":418
+/* "cythonMeshReduction.pyx":439
  *         self.vertices = vertices
  * 
  *     def setFaces(self, list vertices):             # <<<<<<<<<<<<<<
@@ -12733,7 +12771,7 @@ static PyObject *__pyx_pw_19cythonMeshReduction_8Simplify_5setFaces(PyObject *__
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setFaces (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vertices), (&PyList_Type), 1, "vertices", 1))) __PYX_ERR(0, 418, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vertices), (&PyList_Type), 1, "vertices", 1))) __PYX_ERR(0, 439, __pyx_L1_error)
   __pyx_r = __pyx_pf_19cythonMeshReduction_8Simplify_4setFaces(((struct __pyx_obj_19cythonMeshReduction_Simplify *)__pyx_v_self), ((PyObject*)__pyx_v_vertices));
 
   /* function exit code */
@@ -12750,7 +12788,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_4setFaces(struct __pyx
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setFaces", 0);
 
-  /* "cythonMeshReduction.pyx":419
+  /* "cythonMeshReduction.pyx":440
  * 
  *     def setFaces(self, list vertices):
  *         self.vertices = vertices             # <<<<<<<<<<<<<<
@@ -12763,7 +12801,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_4setFaces(struct __pyx
   __Pyx_DECREF(__pyx_v_self->vertices);
   __pyx_v_self->vertices = __pyx_v_vertices;
 
-  /* "cythonMeshReduction.pyx":418
+  /* "cythonMeshReduction.pyx":439
  *         self.vertices = vertices
  * 
  *     def setFaces(self, list vertices):             # <<<<<<<<<<<<<<
@@ -12778,12 +12816,12 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_4setFaces(struct __pyx
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":421
+/* "cythonMeshReduction.pyx":442
  *         self.vertices = vertices
  * 
  *     def simplify_mesh(self):             # <<<<<<<<<<<<<<
  *         cdef int deleted_triangles = 0
- *         cdef list
+ *         cdef int [:] l
  */
 
 /* Python wrapper */
@@ -12805,21 +12843,21 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_6simplify_mesh(CYTHON_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("simplify_mesh", 0);
 
-  /* "cythonMeshReduction.pyx":422
+  /* "cythonMeshReduction.pyx":443
  * 
  *     def simplify_mesh(self):
  *         cdef int deleted_triangles = 0             # <<<<<<<<<<<<<<
- *         cdef list
+ *         cdef int [:] l
  * 
  */
   __pyx_v_deleted_triangles = 0;
 
-  /* "cythonMeshReduction.pyx":421
+  /* "cythonMeshReduction.pyx":442
  *         self.vertices = vertices
  * 
  *     def simplify_mesh(self):             # <<<<<<<<<<<<<<
  *         cdef int deleted_triangles = 0
- *         cdef list
+ *         cdef int [:] l
  */
 
   /* function exit code */
@@ -12942,7 +12980,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_8Simplify_10__setstate_cython__(
   return __pyx_r;
 }
 
-/* "cythonMeshReduction.pyx":464
+/* "cythonMeshReduction.pyx":484
  * 
  * @timer
  * def test():             # <<<<<<<<<<<<<<
@@ -12986,14 +13024,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test", 0);
 
-  /* "cythonMeshReduction.pyx":465
+  /* "cythonMeshReduction.pyx":485
  * @timer
  * def test():
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()             # <<<<<<<<<<<<<<
  *     vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)
  *     return vertsList, facesList
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_getFacesVerticesView); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 465, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_getFacesVerticesView); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -13007,7 +13045,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 465, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -13016,7 +13054,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     if (unlikely(size != 4)) {
       if (size > 4) __Pyx_RaiseTooManyValuesError(4);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 465, __pyx_L1_error)
+      __PYX_ERR(0, 485, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -13039,7 +13077,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
       Py_ssize_t i;
       PyObject** temps[4] = {&__pyx_t_2,&__pyx_t_3,&__pyx_t_4,&__pyx_t_5};
       for (i=0; i < 4; i++) {
-        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 465, __pyx_L1_error)
+        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 485, __pyx_L1_error)
         __Pyx_GOTREF(item);
         *(temps[i]) = item;
       }
@@ -13049,7 +13087,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   } else {
     Py_ssize_t index = -1;
     PyObject** temps[4] = {&__pyx_t_2,&__pyx_t_3,&__pyx_t_4,&__pyx_t_5};
-    __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 465, __pyx_L1_error)
+    __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 485, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext;
@@ -13058,7 +13096,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
       __Pyx_GOTREF(item);
       *(temps[index]) = item;
     }
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 4) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 4) < 0) __PYX_ERR(0, 485, __pyx_L1_error)
     __pyx_t_7 = NULL;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     goto __pyx_L4_unpacking_done;
@@ -13066,7 +13104,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 465, __pyx_L1_error)
+    __PYX_ERR(0, 485, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_vertices_view = __pyx_t_2;
@@ -13078,14 +13116,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   __pyx_v_nFaces = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "cythonMeshReduction.pyx":466
+  /* "cythonMeshReduction.pyx":486
  * def test():
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
  *     vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)             # <<<<<<<<<<<<<<
  *     return vertsList, facesList
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_makeVertsTrianglesRefs); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_makeVertsTrianglesRefs); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 486, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_4 = NULL;
   __pyx_t_8 = 0;
@@ -13102,7 +13140,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[5] = {__pyx_t_4, __pyx_v_vertices_view, __pyx_v_nVerts, __pyx_v_faces_view, __pyx_v_nFaces};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_8, 4+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_8, 4+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -13110,13 +13148,13 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[5] = {__pyx_t_4, __pyx_v_vertices_view, __pyx_v_nVerts, __pyx_v_faces_view, __pyx_v_nFaces};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_8, 4+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_8, 4+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(4+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(4+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -13133,7 +13171,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     __Pyx_INCREF(__pyx_v_nFaces);
     __Pyx_GIVEREF(__pyx_v_nFaces);
     PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_8, __pyx_v_nFaces);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -13144,7 +13182,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 466, __pyx_L1_error)
+      __PYX_ERR(0, 486, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -13157,15 +13195,15 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_t_3);
     #else
-    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 486, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext;
@@ -13173,7 +13211,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     __Pyx_GOTREF(__pyx_t_5);
     index = 1; __pyx_t_3 = __pyx_t_7(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L5_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_4), 2) < 0) __PYX_ERR(0, 466, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_4), 2) < 0) __PYX_ERR(0, 486, __pyx_L1_error)
     __pyx_t_7 = NULL;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L6_unpacking_done;
@@ -13181,7 +13219,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_7 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 466, __pyx_L1_error)
+    __PYX_ERR(0, 486, __pyx_L1_error)
     __pyx_L6_unpacking_done:;
   }
   __pyx_v_vertsList = __pyx_t_5;
@@ -13189,14 +13227,14 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   __pyx_v_facesList = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":467
+  /* "cythonMeshReduction.pyx":487
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
  *     vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)
  *     return vertsList, facesList             # <<<<<<<<<<<<<<
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_vertsList);
   __Pyx_GIVEREF(__pyx_v_vertsList);
@@ -13208,7 +13246,7 @@ static PyObject *__pyx_pf_19cythonMeshReduction_6test(CYTHON_UNUSED PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cythonMeshReduction.pyx":464
+  /* "cythonMeshReduction.pyx":484
  * 
  * @timer
  * def test():             # <<<<<<<<<<<<<<
@@ -30029,12 +30067,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 287, __pyx_L1_error)
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 20, __pyx_L1_error)
-  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 87, __pyx_L1_error)
-  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 286, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 134, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 381, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 395, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 777, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 781, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 959, __pyx_L1_error)
@@ -30052,26 +30090,26 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "cythonMeshReduction.pyx":15
+  /* "cythonMeshReduction.pyx":16
  * def timer(func):
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):             # <<<<<<<<<<<<<<
  *         tic = time.perf_counter()
  *         value = func(*args, **kwargs)
  */
-  __pyx_tuple_ = PyTuple_Pack(6, __pyx_n_s_args, __pyx_n_s_kwargs, __pyx_n_s_tic, __pyx_n_s_value, __pyx_n_s_toc, __pyx_n_s_elapsed_time); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(6, __pyx_n_s_args, __pyx_n_s_kwargs, __pyx_n_s_tic, __pyx_n_s_value, __pyx_n_s_toc, __pyx_n_s_elapsed_time); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_wrapper_timer, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_wrapper_timer, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "cythonMeshReduction.pyx":97
+  /* "cythonMeshReduction.pyx":101
  * 
  *     def __add__(self, vector3d vect):
  *         return vector3d(self[:]+vect[:])             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(self, vector3d vect):
  */
-  __pyx_slice__5 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_slice__5 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__5);
   __Pyx_GIVEREF(__pyx_slice__5);
 
@@ -30170,14 +30208,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "cythonMeshReduction.pyx":392
+  /* "cythonMeshReduction.pyx":406
  *         facesList.append(Triangle(
  *                             faces_view[j,:],
  *                             np.zeros(3, dtype=float64),             # <<<<<<<<<<<<<<
  *                             0,0,vector3d()))
  *     return facesList
  */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 406, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
 
@@ -30436,76 +30474,76 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__45);
   __Pyx_GIVEREF(__pyx_tuple__45);
 
-  /* "cythonMeshReduction.pyx":13
+  /* "cythonMeshReduction.pyx":14
  * import time
  * 
  * def timer(func):             # <<<<<<<<<<<<<<
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):
  */
-  __pyx_tuple__46 = PyTuple_Pack(3, __pyx_n_s_func, __pyx_n_s_wrapper_timer, __pyx_n_s_wrapper_timer); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(3, __pyx_n_s_func, __pyx_n_s_wrapper_timer, __pyx_n_s_wrapper_timer); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_timer, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_timer, 14, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 14, __pyx_L1_error)
 
-  /* "cythonMeshReduction.pyx":28
+  /* "cythonMeshReduction.pyx":29
  * # cython: cython.wraparound=False
  * 
  * mesh = tr.load_mesh('Stanford_Bunny_sample.stl')             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_tuple__48 = PyTuple_Pack(1, __pyx_kp_u_Stanford_Bunny_sample_stl); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(1, __pyx_kp_u_Stanford_Bunny_sample_stl); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
 
-  /* "cythonMeshReduction.pyx":31
+  /* "cythonMeshReduction.pyx":32
  * 
  * 
  * def getFacesVerticesView(mesh=mesh):             # <<<<<<<<<<<<<<
  *     vertices = mesh.vertices
  *     faces = mesh.faces
  */
-  __pyx_tuple__49 = PyTuple_Pack(3, __pyx_n_s_mesh, __pyx_n_s_vertices, __pyx_n_s_faces); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_tuple__49 = PyTuple_Pack(3, __pyx_n_s_mesh, __pyx_n_s_vertices, __pyx_n_s_faces); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__49);
   __Pyx_GIVEREF(__pyx_tuple__49);
-  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_getFacesVerticesView, 31, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_getFacesVerticesView, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "cythonMeshReduction.pyx":288
+  /* "cythonMeshReduction.pyx":287
  * 
  *     @staticmethod
  *     def makePlane(double a, double b,             # <<<<<<<<<<<<<<
  *                   double c, double d):
  *         return SymetricMatrix(a*a, a*b, a*c, a*d,
  */
-  __pyx_tuple__51 = PyTuple_Pack(4, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_c, __pyx_n_s_d); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __pyx_tuple__51 = PyTuple_Pack(4, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_c, __pyx_n_s_d); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__51);
   __Pyx_GIVEREF(__pyx_tuple__51);
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_makePlane, 288, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_makePlane, 287, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 287, __pyx_L1_error)
 
-  /* "cythonMeshReduction.pyx":397
+  /* "cythonMeshReduction.pyx":411
  * 
  * 
  * def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):             # <<<<<<<<<<<<<<
  *     vertsList = vertsOfView(vertices_view, nVerts)
  *     facesList = facesOfView(faces_view, nFaces)
  */
-  __pyx_tuple__53 = PyTuple_Pack(6, __pyx_n_s_vertices_view, __pyx_n_s_nVerts, __pyx_n_s_faces_view, __pyx_n_s_nFaces, __pyx_n_s_vertsList, __pyx_n_s_facesList); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 397, __pyx_L1_error)
+  __pyx_tuple__53 = PyTuple_Pack(6, __pyx_n_s_vertices_view, __pyx_n_s_nVerts, __pyx_n_s_faces_view, __pyx_n_s_nFaces, __pyx_n_s_vertsList, __pyx_n_s_facesList); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 411, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__53);
   __Pyx_GIVEREF(__pyx_tuple__53);
-  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_makeVertsTrianglesRefs, 397, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 397, __pyx_L1_error)
+  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_makeVertsTrianglesRefs, 411, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 411, __pyx_L1_error)
 
-  /* "cythonMeshReduction.pyx":464
+  /* "cythonMeshReduction.pyx":484
  * 
  * @timer
  * def test():             # <<<<<<<<<<<<<<
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
  *     vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)
  */
-  __pyx_tuple__55 = PyTuple_Pack(6, __pyx_n_s_vertices_view, __pyx_n_s_nVerts, __pyx_n_s_faces_view, __pyx_n_s_nFaces, __pyx_n_s_vertsList, __pyx_n_s_facesList); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 464, __pyx_L1_error)
+  __pyx_tuple__55 = PyTuple_Pack(6, __pyx_n_s_vertices_view, __pyx_n_s_nVerts, __pyx_n_s_faces_view, __pyx_n_s_nFaces, __pyx_n_s_vertsList, __pyx_n_s_facesList); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__55);
   __Pyx_GIVEREF(__pyx_tuple__55);
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_test, 464, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 464, __pyx_L1_error)
+  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cythonMeshReduction_pyx, __pyx_n_s_test, 484, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 484, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name
@@ -30636,67 +30674,67 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_vector3d) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_vector3d) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction_vector3d.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19cythonMeshReduction_vector3d.tp_dictoffset && __pyx_type_19cythonMeshReduction_vector3d.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19cythonMeshReduction_vector3d.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_vector3d, (PyObject *)&__pyx_type_19cythonMeshReduction_vector3d) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_vector3d) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_vector3d, (PyObject *)&__pyx_type_19cythonMeshReduction_vector3d) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_vector3d) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
   __pyx_ptype_19cythonMeshReduction_vector3d = &__pyx_type_19cythonMeshReduction_vector3d;
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_SymetricMatrix) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_SymetricMatrix) < 0) __PYX_ERR(0, 239, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction_SymetricMatrix.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19cythonMeshReduction_SymetricMatrix.tp_dictoffset && __pyx_type_19cythonMeshReduction_SymetricMatrix.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19cythonMeshReduction_SymetricMatrix.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SymetricMatrix, (PyObject *)&__pyx_type_19cythonMeshReduction_SymetricMatrix) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_SymetricMatrix) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SymetricMatrix, (PyObject *)&__pyx_type_19cythonMeshReduction_SymetricMatrix) < 0) __PYX_ERR(0, 239, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_SymetricMatrix) < 0) __PYX_ERR(0, 239, __pyx_L1_error)
   __pyx_ptype_19cythonMeshReduction_SymetricMatrix = &__pyx_type_19cythonMeshReduction_SymetricMatrix;
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Triangle) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Triangle) < 0) __PYX_ERR(0, 305, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction_Triangle.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19cythonMeshReduction_Triangle.tp_dictoffset && __pyx_type_19cythonMeshReduction_Triangle.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19cythonMeshReduction_Triangle.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Triangle_2, (PyObject *)&__pyx_type_19cythonMeshReduction_Triangle) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Triangle) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Triangle_2, (PyObject *)&__pyx_type_19cythonMeshReduction_Triangle) < 0) __PYX_ERR(0, 305, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Triangle) < 0) __PYX_ERR(0, 305, __pyx_L1_error)
   __pyx_ptype_19cythonMeshReduction_Triangle = &__pyx_type_19cythonMeshReduction_Triangle;
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Vertex) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Vertex) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction_Vertex.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19cythonMeshReduction_Vertex.tp_dictoffset && __pyx_type_19cythonMeshReduction_Vertex.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19cythonMeshReduction_Vertex.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Vertex_2, (PyObject *)&__pyx_type_19cythonMeshReduction_Vertex) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Vertex) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Vertex_2, (PyObject *)&__pyx_type_19cythonMeshReduction_Vertex) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Vertex) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
   __pyx_ptype_19cythonMeshReduction_Vertex = &__pyx_type_19cythonMeshReduction_Vertex;
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Ref) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Ref) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction_Ref.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19cythonMeshReduction_Ref.tp_dictoffset && __pyx_type_19cythonMeshReduction_Ref.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19cythonMeshReduction_Ref.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Ref, (PyObject *)&__pyx_type_19cythonMeshReduction_Ref) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Ref) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Ref, (PyObject *)&__pyx_type_19cythonMeshReduction_Ref) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Ref) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
   __pyx_ptype_19cythonMeshReduction_Ref = &__pyx_type_19cythonMeshReduction_Ref;
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Simplify) < 0) __PYX_ERR(0, 404, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction_Simplify) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction_Simplify.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19cythonMeshReduction_Simplify.tp_dictoffset && __pyx_type_19cythonMeshReduction_Simplify.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19cythonMeshReduction_Simplify.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Simplify, (PyObject *)&__pyx_type_19cythonMeshReduction_Simplify) < 0) __PYX_ERR(0, 404, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Simplify) < 0) __PYX_ERR(0, 404, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Simplify, (PyObject *)&__pyx_type_19cythonMeshReduction_Simplify) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19cythonMeshReduction_Simplify) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
   __pyx_ptype_19cythonMeshReduction_Simplify = &__pyx_type_19cythonMeshReduction_Simplify;
-  if (PyType_Ready(&__pyx_type_19cythonMeshReduction___pyx_scope_struct__timer) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19cythonMeshReduction___pyx_scope_struct__timer) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19cythonMeshReduction___pyx_scope_struct__timer.tp_print = 0;
   #endif
@@ -31035,14 +31073,14 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "cythonMeshReduction.pyx":6
- * from cython import double as cy_double
+  /* "cythonMeshReduction.pyx":7
  * from libc.math cimport sin, cos, pow, abs, sqrt, acos, fmax, fmin
+ * #from libcpp.vector cimport vector
  * from numpy import int32,float64             # <<<<<<<<<<<<<<
  * from numpy cimport int32_t, float64_t
  * import trimesh as tr
  */
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_int32);
   __Pyx_GIVEREF(__pyx_n_s_int32);
@@ -31050,298 +31088,298 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_float64);
   __Pyx_GIVEREF(__pyx_n_s_float64);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_float64);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_int32, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_int32, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_float64, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_float64, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":8
+  /* "cythonMeshReduction.pyx":9
  * from numpy import int32,float64
  * from numpy cimport int32_t, float64_t
  * import trimesh as tr             # <<<<<<<<<<<<<<
  * 
  * import functools
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_trimesh, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_trimesh, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tr, __pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tr, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":10
+  /* "cythonMeshReduction.pyx":11
  * import trimesh as tr
  * 
  * import functools             # <<<<<<<<<<<<<<
  * import time
  * 
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_functools, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_functools, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_functools, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_functools, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":11
+  /* "cythonMeshReduction.pyx":12
  * 
  * import functools
  * import time             # <<<<<<<<<<<<<<
  * 
  * def timer(func):
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_time, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_time, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_time, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_time, __pyx_t_2) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":13
+  /* "cythonMeshReduction.pyx":14
  * import time
  * 
  * def timer(func):             # <<<<<<<<<<<<<<
  *     @functools.wraps(func)
  *     def wrapper_timer(*args, **kwargs):
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_1timer, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_1timer, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_timer, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_timer, __pyx_t_2) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":28
+  /* "cythonMeshReduction.pyx":29
  * # cython: cython.wraparound=False
  * 
  * mesh = tr.load_mesh('Stanford_Bunny_sample.stl')             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_tr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_tr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load_mesh); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load_mesh); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__48, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__48, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mesh, __pyx_t_2) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mesh, __pyx_t_2) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":31
+  /* "cythonMeshReduction.pyx":32
  * 
  * 
  * def getFacesVerticesView(mesh=mesh):             # <<<<<<<<<<<<<<
  *     vertices = mesh.vertices
  *     faces = mesh.faces
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_mesh); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_mesh); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_k__3 = __pyx_t_2;
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_3getFacesVerticesView, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_3getFacesVerticesView, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getFacesVerticesView, __pyx_t_2) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_getFacesVerticesView, __pyx_t_2) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cythonMeshReduction.pyx":83
+  /* "cythonMeshReduction.pyx":87
  *     cdef public double [:] xyz
  * 
  *     def __cinit__(self, double [:] xyz = np.zeros(3,dtype=float64)):             # <<<<<<<<<<<<<<
  *         self.xyz = xyz
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_float64); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_float64); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__21, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__21, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_k__4 = __pyx_t_4;
   __pyx_t_4.memview = NULL;
   __pyx_t_4.data = NULL;
 
-  /* "cythonMeshReduction.pyx":288
+  /* "cythonMeshReduction.pyx":287
  * 
  *     @staticmethod
  *     def makePlane(double a, double b,             # <<<<<<<<<<<<<<
  *                   double c, double d):
  *         return SymetricMatrix(a*a, a*b, a*c, a*d,
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_14SymetricMatrix_11makePlane, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_14SymetricMatrix_11makePlane, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix->tp_dict, __pyx_n_s_makePlane, __pyx_t_3) < 0) __PYX_ERR(0, 288, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix->tp_dict, __pyx_n_s_makePlane, __pyx_t_3) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   PyType_Modified(__pyx_ptype_19cythonMeshReduction_SymetricMatrix);
 
-  /* "cythonMeshReduction.pyx":287
- *         return det
+  /* "cythonMeshReduction.pyx":286
+ *         return fast_det(self.mat,a11, a12, a13, a21, a22, a23, a31, a32, a33)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def makePlane(double a, double b,
  *                   double c, double d):
  */
-  __Pyx_GetNameInClass(__pyx_t_3, (PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix, __pyx_n_s_makePlane); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __Pyx_GetNameInClass(__pyx_t_3, (PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix, __pyx_n_s_makePlane); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 287, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix->tp_dict, __pyx_n_s_makePlane, __pyx_t_2) < 0) __PYX_ERR(0, 288, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix->tp_dict, __pyx_n_s_makePlane, __pyx_t_2) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_19cythonMeshReduction_SymetricMatrix);
 
-  /* "cythonMeshReduction.pyx":303
+  /* "cythonMeshReduction.pyx":312
  * 
  *     def __cinit__(self,
  *                   int [:] v =np.zeros(3, dtype=int32),             # <<<<<<<<<<<<<<
  *                   double [:] err=np.zeros(3, dtype=float64),
  *                   int deleted=0,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(0, 303, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__21, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__21, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_k__11 = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "cythonMeshReduction.pyx":304
+  /* "cythonMeshReduction.pyx":313
  *     def __cinit__(self,
  *                   int [:] v =np.zeros(3, dtype=int32),
  *                   double [:] err=np.zeros(3, dtype=float64),             # <<<<<<<<<<<<<<
  *                   int deleted=0,
  *                   int dirty=0,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_float64); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_float64); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__21, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__21, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_k__12 = __pyx_t_4;
   __pyx_t_4.memview = NULL;
   __pyx_t_4.data = NULL;
 
-  /* "cythonMeshReduction.pyx":307
+  /* "cythonMeshReduction.pyx":316
  *                   int deleted=0,
  *                   int dirty=0,
  *                   vector3d n = vector3d()):             # <<<<<<<<<<<<<<
  *         self.v = v
  *         self.err = err
  */
-  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 307, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_k__10 = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":330
+  /* "cythonMeshReduction.pyx":341
  *     cdef public int border
  * 
  *     def __cinit__(self, vector3d v = vector3d(), int tstart=0,             # <<<<<<<<<<<<<<
  *         int tcount=0, SymetricMatrix q=SymetricMatrix(), int border=0):
  *         self.v = v
  */
-  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 330, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_vector3d)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_k__15 = ((struct __pyx_obj_19cythonMeshReduction_vector3d *)__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":331
+  /* "cythonMeshReduction.pyx":342
  * 
  *     def __cinit__(self, vector3d v = vector3d(), int tstart=0,
  *         int tcount=0, SymetricMatrix q=SymetricMatrix(), int border=0):             # <<<<<<<<<<<<<<
  *         self.v = v
  *         self.tstart = tstart
  */
-  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_19cythonMeshReduction_SymetricMatrix)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_k__16 = ((struct __pyx_obj_19cythonMeshReduction_SymetricMatrix *)__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":397
+  /* "cythonMeshReduction.pyx":411
  * 
  * 
  * def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):             # <<<<<<<<<<<<<<
  *     vertsList = vertsOfView(vertices_view, nVerts)
  *     facesList = facesOfView(faces_view, nFaces)
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_5makeVertsTrianglesRefs, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 397, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_5makeVertsTrianglesRefs, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_makeVertsTrianglesRefs, __pyx_t_3) < 0) __PYX_ERR(0, 397, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_makeVertsTrianglesRefs, __pyx_t_3) < 0) __PYX_ERR(0, 411, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cythonMeshReduction.pyx":463
+  /* "cythonMeshReduction.pyx":483
  * 
  * 
  * @timer             # <<<<<<<<<<<<<<
  * def test():
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_timer); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_timer); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "cythonMeshReduction.pyx":464
+  /* "cythonMeshReduction.pyx":484
  * 
  * @timer
  * def test():             # <<<<<<<<<<<<<<
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
  *     vertsList, facesList= makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_7test, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 464, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_19cythonMeshReduction_7test, NULL, __pyx_n_s_cythonMeshReduction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "cythonMeshReduction.pyx":463
+  /* "cythonMeshReduction.pyx":483
  * 
  * 
  * @timer             # <<<<<<<<<<<<<<
  * def test():
  *     vertices_view, nVerts, faces_view, nFaces = getFacesVerticesView()
  */
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "cythonMeshReduction.pyx":1

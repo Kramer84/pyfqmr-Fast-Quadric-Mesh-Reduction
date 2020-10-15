@@ -2,7 +2,13 @@ import numpy as np
 import cython
 from cython import int as cy_int
 from cython import double as cy_double 
+from cpython cimport array
+import array
+
 from libc.math cimport sin, cos, pow, abs, sqrt, acos, fmax, fmin
+
+
+
 from numpy import int32,float64
 from numpy cimport int32_t, float64_t
 import trimesh as tr
@@ -280,20 +286,23 @@ cdef class SymetricMatrix(object):
     def det(self, int a11, int a12, int a13,
             int a21, int a22, int a23,
             int a31, int a32, int a33):
-        cdef double det 
-        det = self.mat[a11]*self.mat[a22]*self.mat[a33]  \
-             + self.mat[a13]*self.mat[a21]*self.mat[a32] \
-             + self.mat[a12]*self.mat[a23]*self.mat[a31] \
-             - self.mat[a13]*self.mat[a22]*self.mat[a31] \
-             - self.mat[a11]*self.mat[a23]*self.mat[a32] \
-             - self.mat[a12]*self.mat[a21]*self.mat[a33]
-        return det 
+        return fast_det(self.mat,a11, a12, a13, a21, a22, a23, a31, a32, a33) 
 
     @staticmethod
     def makePlane(double a, double b, 
                   double c, double d):
         return SymetricMatrix(a*a, a*b, a*c, a*d, 
                         b*b, b*c, b*d, c*c, c*d, d*d)
+
+
+cdef double fast_det(double [10] mat, int a11, int a12, int a13,
+                     int a21, int a22, int a23,
+                     int a31, int a32, int a33):
+    cdef double det 
+    det = mat[a11]*mat[a22]*mat[a33] + mat[a13]*mat[a21]*mat[a32] \
+         + mat[a12]*mat[a23]*mat[a31] - mat[a13]*mat[a22]*mat[a31] \
+         - mat[a11]*mat[a23]*mat[a32] - mat[a12]*mat[a21]*mat[a33]
+    return det 
 
 #############################################################################
 #############################################################################
@@ -413,6 +422,10 @@ def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
 #############################################################################
 #############################################################################
 
+#cdef bool flipped(list triangles, vector3d p, int i0, int i1, Vertex& v0, Vertex& v1, list& deleted)
+#    cdef int i 
+#    for i in range(vO.tcount):
+#        cdef Triangle t = triangles[]
 
 cdef class Simplify:
     cdef list vertices 
@@ -433,8 +446,7 @@ cdef class Simplify:
 
     def simplify_mesh(self):
         cdef int deleted_triangles = 0 
-        cdef list 
-
+        cdef int [:] l 
 
 
 
