@@ -7,8 +7,7 @@
 // License : MIT
 // http://opensource.org/licenses/MIT
 //
-//https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification
-//
+//https://github.com/sp4cerat/Fast-Quadric-Mesh-S; 
 // 5/2016: Chris Rorden created minimal version for OSX/Linux/Windows compile
 
 //#include <iostream>
@@ -601,9 +600,9 @@ namespace Simplify
 			}
 			t.v[r.tvertex]=i0;
 			t.dirty=1;
-			t.err[0]=calculate_error(t.v[0],t.v[1],p);
-			t.err[1]=calculate_error(t.v[1],t.v[2],p);
-			t.err[2]=calculate_error(t.v[2],t.v[0],p);
+			t.err[0],p=calculate_error(t.v[0],t.v[1],p);
+			t.err[1],p=calculate_error(t.v[1],t.v[2],p);
+			t.err[2],p=calculate_error(t.v[2],t.v[0],p);
 			t.err[3]=min(t.err[0],min(t.err[1],t.err[2]));
 			refs.push_back(r);
 		}
