@@ -490,19 +490,6 @@ cdef class Ref :
 #############################################################################
 
 
-#def make_list():
-#    l = []
-#    for _ in range(10000):
-#        l.append(Acl_cy(1, 2, 3, 'a', 'b', 'c'))
-#    return l#
-
-#def loop_typed():
-#    cdef list l = make_list()
-#    cdef Acl_cy itm
-#    cdef int sum = 0
-#    for itm in l:
-#        sum += itm.s1
-#    return sum
 
 cdef list vertsOfView(double [:,:] vertices_view, 
                             int nVerts):
@@ -532,64 +519,6 @@ def makeVertsTrianglesRefs(vertices_view, nVerts, faces_view, nFaces):
     facesList = facesOfView(faces_view, nFaces)
     return vertsList, facesList
 
-#############################################################################
-#############################################################################
-cdef array.array int_array_template = array.array('i',[])
-cdef array.array one_array = array.array('i',[1])
-cdef array.array zero_array = array.array('i',[0])
-
-cdef class dyn_bint_array :
-    cdef array.array arr 
-
-    def __cinit__(self, int size=0):
-        self.arr = array.clone(int_array_template, size, zero=False)
-    
-    @cython.boundscheck(False)
-    @cython.nonecheck(False)
-    def __getitem__(self,int idx):
-        return self.arr[idx]
-
-    @cython.boundscheck(False)
-    @cython.nonecheck(False)
-    def __setitem__(self, int idx, int val):
-        self.arr[idx] = val
-    @cython.boundscheck(False)
-    @cython.nonecheck(False)
-    def append(self, int val):
-        cdef array.array valArr = array.clone(int_array_template, 1, zero=False)
-        valArr[0]=val
-        array.extend(self.arr,valArr)
-
-    @cython.boundscheck(False)
-    @cython.nonecheck(False)
-    def pop(self):
-        array.resize(self.arr,len(self.arr)-1)
-    
-    @cython.boundscheck(False)
-    @cython.nonecheck(False)
-    def resize(self,size):
-        array.resize_smart(self.arr,size)
-
-cdef class np_int_list:
-    cdef int [:] np_list 
-
-    def __cinit__(self):
-        self.np_list = np.array([],dtype=np.dtype(int32))
-
-    def append(self, int val):
-        self.np_list = np.append(self.np_list,val)
-
-    def pop(self):
-        self.np_list = self.np_list[:-1]
-
-
-#############################################################################
-#############################################################################
-
-#cdef bool flipped(list triangles, vector3d p, int i0, int i1, Vertex& v0, Vertex& v1, list& deleted)
-#    cdef int i 
-#    for i in range(vO.tcount):
-#        cdef Triangle t = triangles[]
 
 cdef class Simplify:
     cdef public list vertices 
