@@ -46,8 +46,8 @@ cdef class Faces :
         self.dirty_mv = self.dirty_dat
         self.n_mv = self.n_dat
 
-    def get_faces_v_dat(self):
-        return self.v_dat
+    def resize(self, int N ):
+        pass
 
 
 cdef class Vertices :
@@ -240,7 +240,26 @@ cdef class Simplify:
 
 
     def update_mesh(self):
-        pass
+        cdef int dst, i, j, k, ofs, _id, tstart,size,val
+        cdef Triangle t
+        cdef vector3d p0, p1, p2, p 
+        cdef vector3d n = vector3d()
+        cdef vector[int] vcount, vids
+
+        cdef Py_ssize_t N
+        cdef int[:,:] v_mv
+        cdef double[:,:] err_mv
+        cdef int[:] deleted_mv
+        cdef int[:] dirty_mv
+        cdef double[:,:] n_mv
+        if iteration>0:
+            N = self.faces.v_mv.shape[0]
+            v_mv = self.faces.v_mv
+            err_mv = self.faces.err_mv
+            deleted_mv = self.faces.deleted_mv
+            dirty_mv = self.faces.dirty_mv
+            n_mv = self.faces.n_mv
+            dst = iterationSup0(N, v_mv, err_mv, deleted_mv, dirty_mv, n_mv)
 
 
 #compact triangles
