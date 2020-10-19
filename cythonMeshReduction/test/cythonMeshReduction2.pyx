@@ -1,5 +1,6 @@
 import numpy as np 
 cimport numpy as np
+
 import cython
 from cython import int as cy_int
 from cython import double as cy_double 
@@ -8,7 +9,7 @@ import array
 
 from libc.math cimport sin, cos, pow, abs, sqrt, acos, fmax, fmin
 
-from numpy import int32,float64
+from numpy import int32,float64, signedinteger
 from numpy cimport int32_t, float64_t
 import trimesh as tr
 
@@ -18,7 +19,7 @@ mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
 
 
 cdef class Faces :
-    cdef public int[:,:] v_mv #array of ints indicating the points index? Memory view
+    cdef public Py_ssize_t[:,:] v_mv #array of ints indicating the points index? Memory view
     cdef public double[:,:] err_mv #array of vertex errors # memoryview
     cdef public int[:] deleted_mv, dirty_mv #array to know which triangle was deleted #Memory View
     cdef public double[:,:] n_mv #array of face normal #memory view
@@ -32,7 +33,7 @@ cdef class Faces :
     def __cinit__(self, Py_ssize_t N= len(mesh.faces),
                   np.ndarray faces=mesh.faces):
         self.N = N
-        self.v_dat = np.asarray(faces, dtype=int32)
+        self.v_dat = np.asarray(faces, dtype=signedinteger)
         self.err_dat = np.zeros((self.N,4), dtype=float64)
         self.deleted_dat = np.zeros((self.N), dtype=int32)
         self.dirty_dat = np.zeros((self.N), dtype=int32)
@@ -46,8 +47,14 @@ cdef class Faces :
         self.dirty_mv = self.dirty_dat
         self.n_mv = self.n_dat
 
-    def resize(self, int N ):
-        pass
+    def resize(self, Py_ssize_t N ):
+        self.N = N
+        self.v_dat = self.v_dat[:N]
+        self.err_dat = self.err_dat[:N]
+        self.deleted_dat = self.deleted_dat[:N]
+        self.dirty_dat = self.dirty_dat[:N]
+        self.n_dat = self.n_dat[:N]
+        self.__init_view__()
 
 
 cdef class Vertices :
@@ -76,8 +83,14 @@ cdef class Vertices :
         self.tcount_mv = self.tcount_dat
         self.border_mv = self.border_dat
 
-    def compact_faces(self):
-        pass
+    def resize(self, Py_ssize_t N ):
+        self.N = N
+        self.p_dat = self.p_dat[:N]
+        self.q_dat = self.q_dat[:N]
+        self.tstart_dat = self.tstart_dat[:N]
+        self.tcount_dat = self.tcount_dat[:N]
+        self.border_dat = self.border_dat[:N]
+        self.__init_view__()
 
 
 cdef class int2 :
@@ -93,10 +106,9 @@ cdef int2 ccompat_faces_verts(double[:,:] p_mv, double[:,:] q_mv, int[:] tstart_
                             int[:] tcount_mv, int[:] border_mv, double[:,:] n_mv,
                             int[:,:] v_mv, double[:,:] err_mv, int[:] deleted_mv, 
                             int[:] dirty_mv):
-    cdef size_t  dst_verts = 0
-    cdef size_t  dst_faces = 0 
-    cdef size_t  i, j, n_v_mv, n_p_mv
-    cdef int i__vv
+    cdef Py_ssize_t  dst_verts = 0
+    cdef Py_ssize_t  dst_faces = 0 
+    cdef Py_ssize_t  i, j, n_v_mv, n_p_mv, i_vv
     cdef int[2]  output
     tcount_mv[:] = 0
     n_v_mv = v_mv.shape[0]
@@ -122,7 +134,6 @@ cdef int2 ccompat_faces_verts(double[:,:] p_mv, double[:,:] q_mv, int[:] tstart_
             tcount_mv[dst_verts] = tcount_mv[i]
             border_mv[dst_verts] = border_mv[i]
             dst_verts+=1
-
     for i in range(dst_faces):
         for j in range(3):
             i_vv = v_mv[i,j]
@@ -239,20 +250,23 @@ cdef class Simplify:
 
 
 
-    def update_mesh(self):
+    def update_mesh(self, int iteration):
         cdef int dst, i, j, k, ofs, _id, tstart,size,val
-        cdef Triangle t
-        cdef vector3d p0, p1, p2, p 
-        cdef vector3d n = vector3d()
-        cdef vector[int] vcount, vids
+        cdef double[:] p0_mv, p1_mv, p2_mv, p_mv
+        cdef double[:] n = np.zeros(3,dtype=float64)
+        cdef int[:] vcount, vids
+        cdef array.array vcount_dat = array.array('i', [])
+        cdef array.array vids_dat = array.array('i', [])
+        cdef int[:] vcount_mv = vcount_dat
+        cdef int[:] vids_mv = vids_dat
 
         cdef Py_ssize_t N
-        cdef int[:,:] v_mv
+        cdef Py_ssize_t[:,:] v_mv
         cdef double[:,:] err_mv
         cdef int[:] deleted_mv
         cdef int[:] dirty_mv
         cdef double[:,:] n_mv
-        if iteration>0:
+        if iteration > 0 :
             N = self.faces.v_mv.shape[0]
             v_mv = self.faces.v_mv
             err_mv = self.faces.err_mv
@@ -260,13 +274,27 @@ cdef class Simplify:
             dirty_mv = self.faces.dirty_mv
             n_mv = self.faces.n_mv
             dst = iterationSup0(N, v_mv, err_mv, deleted_mv, dirty_mv, n_mv)
+            self.faces.resize(dst)
+
+
+
+cdef void iterationIf0(double[:,:] p_mv, int[:,:] v_mv, double[:,:] q_mv, double[:,:] n_mv):
+    cdef Py_ssize_t N = v_mv.shape[0]
+    cdef Py_ssize_t i
+    cdef double[:] p0, p1, p2, n 
+
+    for i in range(N):
+        p0 = p_mv[v_mv[i,0],:]
+        p1 = p_mv[v_mv[i,1],:]
+        p2 = p_mv[v_mv[i,2],:]
+
 
 
 #compact triangles
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef int iterationSup0(Py_ssize_t N, int[:,:] v_mv, double[:,:] err_mv, int[:] deleted_mv, 
-                        int[:] dirty_mv, double[:,:] n_mv ):
+cdef int iterationSup0(Py_ssize_t N, Py_ssize_t[:,:] v_mv, double[:,:] err_mv, int[:] deleted_mv, 
+                        int[:] dirty_mv, double[:,:] n_mv) nogil :
     cdef Py_ssize_t dst = 0
     cdef Py_ssize_t shpF = N
     cdef Py_ssize_t i, j
@@ -282,14 +310,6 @@ cdef int iterationSup0(Py_ssize_t N, int[:,:] v_mv, double[:,:] err_mv, int[:] d
                 n_mv[dst,j] = n_mv[i,j]
             dst += 1
     return dst
-
-
-
-
-
-
-
-
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
@@ -340,6 +360,13 @@ cdef double ccalculate_error(double[:,:] q_mv, int[:] border_mv , double[:,:] p_
     return error
 
 
+@cython.boundscheck(False)
+@cython.nonecheck(False)
+cdef void ccross(double[:] vectA, double[:] vectB, double[:] vectC) nogil: 
+    vectC[0] = vectA[1] * vectB[2] - vectA[2] * vectB[1]
+    vectC[1] = vectA[2] * vectB[0] - vectA[0] * vectB[2]
+    vectC[2] = vectA[0] * vectB[1] - vectA[1] * vectB[0]
+
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
@@ -357,3 +384,10 @@ cdef double vertex_error(double[:] q, double x, double y, double z) nogil:
     val = q[0]*x*x + 2*q[1]*x*y + 2*q[2]*x*z + 2*q[3]*x + q[4]*y*y \
            + 2*q[5]*y*z + 2*q[6]*y + q[7]*z*z + 2*q[8]*z + q[9]
     return val
+
+
+def crossTest(double[:] vectA, double[:] vectB):
+    cdef np.ndarray vectC = np.zeros((3), dtype=float64)
+    cdef double[:] vectC_mv = vectC 
+    ccross(vectA, vectB, vectC_mv)
+    return vectC

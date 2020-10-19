@@ -657,7 +657,7 @@ cdef class Simplify:
 
         if iteration == 0 :
             for i in range(len(self.vertices)):
-                self.vertices[i].q = SymetricMatrix()
+                self.vertices[i].q = SymetricMatrix() #Done in init
             for i in range(len(self.faces)):
                 p0 = self.vertices[self.faces[i].v[0]].p
                 p1 = self.vertices[self.faces[i].v[1]].p
