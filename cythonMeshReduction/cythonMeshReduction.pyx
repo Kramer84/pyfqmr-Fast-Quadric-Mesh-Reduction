@@ -752,7 +752,7 @@ cdef class Simplify:
 
 
 
-    def flipped(self, vector3d p,int i0,int i1,Vertex v0,Vertex v1,vector[int] deleted):
+    def flipped(self, vector3d p,int i1,int i2,Vertex v0,Vertex v1,vector[int] deleted):
         cdef vector3d d1, d2, n
         cdef int s, id1, id2
         cdef Triangle t
@@ -764,7 +764,7 @@ cdef class Simplify:
             id1=t.v[(s+1)%3]
             id2=t.v[(s+2)%3]
 
-            if(id1==i1 or id2==i1): # delete 
+            if(id1==i1 or id2==i2): # delete 
                 deleted[k]=1
                 continue
             d1 = self.vertices[id1].p-p
