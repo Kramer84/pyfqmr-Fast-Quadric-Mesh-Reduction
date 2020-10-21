@@ -1,24 +1,19 @@
 include "cyarray/cyarray.pyx"
 
 import cython
-from cython import int as cy_int
+from cython import int 
 from cython.parallel cimport prange
-from cython import double as cy_double 
-from cpython cimport array
-import array
+from cython import double 
 
 from libc.math cimport sin, cos, pow, abs, sqrt, acos, fmax, fmin
-
-cimport cython
 
 import numpy as np 
 cimport numpy as np
 
-from numpy import int32,float64, signedinteger
+from numpy import int32,float64, signedinteger, unsignedinteger
 from numpy cimport int32_t, float64_t
+
 import trimesh as tr
-
-
 mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
 
 
@@ -26,7 +21,7 @@ mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
 cdef class Faces :
     cdef public Py_ssize_t[:,:] v_mv #array of ints indicating the points index? Memory view
     cdef public double[:,:] err_mv #array of vertex errors # memoryview
-    cdef public int[:] deleted_mv, dirty_mv #array to know which triangle was deleted #Memory View
+    cdef public Py_ssize_t[:] deleted_mv, dirty_mv #array to know which triangle was deleted #Memory View
     cdef public double[:,:] n_mv #array of face normal #memory view
     cdef np.ndarray v_dat #array holding the actual data
     cdef np.ndarray err_dat #array holding the actual data
@@ -41,8 +36,8 @@ cdef class Faces :
         self.N = N
         self.v_dat = np.asarray(faces, dtype=signedinteger)
         self.err_dat = np.zeros((self.N,4), dtype=float64)
-        self.deleted_dat = np.zeros((self.N), dtype=int32)
-        self.dirty_dat = np.zeros((self.N), dtype=int32)
+        self.deleted_dat = np.zeros((self.N), dtype=signedinteger)
+        self.dirty_dat = np.zeros((self.N), dtype=signedinteger)
         self.n_dat = np.zeros((self.N,3), dtype=float64)
         self.__init_view__()
 
@@ -70,7 +65,7 @@ cdef class Faces :
 cdef class Vertices :
     cdef public double[:,:] p_mv #array of float coordinates? Memory view
     cdef public double[:,:] q_mv #SymetricMatrices # memoryview
-    cdef public int[:] tstart_mv, tcount_mv, border_mv #array to know which triangle was deleted #Memory View
+    cdef public Py_ssize_t[:] tstart_mv, tcount_mv, border_mv #array to know which triangle was deleted #Memory View
     cdef np.ndarray p_dat #array holding the actual data
     cdef np.ndarray q_dat #array holding the actual data
     cdef np.ndarray tstart_dat, tcount_dat, border_dat #array holding the actual data
@@ -83,9 +78,9 @@ cdef class Vertices :
         self.N = N
         self.p_dat = np.asarray(vertices, dtype=float64)
         self.q_dat = np.zeros((self.N,10), dtype=float64) #symetric matrix as flat array
-        self.tstart_dat = np.zeros((self.N), dtype=int32)
-        self.tcount_dat = np.zeros((self.N), dtype=int32)
-        self.border_dat = np.zeros((self.N), dtype=int32)
+        self.tstart_dat = np.zeros((self.N), dtype=signedinteger)
+        self.tcount_dat = np.zeros((self.N), dtype=signedinteger)
+        self.border_dat = np.zeros((self.N), dtype=signedinteger)
         self.__init_view__()
 
     @cython.boundscheck(False)
@@ -112,10 +107,10 @@ cdef class Vertices :
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef void ccompat_faces_verts(double[:,:] p_mv, double[:,:] q_mv, int[:] tstart_mv, 
-                            int[:] tcount_mv, int[:] border_mv, double[:,:] n_mv,
-                            int[:,:] v_mv, double[:,:] err_mv, int[:] deleted_mv, 
-                            int[:] dirty_mv, int[:] result_mv) nogil:
+cdef void ccompat_faces_verts(double[:,:] p_mv, double[:,:] q_mv, Py_ssize_t[:] tstart_mv, 
+                            Py_ssize_t[:] tcount_mv, Py_ssize_t[:] border_mv, double[:,:] n_mv,
+                            Py_ssize_t[:,:] v_mv, double[:,:] err_mv, Py_ssize_t[:] deleted_mv, 
+                            Py_ssize_t[:] dirty_mv, Py_ssize_t[:] result_mv) nogil:
     cdef Py_ssize_t  dst_verts = 0
     cdef Py_ssize_t  dst_faces = 0 
     cdef Py_ssize_t  i, j, n_v_mv, n_p_mv, i_vv
@@ -156,16 +151,16 @@ cdef void ccompat_faces_verts(double[:,:] p_mv, double[:,:] q_mv, int[:] tstart_
 
 
 cdef class Refs :
-    cdef public int[:] tid_mv
-    cdef public int[:] tvertex_mv
+    cdef public Py_ssize_t[:] tid_mv
+    cdef public Py_ssize_t[:] tvertex_mv
     cdef np.ndarray tid_dat
     cdef np.ndarray tvertex_dat
     cdef Py_ssize_t N
 
     def __cinit__(self, Py_ssize_t N =1 ):
         self.N = N
-        self.tid_dat = np.zeros((self.N), dtype = int32)
-        self.tvertex_dat = np.zeros((self.N), dtype = int32)
+        self.tid_dat = np.zeros((self.N), dtype = signedinteger)
+        self.tvertex_dat = np.zeros((self.N), dtype = signedinteger)
         self.__init_view__()
 
     cpdef void __init_view__(self):
@@ -178,12 +173,7 @@ cdef class Refs :
         self.tvertex_dat = self.tvertex_dat[:N]
         self.__init_view__()
 
-    cpdef void resize_ng(self, Py_ssize_t N):
-        resize_ng(self.tid_mv, N)
-        resize_ng(self.tvertex_mv, N)
 
-cdef void resize_ng(int[:] vectA, Py_ssize_t N) nogil:
-    vectA = vectA[:N]
 
 
 cdef class Simplify:
@@ -215,13 +205,15 @@ cdef class Simplify:
         cdef int deleted_triangles = 0 
         cdef Py_ssize_t_vector* deleted0 = make_Py_ssize_t_vector_with_size(10000) 
         cdef Py_ssize_t_vector* deleted1 = make_Py_ssize_t_vector_with_size(10000)
-        cdef int triangle_count 
-        cdef Py_ssize_t iteration, i, j, i0, i1
-        cdef int[:] tcount_mv, tstart_mv
+        cdef int triangle_count
+        cdef Py_ssize_t iteration, i, j, k, i0, i1, tstart, tcount
+        cdef Py_ssize_t[:] tcount_mv, tstart_mv, deleted_mv
         cdef double[:] v0, v1 #should be pointers
         cdef double threshold
         cdef int[:] t_mv #Triangle
-        cdef double[:] p_mv #Vertice 
+        cdef double[:] p_mv_i 
+        cdef double[:,:] n_mv, p_mv, q_mv   #Vertice 
+        cdef Py_ssize_t[:,:] v_mv
         cdef np.ndarray t_dat 
         cdef np.ndarray p_dat 
         cdef Py_ssize_t iters = self.max_iters
@@ -229,21 +221,21 @@ cdef class Simplify:
         cdef Py_ssize_t shpV = self.verts.p_mv.shape[0]
         cdef np.ndarray temporaryArray = np.zeros(10, float64)
         cdef double[:] tempArray_mv = temporaryArray
-
-        triangle_count = shpF
+        cdef np.ndarray p_result_dat = np.zeros(3,dtype=float64)
+        cdef double[:] p_result = p_result_dat[:]
 
         self.faces.deleted_mv[:] = 0
 
         for iteration in range(iters):
             print('Iterantion N°',iteration)
-            print('Faces N° :',int(shpF))
-            print('Vertices N° :',int(shpV))
+            print('Faces N° :',PyInt_FromSsize_t(shpF))
+            print('Vertices N° :',PyInt_FromSsize_t(shpV))
             print('deleted_triangles :',deleted_triangles)
             print('\n')
 
             shpF = self.faces.n_mv.shape[0]
             shpV = self.verts.p_mv.shape[0]
-
+            triangle_count = shpF
             if triangle_count - deleted_triangles <= self.target_count :
                 break
 
@@ -270,35 +262,60 @@ cdef class Simplify:
                         v1 = self.verts.p_mv[i1,:]
                         if self.verts.border_mv[i0] != self.verts.border_mv[i1] : 
                             continue 
-                        p_result_dat = np.zeros(3,dtype=float64)
-                        p_result = p_result_dat[:]
                         err = ccalculate_error(self.verts.q_mv,
                                             self.verts.border_mv,
                                             self.verts.p_mv,
                                             i0, i1, tempArray_mv, p_result)
-                        tcount_mv = self.vertices.tcount_mv
+                        tcount_mv = self.verts.tcount_mv
                         Py_ssize_t_vector_reserve(deleted0, tcount_mv[i0])
                         Py_ssize_t_vector_reserve(deleted1, tcount_mv[i1])
+
+                        tstart_mv = self.verts.tstart_mv
+                        tid_mv = self.refs.tid_mv
+                        deleted_mv = self.faces.deleted_mv
+                        tvertex_mv = self.refs.tvertex_mv
+                        n_mv = self.faces.n_mv
+                        v_mv = self.faces.v_mv
+                        p_mv = self.verts.p_mv
+                        q_mv = self.verts.q_mv
+
+                        if cflipped(i0, i1, deleted0, tstart_mv, tid_mv, deleted_mv, 
+                                    tvertex_mv, tcount_mv, n_mv, v_mv, p_mv, p_result) :
+                            continue 
+
+                        if cflipped(i1, i0, deleted1, tstart_mv, tid_mv, deleted_mv, 
+                                    tvertex_mv, tcount_mv, n_mv, v_mv, p_mv, p_result) :
+                            continue 
+
+                        # not flipped so edge removal
+                        for k in range(3):
+                            p_mv[i0,k] = p_result[k]
+                        for k in range(10):
+                            q_mv[i0,k] = q_mv[i0,k] + q_mv[i1,k]
+
+                        tstart = tvertex_mv.shape[0]
+
+
 
     @cython.boundscheck(False)
     @cython.nonecheck(False)
     cpdef void update_mesh(self, int iteration, double [:] tempArray_mv):
-        cdef int dst, i, j, k, ofs, _id, tstart,size,val
+        cdef Py_ssize_t dst, i, j, k, ofs, _id, tstart,size,val
         cdef double[:] p0_mv, p1_mv, p2_mv
         cdef double[:] n = np.zeros(3,dtype=float64)
 
         cdef Py_ssize_t N
         cdef Py_ssize_t[:,:] v_mv
         cdef double[:,:] err_mv
-        cdef int[:] deleted_mv
-        cdef int[:] dirty_mv
+        cdef Py_ssize_t[:] deleted_mv
+        cdef Py_ssize_t[:] dirty_mv
         cdef double[:,:] n_mv
         cdef double[:,:] q_mv, p_mv
         cdef np.ndarray p1p0_dat = np.empty((3),dtype=float64)
         cdef double[:] p1p0 = p1p0_dat
         cdef np.ndarray p2p1_dat = np.empty((3),dtype=float64)
         cdef double[:] p2p1 = p2p1_dat
-        cdef int[:] tcount_mv, tstart_mv, tid_mv, tvertex_mv
+        cdef Py_ssize_t[:] tcount_mv, tstart_mv, tid_mv, tvertex_mv
 
         v_mv = self.faces.v_mv
         err_mv = self.faces.err_mv
@@ -340,8 +357,8 @@ cdef class Simplify:
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef void cwrite_refs(int[:] tid_mv, int[:] tvertex_mv, Py_ssize_t[:,:] v_mv,
-                      int[:] tcount_mv, int[:] tstart_mv) nogil:
+cdef void cwrite_refs(Py_ssize_t[:] tid_mv, Py_ssize_t[:] tvertex_mv, Py_ssize_t[:,:] v_mv,
+                      Py_ssize_t[:] tcount_mv, Py_ssize_t[:] tstart_mv) nogil:
     cdef Py_ssize_t i, j, N
     N = v_mv.shape[0]
     for i in range(N):
@@ -352,7 +369,7 @@ cdef void cwrite_refs(int[:] tid_mv, int[:] tvertex_mv, Py_ssize_t[:,:] v_mv,
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef void cset_tcount(int[:] tcount_mv, Py_ssize_t[:,:] v_mv, Py_ssize_t N) nogil :
+cdef void cset_tcount(Py_ssize_t[:] tcount_mv, Py_ssize_t[:,:] v_mv, Py_ssize_t N) nogil :
     cdef Py_ssize_t i,j, i_v 
     for i in range(N):
         for j in range(3):
@@ -361,9 +378,9 @@ cdef void cset_tcount(int[:] tcount_mv, Py_ssize_t[:,:] v_mv, Py_ssize_t N) nogi
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef void cset_tstart(int[:] tstart_mv,int[:] tcount_mv, Py_ssize_t N) nogil :
+cdef void cset_tstart(Py_ssize_t[:] tstart_mv,Py_ssize_t[:] tcount_mv, Py_ssize_t N) nogil :
     cdef Py_ssize_t i,i_v 
-    cdef int tstart = 0
+    cdef Py_ssize_t tstart = 0
     for i in range(N):
         tstart_mv[i] = tstart 
         tstart_mv[i] += tcount_mv[i]
@@ -372,25 +389,94 @@ cdef void cset_tstart(int[:] tstart_mv,int[:] tcount_mv, Py_ssize_t N) nogil :
 ##############################################################################
 ##############################################################################
 
-cdef bool cflipped(double[:] p_mv_i, Py_ssize_t i0, Py_ssize_t i1,
-        double[:] v0, double[:] v1, Py_ssize_t_vector* deleted,
-        Py_ssize_t[:] tstart_mv, int[:] tid_mv, int[:] deleted_mv,
-        int[:] tstart_mv, int[:] tid_mv, int[:] tvertex_mv,
-        double[:,:] v_mv, int[:] tcount_mv, double[:] p_mv[:,:]):
-    cdef double[3] d1, d1, d3, n 
-    cdef Py_ssize_t s, id1, id2 
-    cdef int[:] t 
+cdef void cupdate_triangles(Py_ssize_t i0, Py_ssize_t id_verts, double[:,:] v_mv, 
+        Py_ssize_t_vector* deleted, int deleted_triangles, double[:] p_result, 
+        Py_ssize_t[:] tcount,) nogil :
+
+    cdef Py_ssize_t k, N tstart
+
+    N = tcount_mv[id_verts] 
+    tstart = tstart_mv[id_verts]
+
+    for k in range(tcount):
+
+
+
+##############################################################################
+##############################################################################
+@cython.boundscheck(False)
+@cython.nonecheck(False)
+cdef bint cflipped(Py_ssize_t i0, Py_ssize_t i1, 
+        Py_ssize_t_vector* deleted,
+        Py_ssize_t[:] tstart_mv, Py_ssize_t[:] tid_mv, Py_ssize_t[:] deleted_mv, 
+        Py_ssize_t[:] tvertex_mv, Py_ssize_t[:] tcount_mv, double[:,:] n_mv,
+        Py_ssize_t[:,:] v_mv, double[:,:] p_mv, double[:] p_mv_i ) nogil: 
+
+    cdef double_vector* d1
+    cdef double_vector* d2 
+    cdef double_vector* d3
+    cdef double_vector* n 
+    cdef Py_ssize_t s, id0, id1 
+    cdef double dotprod  
     cdef Py_ssize_t N_tcount =  tcount_mv[i0]
-    cdef Py_ssize_t k, ij
+    cdef Py_ssize_t k, ij, j 
+    d1 = make_double_vector()
+    d2 = make_double_vector()
+    d3 = make_double_vector()
+    n  = make_double_vector() 
     for k in range(N_tcount):
-        ij = tid_mv
-        if deleted_mv
+        ij = tid_mv[tstart_mv[i0] + k]
+        if deleted_mv[ij] == 1 :
+            continue 
+        s = tvertex_mv[tstart_mv[i0] + k]
+        id0 = v_mv[ij,(s+1)%3]
+        id1 = v_mv[ij,(s+2)%3]
 
+        if id0==i0 or id1==i1 : #delete
+            deleted.v[k] = 1
+            continue
+        # initialization doubles
+        for j in range(3) : 
+            d1.v[j] = p_mv[i0,j] - p_mv_i[j]
+            d2.v[j] = p_mv[i1,j] - p_mv_i[j]
+            d3.v[j] = n_mv[ij,j]
+        cnormalize_double_vector3d(d1)
+        cnormalize_double_vector3d(d2)
+        dotprod = cdot_double_vector3d(d1, d2)
+        if fabs(dotprod)>0.999:
+            return 1 
+        ccross_double_vector3d(d1, d2, n)
+        cnormalize_double_vector3d(n)
+        deleted.v[k] = 1
+        dotprod = cdot_double_vector3d(n, d3)
+        if dotprod < .2 :
+            return 1
+    return 0
 
+@cython.boundscheck(False)
+@cython.nonecheck(False)
+cdef void cnormalize_double_vector3d(double_vector* vect) nogil:
+    cdef double norm 
+    norm = sqrt(pow(vect.v[0],2)+pow(vect.v[1],2)+pow(vect.v[2],2))
+    vect.v[0] = vect.v[0]*pow(norm,-1)
+    vect.v[1] = vect.v[1]*pow(norm,-1)
+    vect.v[2] = vect.v[2]*pow(norm,-1)
 
+@cython.boundscheck(False)
+@cython.nonecheck(False)
+cdef double cdot_double_vector3d(double_vector* vectA, double_vector* vectB) nogil:
+    cdef double dotprod = .0
+    cdef Py_ssize_t i
+    for i in range(3):
+        dotprod += vectA.v[i]*vectB.v[i]
+    return dotprod
 
-
-
+@cython.boundscheck(False)
+@cython.nonecheck(False)
+cdef double ccross_double_vector3d(double_vector* vectA, double_vector* vectB, double_vector* vectC) nogil:
+    vectC.v[0] = vectA.v[1] * vectB.v[2] - vectA.v[2] * vectB.v[1]
+    vectC.v[1] = vectA.v[2] * vectB.v[0] - vectA.v[0] * vectB.v[2]
+    vectC.v[2] = vectA.v[0] * vectB.v[1] - vectA.v[1] * vectB.v[0]
 
 
 ##############################################################################
@@ -402,7 +488,7 @@ cdef bool cflipped(double[:] p_mv_i, Py_ssize_t i0, Py_ssize_t i1,
 @cython.nonecheck(False)
 cdef void citerationIf0(double[:,:] p_mv, Py_ssize_t[:,:] v_mv, double[:,:] q_mv, 
                        double[:,:] n_mv, double[:] p1p0, double[:] p2p1,
-                       double[:,:] err_mv, int[:] border_mv, double[:] tempArray_mv) nogil:
+                       double[:,:] err_mv, Py_ssize_t[:] border_mv, double[:] tempArray_mv) nogil:
     cdef Py_ssize_t N = v_mv.shape[0]
     cdef Py_ssize_t i, j, i_mvij, id_v1, id_v2
     cdef double[:] p0, p1, p2, p_temp
@@ -426,8 +512,8 @@ cdef void citerationIf0(double[:,:] p_mv, Py_ssize_t[:,:] v_mv, double[:,:] q_mv
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef void citerationIf01(int[:] tid_mv, int[:] tcount_mv, Py_ssize_t[:,:] v_mv,
-                        int[:] tstart_mv, int[:] border_mv) nogil :
+cdef void citerationIf01(Py_ssize_t[:] tid_mv, Py_ssize_t[:] tcount_mv, Py_ssize_t[:,:] v_mv,
+                         Py_ssize_t[:] tstart_mv, Py_ssize_t[:] border_mv) nogil :
     # is probably buggy.. 
     cdef Py_ssize_t N, ntc, size, val
     cdef Py_ssize_t i, j, k, k_t, ofs, _id
@@ -488,8 +574,8 @@ cdef void cinit_q_iteration0(double[:] q_mv, double[:] n_mv, double[:] p0) nogil
 #compact triangles
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef int iterationSup0(Py_ssize_t N, Py_ssize_t[:,:] v_mv, double[:,:] err_mv, int[:] deleted_mv, 
-                        int[:] dirty_mv, double[:,:] n_mv) nogil :
+cdef int iterationSup0(Py_ssize_t N, Py_ssize_t[:,:] v_mv, double[:,:] err_mv, Py_ssize_t[:] deleted_mv, 
+                       Py_ssize_t[:] dirty_mv, double[:,:] n_mv) nogil :
     cdef Py_ssize_t dst = 0
     cdef Py_ssize_t shpF = N
     cdef Py_ssize_t i, j
@@ -512,7 +598,7 @@ cdef int iterationSup0(Py_ssize_t N, Py_ssize_t[:,:] v_mv, double[:,:] err_mv, i
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef double ccalculate_error(double[:,:] q_mv, int[:] border_mv , double[:,:] p_mv, 
+cdef double ccalculate_error(double[:,:] q_mv, Py_ssize_t[:] border_mv , double[:,:] p_mv, 
         Py_ssize_t id_v1, Py_ssize_t id_v2, double[:] q_temp, double[:] p_result) nogil: 
 
     cdef Py_ssize_t i 
