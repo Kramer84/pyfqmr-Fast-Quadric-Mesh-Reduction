@@ -4,6 +4,7 @@ import cython
 from cython import int as cy_int
 from cython.parallel cimport prange
 from cython import double as cy_double
+from libc.string  cimport memcpy
 
 from libc.math cimport sin, cos, pow, abs, sqrt, acos, fmax, fmin
 
@@ -107,14 +108,24 @@ cdef class Vertices :
 
 @cython.boundscheck(False)
 @cython.nonecheck(False)
-cdef void ccompat_faces_verts(double[:,:] p_mv, double[:,:] q_mv, Py_ssize_t[:] tstart_mv, 
-                            Py_ssize_t[:] tcount_mv, Py_ssize_t[:] border_mv, double[:,:] n_mv,
-                            Py_ssize_t[:,:] v_mv, double[:,:] err_mv, Py_ssize_t[:] deleted_mv, 
-                            Py_ssize_t[:] dirty_mv, Py_ssize_t[:] result_mv) nogil:
+cdef void ccompat_faces_verts(
+        double[:,:] p_mv, 
+        double[:,:] q_mv, 
+        Py_ssize_t[:] tstart_mv,
+        Py_ssize_t[:] tcount_mv, 
+        Py_ssize_t[:] border_mv, 
+        double[:,:] n_mv,
+        Py_ssize_t[:,:] v_mv, 
+        double[:,:] err_mv, 
+        Py_ssize_t[:] deleted_mv,
+        Py_ssize_t[:] dirty_mv, 
+        Py_ssize_t[:] result_mv )nogil:
+
     cdef Py_ssize_t  dst_verts = 0
     cdef Py_ssize_t  dst_faces = 0 
     cdef Py_ssize_t  i, j, n_v_mv, n_p_mv, i_vv
     cdef int[2]  output
+
     tcount_mv[:] = 0
     n_v_mv = v_mv.shape[0]
     for i in range(n_v_mv):
@@ -223,6 +234,8 @@ cdef class Simplify:
         cdef double[:] q_temp = temporaryArray
         cdef np.ndarray p_result_dat = np.zeros(3,dtype=float64)
         cdef double[:] p_result = p_result_dat[:]
+        cdef np.ndarray p_resize_dat = np.zeros(2,dtype=signedinteger)
+        cdef Py_ssize_t[:] p_resize = p_resize_dat[:]
         cdef Py_ssize_t shapeFaces
 
         self.faces.deleted_mv[:] = 0
@@ -282,6 +295,7 @@ cdef class Simplify:
                                             self.verts.border_mv,
                                             self.verts.p_mv,
                                             i0, i1, q_temp, p_result)
+                        print("calculating error")
                         tcount_mv = self.verts.tcount_mv
                         Py_ssize_t_vector_reserve(deleted0, tcount_mv[i0])
                         Py_ssize_t_vector_reserve(deleted1, tcount_mv[i1])
@@ -292,15 +306,18 @@ cdef class Simplify:
                         v_mv = self.faces.v_mv
                         p_mv = self.verts.p_mv
                         q_mv = self.verts.q_mv
-
+                        print('reserved nd initialization')
                         if cflipped(i0, i1, deleted0, tstart_mv, tid_mv, deleted_mv, 
                                     tvertex_mv, tcount_mv, n_mv, v_mv, p_mv, p_result) :
                             continue 
+                        print('flipped0')
 
                         if cflipped(i1, i0, deleted1, tstart_mv, tid_mv, deleted_mv, 
                                     tvertex_mv, tcount_mv, n_mv, v_mv, p_mv, p_result) :
                             continue 
+                        print('flipped')
 
+                        print('not flipped')
                         # not flipped so edge removal
                         for k in range(3):
                             p_mv[i0,k] = p_result[k]
@@ -324,6 +341,39 @@ cdef class Simplify:
 
                         print('Now, t_used is',tvertex_mv.used)
                         tcount = tvertex_mv.used - tstart
+                        if tcount <= tcount_mv[i0]:
+                            tstart_mv[i0] = tstart_mv[tstart]
+                            tvertex_mv[i0] = tvertex_mv[tstart]
+                            print('git it')
+                        else :
+                            tcount_mv[i0] = tcount
+                            break
+                if i%100 ==0:    
+                    print("triangle_count is",triangle_count,  
+                          "deleted_triangles is",deleted_triangles, 
+                          "self.target_coun is",self.target_count)
+                if triangle_count - deleted_triangles <= self.target_count:
+                    print('break oks')
+                    break 
+
+            q_mv = self.verts.q_mv
+            border_mv = self.verts.border_mv
+            tcount_mv = self.verts.tcount_mv
+            tstart_mv = self.verts.tstart_mv
+            deleted_mv = self.faces.deleted_mv
+            n_mv = self.faces.n_mv
+            v_mv = self.faces.v_mv
+            p_mv = self.verts.p_mv
+            q_mv = self.verts.q_mv
+            dirty_mv  = self.faces.dirty_mv
+            print('trying resize')
+            ccompat_faces_verts(p_mv, q_mv, tstart_mv, tcount_mv, 
+                                border_mv, n_mv, v_mv, err_mv, 
+                                deleted_mv, dirty_mv, p_resize)
+            self.verts.resize(p_resize[0])
+            self.faces.resize(p_resize[1])
+            print('resizing')
+
 
 
 @cython.boundscheck(False)
@@ -439,24 +489,27 @@ cdef void cupdate_triangles(Py_ssize_t i0,
                             double[:,:] err_mv,
                             double[:,:] q_mv,
                             double[:,:] p_mv,
-                            int deleted_triangles) nogil :
+                            int deleted_triangles)  :
 
     cdef Py_ssize_t k, N, tstart
     cdef Py_ssize_t tid_mv_k
 
     N      = tcount_mv[id_verts] 
     tstart = tstart_mv[id_verts]
-
+    print('in cupdate_triangles')
     for k in range(N):
         tid_mv_k = tid_mv.v[tstart + k]
         if deleted_mv[tid_mv_k] :
+            print('here we are  0')
             continue
         if deleted.v[k] == 1 :
             deleted_mv[tid_mv_k] = 1 
             deleted_triangles += 1 
+            print('here we are  1')
             continue 
         v_mv[tid_mv_k,tvertex_mv.v[tstart + k]] = i0
         dirty_mv[tid_mv_k] = 1
+        print('calculating')
         err_mv[tid_mv_k, 0] = ccalculate_error(q_mv, border_mv, p_mv, 
                                 v_mv[tid_mv_k, 0], v_mv[tid_mv_k, 1], 
                                 q_temp, p_result)
@@ -472,11 +525,9 @@ cdef void cupdate_triangles(Py_ssize_t i0,
         err_mv[tid_mv_k, 3] = fmin(err_mv[tid_mv_k, 0], 
                                    fmin(err_mv[tid_mv_k, 1],
                                         err_mv[tid_mv_k, 2]))
-        with gil:
-            print('tid_mv used is', tid_mv.used)
+        print('tid_mv used is', tid_mv.used)
         Py_ssize_t_vector_append(tid_mv, tid_mv.v[tstart + k ])
-        with gil:
-            print('tid_mv used is', tid_mv.used)
+        print('tid_mv used is', tid_mv.used)
         tid_mv.used += 1 
         Py_ssize_t_vector_append(tvertex_mv, tvertex_mv.v[tstart + k ])
         tvertex_mv.used += 1 
@@ -498,7 +549,7 @@ cdef bint cflipped(
         double[:,:] n_mv,
         Py_ssize_t[:,:] v_mv, 
         double[:,:] p_mv, 
-        double[:] p_mv_i )nogil: 
+        double[:] p_mv_i ): 
 
     cdef double_vector* d1
     cdef double_vector* d2 
@@ -509,6 +560,7 @@ cdef bint cflipped(
     cdef Py_ssize_t N_tcount =  tcount_mv[i0]
     cdef Py_ssize_t k, ij, j 
 
+    print('flipping')
     d1 = make_double_vector()
     d2 = make_double_vector()
     d3 = make_double_vector()
@@ -867,6 +919,7 @@ def test():
 
 import cythonMeshReduction2 as cmr
 simplify = cmr.test()
+simplify.simplify_mesh()
 
 '''
 
