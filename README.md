@@ -1,7 +1,5 @@
 # Fast-Quadric-Mesh-Simplification - Python 
 
-Mesh triangle reduction using quadrics - for Windows, OSX and Linux (thx Chris Rorden)
-
 Cythhon wrapper around sp4acerat's quadrics mesh reduction algorithm. 
 
 ### Requirements: 
@@ -41,6 +39,8 @@ simplified mesh in 0.2254 seconds from 112402 to 1000 triangles
 
 
 ### Sp4acerat's comments :
+
+Mesh triangle reduction using quadrics - for Windows, OSX and Linux (thx Chris Rorden)
 
 ![img](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification/blob/master/screenshot.png?raw=true)
 
