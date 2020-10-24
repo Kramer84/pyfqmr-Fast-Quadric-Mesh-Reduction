@@ -10,11 +10,10 @@ Cythhon wrapper around sp4acerat's quadrics mesh reduction algorithm.
 - *Cython*
 
 ### Compilation :
-Run 
+Run inside of the pySimplify folder 
 ``` 
 python setup.py build_ext --inplace
 ```
-inside of the src.cython folder
 
 ### Usage:
 ```
