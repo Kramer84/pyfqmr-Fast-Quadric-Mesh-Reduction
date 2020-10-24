@@ -17,8 +17,28 @@ python setup.py build_ext --inplace
 inside of the src.cython folder
 
 ### Usage:
-TODO
-
+```
+>>> from simplify import pySimplify
+>>> import trimesh as tr
+>>> bunny = tr.load_mesh('Stanford_Bunny_sample.stl)
+>>> bunny
+<trimesh.Trimesh(vertices.shape=(56203, 3), faces.shape=(112402, 3))>
+>>> simplify = pySimplifyy()
+>>> simplify.setMesh(bunny)
+>>> simplify.simplify_mesh(target_count = 1000, aggressiveness=7, verbose=10)
+iteration 0 - triangles 112402 threshold 2.187e-06
+iteration 5 - triangles 62674 threshold 0.00209715
+iteration 10 - triangles 21518 threshold 0.0627485
+iteration 15 - triangles 9086 threshold 0.61222
+iteration 20 - triangles 4692 threshold 3.40483
+iteration 25 - triangles 2796 threshold 13.4929
+iteration 30 - triangles 1812 threshold 42.6184
+iteration 35 - triangles 1262 threshold 114.416
+simplified mesh in 0.2254 seconds from 112402 to 1000 triangles
+>>> smallBunny = simplify.getMesh()
+>>> smallBunny
+<trimesh.Trimesh(vertices.shape=(502, 3), faces.shape=(1000, 3))>
+```
 
 
 ### Sp4acerat's comments :
