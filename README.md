@@ -1,6 +1,6 @@
 # Fast-Quadric-Mesh-Simplification - Python 
 
-Cythhon wrapper around sp4acerat's quadrics mesh reduction algorithm. 
+Cython wrapper around sp4acerat's quadrics mesh reduction algorithm. 
 
 ### Requirements: 
 - *Numpy*
