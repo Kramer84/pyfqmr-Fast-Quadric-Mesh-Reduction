@@ -12,8 +12,6 @@ from numpy import int32,float64, signedinteger, unsignedinteger
 from time import time
 
 import trimesh as tr
-mesh = tr.load_mesh('skullStl_00030_H_066A_SA_closed.stl')
-
 
 cdef extern from "Simplify.h" namespace "Simplify" :
 	void simplify_mesh( int target_count, double aggressiveness, verbose)
@@ -23,7 +21,7 @@ cdef extern from "Simplify.h" namespace "Simplify" :
 	vector[vector[double]] getNormals()
 
 
-cdef class CySimplify : 
+cdef class pySimplify : 
 	cdef np.ndarray faces
 	cdef np.ndarray vertices 
 	cdef np.ndarray normals
@@ -63,8 +61,7 @@ cdef class CySimplify :
 		mesh=tr.Trimesh(vertices=verts, faces=faces, face_normals=norms)
 		return mesh
 
-
-	cpdef void setMesh(self, trimeshMesh=mesh):
+	cpdef void setMesh(self, trimeshMesh):
 		cdef vector[int] triangle
 		cdef vector[double] vertex 
 		faces = np.array(trimeshMesh.faces, copy=True, subok= False, dtype=int32)
