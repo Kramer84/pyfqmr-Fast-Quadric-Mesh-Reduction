@@ -62,9 +62,13 @@ cdef class pySimplify :
 		elif hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'faces'):
 			pass 
 		else :
-			print('You have to pass a Trimesh object having either faces and vertices or triangles')
-			print('not',trimeshMesh.__class__.__name__)
-			raise TypeError
+			try :
+				trimeshMesh = list(trimeshMesh.geometry.values())[0]
+				trimeshMesh.merge_vertices()
+			except :
+				print('You have to pass a Trimesh object having either faces and vertices or triangles')
+				print('not',trimeshMesh.__class__.__name__)
+				raise TypeError
 		self.faces_mv = np.array(trimeshMesh.faces, copy=False, subok= True, dtype=int32)
 		self.vertices_mv = np.array(trimeshMesh.vertices, copy=False, subok= True, dtype=float64)  
 		for i in range(self.faces_mv.shape[0]):
