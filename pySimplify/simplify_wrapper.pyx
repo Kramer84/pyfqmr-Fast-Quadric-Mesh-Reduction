@@ -108,6 +108,8 @@ cdef class pySimplify :
                 Parameter for controlling the threshold growth
             K : int 
                 Parameter for controlling the thresold growth
+            preserve_border : Bool
+                Flag for preserving vertices on open border
 
             Note
             ----
@@ -148,7 +150,7 @@ mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
 
 simplify = pySimplify()
 simplify.setMesh(mesh)
-simplify.simplify_mesh(1000, preserve_border=True)
+simplify.simplify_mesh(100, preserve_border=True)
 mesh_simple = simplify.getMesh()
 
 '''
