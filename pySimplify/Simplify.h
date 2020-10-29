@@ -341,7 +341,10 @@ namespace Simplify
   //                 more iterations yield higher quality
   //
 
-  void simplify_mesh(int target_count, double agressiveness=7, bool verbose=false)
+  void simplify_mesh(int target_count, int update_rate=5, double agressiveness=7, 
+                     bool verbose=false, int max_iterations=100, double alpha = 0.000000001, 
+                     int K = 3, bool lossless=false, double threshold_lossless = 0.0001,
+                     bool preserve_border = false)
   {
     // init
     loopi(0,triangles.size())
@@ -355,12 +358,12 @@ namespace Simplify
     int triangle_count=triangles.size();
     //int iteration = 0;
     //loop(iteration,0,100)
-    for (int iteration = 0; iteration < 100; iteration ++)
+    for (int iteration = 0; iteration < max_iterations; iteration ++)
     {
       if(triangle_count-deleted_triangles<=target_count)break;
 
       // update mesh once in a while
-      if(iteration%5==0)
+      if((iteration%update_rate==0) or lossless)
       {
         update_mesh(iteration);
       }
@@ -374,7 +377,8 @@ namespace Simplify
       // The following numbers works well for most models.
       // If it does not, try to adjust the 3 parameters
       //
-      double threshold = 0.000000001*pow(double(iteration+3),agressiveness);
+      double threshold = alpha*pow(double(iteration+K),agressiveness);
+      if(lossless) threshold = threshold_lossless ;
 
       // target number of triangles reached ? Then break
       if ((verbose) && (iteration%5==0)) {
@@ -393,8 +397,12 @@ namespace Simplify
         {
           int i0=t.v[ j     ]; Vertex &v0 = vertices[i0];
           int i1=t.v[(j+1)%3]; Vertex &v1 = vertices[i1];
-          // Border check
-          if(v0.border != v1.border)  continue;
+          // Border check //Added preserve_border method from issue 14 
+          if(preserve_border){
+            if (v0.border || v1.border) continue; // should keep border vertices
+          }
+          else
+            if (v0.border != v1.border)  continue; // base behaviour
 
           // Compute vertex to collapse to
           vec3f p;
@@ -441,18 +449,20 @@ namespace Simplify
     compact_mesh();
   } //simplify_mesh()
 
-  void simplify_mesh_lossless(bool verbose=false)
+  void simplify_mesh_lossless(bool verbose=false, double epsilon=1e-3, int max_iterations = 9999)
   {
     // init
-    loopi(0,triangles.size()) triangles[i].deleted=0;
-
+    loopi(0,triangles.size()) 
+        {
+            triangles[i].deleted=0;
+        }
     // main iteration loop
     int deleted_triangles=0;
     std::vector<int> deleted0,deleted1;
     int triangle_count=triangles.size();
     //int iteration = 0;
     //loop(iteration,0,100)
-    for (int iteration = 0; iteration < 9999; iteration ++)
+    for (int iteration = 0; iteration < max_iterations; iteration ++)
     {
       // update mesh constantly
       update_mesh(iteration);
@@ -464,7 +474,7 @@ namespace Simplify
       // The following numbers works well for most models.
       // If it does not, try to adjust the 3 parameters
       //
-      double threshold = DBL_EPSILON; //1.0E-3 EPS;
+      double threshold = epsilon; //1.0E-3 EPS;
       if (verbose) {
         printf("lossless iteration %d\n", iteration);
       }
