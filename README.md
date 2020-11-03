@@ -21,7 +21,7 @@ python setup.py build_ext --inplace
 <trimesh.Trimesh(vertices.shape=(56203, 3), faces.shape=(112402, 3))>
 >>> simplify = pySimplifyy()
 >>> simplify.setMesh(bunny)
->>> simplify.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True verbose=10)
+>>> simplify.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
 iteration 0 - triangles 112402 threshold 2.187e-06
 iteration 5 - triangles 62674 threshold 0.00209715
 iteration 10 - triangles 21518 threshold 0.0627485
