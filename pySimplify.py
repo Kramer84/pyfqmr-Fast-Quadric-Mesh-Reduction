@@ -1,1 +1,1 @@
-from pySimplify.simplify_wrapper  import  *
+from _pySimplify.simplify_wrapper  import  *

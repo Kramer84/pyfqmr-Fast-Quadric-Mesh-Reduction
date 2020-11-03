@@ -12,7 +12,6 @@ Run inside of the pySimplify folder
 ``` 
 python setup.py build_ext --inplace
 ```
-
 ### Usage:
 ```
 >>> from simplify import pySimplify
@@ -37,6 +36,34 @@ simplified mesh in 0.2254 seconds from 112402 to 1000 triangles
 <trimesh.Trimesh(vertices.shape=(502, 3), faces.shape=(1000, 3))>
 ```
 
+### Controlling the reduction algorithm
+
+Parameters of the '''simplify_mesh''' method that can be tuned.
+
+* **target_count**  
+	Target number of triangles.
+* **update_rate**  
+	Number of iterations between each update.
+* **max_iterations**  
+	Maximal number of iterations 
+* **aggressiveness**  
+	Parameter controlling the growth rate of the threshold at each iteration when lossless is False.
+* **preserve_border**  
+	Flag for preserving the vertices situated on open borders. Applies the method descriped in [this issue](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification/issues/14).
+* **alpha**  
+	Parameter for controlling the threshold growth. Exact implication described below.
+* **K**  
+	Parameter for controlling the thresold growth. Exact implication described below.
+* **lossless**  
+	Flag for using the lossless simplification method. Sets the update rate to 1 .
+* **threshold_lossless**  
+	Maximal error after which a vertex is not deleted, only when the lossless flag is set to True.
+* **verbose**  
+	Controls verbosity
+
+##### Implications of the parameters of the threshold growth rate
+This is only true when not in lossless mode. 
+- **threshold = alpha*pow( iteration + K, agressiveness )**
 
 ### Sp4acerat's comments :
 
