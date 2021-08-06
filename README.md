@@ -1,4 +1,4 @@
-# Fast-Quadric-Mesh-Simplification - Python 
+# pyFMR : Python Fast quadric Mesh Reduction 
 
 Cython wrapper around [sp4acerat's quadrics mesh reduction algorithm](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification). 
 
