@@ -1,7 +1,0 @@
-.vscode
-build
-**.pyd
-**.so
-**.c
-**.html
-**.pyc
