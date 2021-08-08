@@ -969,7 +969,7 @@ struct __pyx_memoryviewslice_obj;
 struct __pyx_opt_args_6pyfqmr_8Simplify_8Simplify_setMesh;
 struct __pyx_opt_args_6pyfqmr_8Simplify_8Simplify_simplify_mesh;
 
-/* "pyfqmr/Simplify.pyx":50
+/* "pyfqmr/Simplify.pyx":61
  *         return verts, faces, norms
  * 
  *     cpdef void setMesh(self, vertices, faces, face_colors=None):             # <<<<<<<<<<<<<<
@@ -981,7 +981,7 @@ struct __pyx_opt_args_6pyfqmr_8Simplify_8Simplify_setMesh {
   PyObject *face_colors;
 };
 
-/* "pyfqmr/Simplify.pyx":60
+/* "pyfqmr/Simplify.pyx":71
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,             # <<<<<<<<<<<<<<
@@ -1853,18 +1853,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* CopyContentsUtility.proto */
-#define __pyx_memoryview_copy_slice_d_dc_double_c(slice)\
-        __pyx_memoryview_copy_new_contig(&slice, "c", 2,\
-                                         sizeof(double), (PyBUF_C_CONTIGUOUS | PyBUF_FORMAT),\
-                                         0)
-
-/* CopyContentsUtility.proto */
-#define __pyx_memoryview_copy_slice_dcd__double_f(slice)\
-        __pyx_memoryview_copy_new_contig(&slice, "fortran", 2,\
-                                         sizeof(double), (PyBUF_F_CONTIGUOUS | PyBUF_FORMAT),\
-                                         0)
-
-/* CopyContentsUtility.proto */
 #define __pyx_memoryview_copy_slice_d_dc_int_c(slice)\
         __pyx_memoryview_copy_new_contig(&slice, "c", 2,\
                                          sizeof(int), (PyBUF_C_CONTIGUOUS | PyBUF_FORMAT),\
@@ -1874,6 +1862,18 @@ static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 #define __pyx_memoryview_copy_slice_dcd__int_f(slice)\
         __pyx_memoryview_copy_new_contig(&slice, "fortran", 2,\
                                          sizeof(int), (PyBUF_F_CONTIGUOUS | PyBUF_FORMAT),\
+                                         0)
+
+/* CopyContentsUtility.proto */
+#define __pyx_memoryview_copy_slice_d_dc_double_c(slice)\
+        __pyx_memoryview_copy_new_contig(&slice, "c", 2,\
+                                         sizeof(double), (PyBUF_C_CONTIGUOUS | PyBUF_FORMAT),\
+                                         0)
+
+/* CopyContentsUtility.proto */
+#define __pyx_memoryview_copy_slice_dcd__double_f(slice)\
+        __pyx_memoryview_copy_new_contig(&slice, "fortran", 2,\
+                                         sizeof(double), (PyBUF_F_CONTIGUOUS | PyBUF_FORMAT),\
                                          0)
 
 /* CIntFromPy.proto */
@@ -2323,12 +2323,13 @@ static int __pyx_pf_6pyfqmr_8Simplify_8Simplify___cinit__(CYTHON_UNUSED struct _
  *         pass
  * 
  *     def getMesh(self):             # <<<<<<<<<<<<<<
- *         self.triangles_cpp = getFaces()
- *         self.vertices_cpp = getVertices()
+ *         """Gets the mesh from the simplify object once the simplification is done
+ * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_3getMesh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pyfqmr_8Simplify_8Simplify_2getMesh[] = "Gets the mesh from the simplify object once the simplification is done\n\n        Returns\n        -------\n        verts : numpy.ndarray\n            array of vertices of shape (n_vertices,3)\n        faces : numpy.ndarray\n            array of vertices of shape (n_faces,3)\n        norms : numpy.ndarray\n            array of vertices of shape (n_faces,3)\n        ";
 static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_3getMesh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2371,17 +2372,17 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getMesh", 0);
 
-  /* "pyfqmr/Simplify.pyx":32
- * 
- *     def getMesh(self):
+  /* "pyfqmr/Simplify.pyx":43
+ *             array of vertices of shape (n_faces,3)
+ *         """
  *         self.triangles_cpp = getFaces()             # <<<<<<<<<<<<<<
  *         self.vertices_cpp = getVertices()
  *         self.normals_cpp = getNormals()
  */
   __pyx_v_self->triangles_cpp = Simplify::getFaces();
 
-  /* "pyfqmr/Simplify.pyx":33
- *     def getMesh(self):
+  /* "pyfqmr/Simplify.pyx":44
+ *         """
  *         self.triangles_cpp = getFaces()
  *         self.vertices_cpp = getVertices()             # <<<<<<<<<<<<<<
  *         self.normals_cpp = getNormals()
@@ -2389,7 +2390,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
  */
   __pyx_v_self->vertices_cpp = Simplify::getVertices();
 
-  /* "pyfqmr/Simplify.pyx":34
+  /* "pyfqmr/Simplify.pyx":45
  *         self.triangles_cpp = getFaces()
  *         self.vertices_cpp = getVertices()
  *         self.normals_cpp = getNormals()             # <<<<<<<<<<<<<<
@@ -2398,7 +2399,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
  */
   __pyx_v_self->normals_cpp = Simplify::getNormals();
 
-  /* "pyfqmr/Simplify.pyx":35
+  /* "pyfqmr/Simplify.pyx":46
  *         self.vertices_cpp = getVertices()
  *         self.normals_cpp = getNormals()
  *         N_t = self.triangles_cpp.size()             # <<<<<<<<<<<<<<
@@ -2407,7 +2408,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
  */
   __pyx_v_N_t = __pyx_v_self->triangles_cpp.size();
 
-  /* "pyfqmr/Simplify.pyx":36
+  /* "pyfqmr/Simplify.pyx":47
  *         self.normals_cpp = getNormals()
  *         N_t = self.triangles_cpp.size()
  *         N_v = self.vertices_cpp.size()             # <<<<<<<<<<<<<<
@@ -2416,7 +2417,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
  */
   __pyx_v_N_v = __pyx_v_self->vertices_cpp.size();
 
-  /* "pyfqmr/Simplify.pyx":37
+  /* "pyfqmr/Simplify.pyx":48
  *         N_t = self.triangles_cpp.size()
  *         N_v = self.vertices_cpp.size()
  *         N_n = self.normals_cpp.size()             # <<<<<<<<<<<<<<
@@ -2425,15 +2426,15 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
  */
   __pyx_v_N_n = __pyx_v_self->normals_cpp.size();
 
-  /* "pyfqmr/Simplify.pyx":38
+  /* "pyfqmr/Simplify.pyx":49
  *         N_v = self.vertices_cpp.size()
  *         N_n = self.normals_cpp.size()
  *         faces = self.faces_mv.copy()[:N_t, :]             # <<<<<<<<<<<<<<
  *         verts = self.vertices_mv.copy()[:N_v, :]
  *         norms = self.vertices_mv.copy()[:N_n, :]
  */
-  if (unlikely(!__pyx_v_self->faces_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 38, __pyx_L1_error)}
-  __pyx_t_1 = __pyx_memoryview_copy_slice_d_dc_int_c(__pyx_v_self->faces_mv); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->faces_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 49, __pyx_L1_error)}
+  __pyx_t_1 = __pyx_memoryview_copy_slice_d_dc_int_c(__pyx_v_self->faces_mv); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 49, __pyx_L1_error)
   __pyx_t_2.data = __pyx_t_1.data;
   __pyx_t_2.memview = __pyx_t_1.memview;
   __PYX_INC_MEMVIEW(&__pyx_t_2, 0);
@@ -2452,7 +2453,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_2getMesh(struct __pyx_obj_
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 38, __pyx_L1_error)
+    __PYX_ERR(0, 49, __pyx_L1_error)
 }
 
 __pyx_t_2.shape[1] = __pyx_t_1.shape[1];
@@ -2462,7 +2463,7 @@ __pyx_t_2.strides[1] = __pyx_t_1.strides[1];
 __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __PYX_XDEC_MEMVIEW(&__pyx_t_2, 1);
   __pyx_t_2.memview = NULL;
@@ -2470,15 +2471,15 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   __pyx_v_faces = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pyfqmr/Simplify.pyx":39
+  /* "pyfqmr/Simplify.pyx":50
  *         N_n = self.normals_cpp.size()
  *         faces = self.faces_mv.copy()[:N_t, :]
  *         verts = self.vertices_mv.copy()[:N_v, :]             # <<<<<<<<<<<<<<
  *         norms = self.vertices_mv.copy()[:N_n, :]
  *         for i in range(N_v):
  */
-  if (unlikely(!__pyx_v_self->vertices_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 39, __pyx_L1_error)}
-  __pyx_t_5 = __pyx_memoryview_copy_slice_d_dc_double_c(__pyx_v_self->vertices_mv); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->vertices_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 50, __pyx_L1_error)}
+  __pyx_t_5 = __pyx_memoryview_copy_slice_d_dc_double_c(__pyx_v_self->vertices_mv); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 50, __pyx_L1_error)
   __pyx_t_6.data = __pyx_t_5.data;
   __pyx_t_6.memview = __pyx_t_5.memview;
   __PYX_INC_MEMVIEW(&__pyx_t_6, 0);
@@ -2497,7 +2498,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 39, __pyx_L1_error)
+    __PYX_ERR(0, 50, __pyx_L1_error)
 }
 
 __pyx_t_6.shape[1] = __pyx_t_5.shape[1];
@@ -2507,7 +2508,7 @@ __pyx_t_6.strides[1] = __pyx_t_5.strides[1];
 __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_6, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_6, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_t_6.memview = NULL;
@@ -2515,15 +2516,15 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
   __pyx_v_verts = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pyfqmr/Simplify.pyx":40
+  /* "pyfqmr/Simplify.pyx":51
  *         faces = self.faces_mv.copy()[:N_t, :]
  *         verts = self.vertices_mv.copy()[:N_v, :]
  *         norms = self.vertices_mv.copy()[:N_n, :]             # <<<<<<<<<<<<<<
  *         for i in range(N_v):
  *             for j in range(3):
  */
-  if (unlikely(!__pyx_v_self->vertices_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 40, __pyx_L1_error)}
-  __pyx_t_6 = __pyx_memoryview_copy_slice_d_dc_double_c(__pyx_v_self->vertices_mv); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 40, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->vertices_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 51, __pyx_L1_error)}
+  __pyx_t_6 = __pyx_memoryview_copy_slice_d_dc_double_c(__pyx_v_self->vertices_mv); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 51, __pyx_L1_error)
   __pyx_t_5.data = __pyx_t_6.data;
   __pyx_t_5.memview = __pyx_t_6.memview;
   __PYX_INC_MEMVIEW(&__pyx_t_5, 0);
@@ -2542,7 +2543,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 40, __pyx_L1_error)
+    __PYX_ERR(0, 51, __pyx_L1_error)
 }
 
 __pyx_t_5.shape[1] = __pyx_t_6.shape[1];
@@ -2552,7 +2553,7 @@ __pyx_t_5.strides[1] = __pyx_t_6.strides[1];
 __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
   __pyx_t_5.memview = NULL;
@@ -2560,7 +2561,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_v_norms = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pyfqmr/Simplify.pyx":41
+  /* "pyfqmr/Simplify.pyx":52
  *         verts = self.vertices_mv.copy()[:N_v, :]
  *         norms = self.vertices_mv.copy()[:N_n, :]
  *         for i in range(N_v):             # <<<<<<<<<<<<<<
@@ -2572,7 +2573,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_i = __pyx_t_9;
 
-    /* "pyfqmr/Simplify.pyx":42
+    /* "pyfqmr/Simplify.pyx":53
  *         norms = self.vertices_mv.copy()[:N_n, :]
  *         for i in range(N_v):
  *             for j in range(3):             # <<<<<<<<<<<<<<
@@ -2582,20 +2583,20 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
     for (__pyx_t_10 = 0; __pyx_t_10 < 3; __pyx_t_10+=1) {
       __pyx_v_j = __pyx_t_10;
 
-      /* "pyfqmr/Simplify.pyx":43
+      /* "pyfqmr/Simplify.pyx":54
  *         for i in range(N_v):
  *             for j in range(3):
  *                 verts[i,j] = self.vertices_cpp[i][j]             # <<<<<<<<<<<<<<
  *         for i in range(N_t):
  *             for j in range(3):
  */
-      __pyx_t_4 = PyFloat_FromDouble(((__pyx_v_self->vertices_cpp[__pyx_v_i])[__pyx_v_j])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_4 = PyFloat_FromDouble(((__pyx_v_self->vertices_cpp[__pyx_v_i])[__pyx_v_j])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_11 = __Pyx_PyInt_FromSize_t(__pyx_v_i); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyInt_FromSize_t(__pyx_v_i); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
-      __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_v_j); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_v_j); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_GIVEREF(__pyx_t_11);
       PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_11);
@@ -2603,13 +2604,13 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
       PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_12);
       __pyx_t_11 = 0;
       __pyx_t_12 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_verts, __pyx_t_13, __pyx_t_4) < 0)) __PYX_ERR(0, 43, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_verts, __pyx_t_13, __pyx_t_4) < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
 
-  /* "pyfqmr/Simplify.pyx":44
+  /* "pyfqmr/Simplify.pyx":55
  *             for j in range(3):
  *                 verts[i,j] = self.vertices_cpp[i][j]
  *         for i in range(N_t):             # <<<<<<<<<<<<<<
@@ -2621,7 +2622,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
     __pyx_v_i = __pyx_t_15;
 
-    /* "pyfqmr/Simplify.pyx":45
+    /* "pyfqmr/Simplify.pyx":56
  *                 verts[i,j] = self.vertices_cpp[i][j]
  *         for i in range(N_t):
  *             for j in range(3):             # <<<<<<<<<<<<<<
@@ -2631,20 +2632,20 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
     for (__pyx_t_10 = 0; __pyx_t_10 < 3; __pyx_t_10+=1) {
       __pyx_v_j = __pyx_t_10;
 
-      /* "pyfqmr/Simplify.pyx":46
+      /* "pyfqmr/Simplify.pyx":57
  *         for i in range(N_t):
  *             for j in range(3):
  *                 faces[i,j] = self.triangles_cpp[i][j]             # <<<<<<<<<<<<<<
  *                 norms[i,j] = self.normals_cpp[i][j]
  *         return verts, faces, norms
  */
-      __pyx_t_4 = __Pyx_PyInt_From_int(((__pyx_v_self->triangles_cpp[__pyx_v_i])[__pyx_v_j])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_int(((__pyx_v_self->triangles_cpp[__pyx_v_i])[__pyx_v_j])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_13 = __Pyx_PyInt_FromSize_t(__pyx_v_i); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyInt_FromSize_t(__pyx_v_i); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_v_j); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_v_j); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_GIVEREF(__pyx_t_13);
       PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_13);
@@ -2652,24 +2653,24 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
       PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_12);
       __pyx_t_13 = 0;
       __pyx_t_12 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_faces, __pyx_t_11, __pyx_t_4) < 0)) __PYX_ERR(0, 46, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_faces, __pyx_t_11, __pyx_t_4) < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "pyfqmr/Simplify.pyx":47
+      /* "pyfqmr/Simplify.pyx":58
  *             for j in range(3):
  *                 faces[i,j] = self.triangles_cpp[i][j]
  *                 norms[i,j] = self.normals_cpp[i][j]             # <<<<<<<<<<<<<<
  *         return verts, faces, norms
  * 
  */
-      __pyx_t_4 = PyFloat_FromDouble(((__pyx_v_self->normals_cpp[__pyx_v_i])[__pyx_v_j])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 47, __pyx_L1_error)
+      __pyx_t_4 = PyFloat_FromDouble(((__pyx_v_self->normals_cpp[__pyx_v_i])[__pyx_v_j])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_11 = __Pyx_PyInt_FromSize_t(__pyx_v_i); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 47, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyInt_FromSize_t(__pyx_v_i); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
-      __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_v_j); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 47, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_v_j); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 47, __pyx_L1_error)
+      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_GIVEREF(__pyx_t_11);
       PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_11);
@@ -2677,13 +2678,13 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
       PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_12);
       __pyx_t_11 = 0;
       __pyx_t_12 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_norms, __pyx_t_13, __pyx_t_4) < 0)) __PYX_ERR(0, 47, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_norms, __pyx_t_13, __pyx_t_4) < 0)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
 
-  /* "pyfqmr/Simplify.pyx":48
+  /* "pyfqmr/Simplify.pyx":59
  *                 faces[i,j] = self.triangles_cpp[i][j]
  *                 norms[i,j] = self.normals_cpp[i][j]
  *         return verts, faces, norms             # <<<<<<<<<<<<<<
@@ -2691,7 +2692,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
  *     cpdef void setMesh(self, vertices, faces, face_colors=None):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_verts);
   __Pyx_GIVEREF(__pyx_v_verts);
@@ -2710,8 +2711,8 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
  *         pass
  * 
  *     def getMesh(self):             # <<<<<<<<<<<<<<
- *         self.triangles_cpp = getFaces()
- *         self.vertices_cpp = getVertices()
+ *         """Gets the mesh from the simplify object once the simplification is done
+ * 
  */
 
   /* function exit code */
@@ -2735,7 +2736,7 @@ __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   return __pyx_r;
 }
 
-/* "pyfqmr/Simplify.pyx":50
+/* "pyfqmr/Simplify.pyx":61
  *         return verts, faces, norms
  * 
  *     cpdef void setMesh(self, vertices, faces, face_colors=None):             # <<<<<<<<<<<<<<
@@ -2773,7 +2774,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_setMesh(struct __pyx_obj_6pyfqmr
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_setMesh); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_setMesh); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_6pyfqmr_8Simplify_8Simplify_5setMesh)) {
         __Pyx_INCREF(__pyx_t_1);
@@ -2792,7 +2793,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_setMesh(struct __pyx_obj_6pyfqmr
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_v_vertices, __pyx_v_faces, __pyx_v_face_colors};
-          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else
@@ -2800,13 +2801,13 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_setMesh(struct __pyx_obj_6pyfqmr
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_v_vertices, __pyx_v_faces, __pyx_v_face_colors};
-          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else
         #endif
         {
-          __pyx_t_6 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 50, __pyx_L1_error)
+          __pyx_t_6 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 61, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           if (__pyx_t_4) {
             __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -2820,7 +2821,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_setMesh(struct __pyx_obj_6pyfqmr
           __Pyx_INCREF(__pyx_v_face_colors);
           __Pyx_GIVEREF(__pyx_v_face_colors);
           PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_5, __pyx_v_face_colors);
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
@@ -2842,95 +2843,95 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_setMesh(struct __pyx_obj_6pyfqmr
     #endif
   }
 
-  /* "pyfqmr/Simplify.pyx":52
+  /* "pyfqmr/Simplify.pyx":63
  *     cpdef void setMesh(self, vertices, faces, face_colors=None):
  *         # Here we will need some checks, just to make sure the right objets are passed
  *         self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)             # <<<<<<<<<<<<<<
  *         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
  *         print('Faces and vertices passed')
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_faces, __pyx_n_s_astype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_faces, __pyx_n_s_astype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_n_s_int32) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_subok, Py_False) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_copy, Py_False) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_n_s_int32) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_subok, Py_False) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_copy, Py_False) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->faces_mv, 0);
   __pyx_v_self->faces_mv = __pyx_t_7;
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "pyfqmr/Simplify.pyx":53
+  /* "pyfqmr/Simplify.pyx":64
  *         # Here we will need some checks, just to make sure the right objets are passed
  *         self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
  *         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)             # <<<<<<<<<<<<<<
  *         print('Faces and vertices passed')
  *         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_vertices, __pyx_n_s_astype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_vertices, __pyx_n_s_astype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_n_s_float64) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_subok, Py_False) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_copy, Py_False) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_n_s_float64) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_subok, Py_False) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_copy, Py_False) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->vertices_mv, 0);
   __pyx_v_self->vertices_mv = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "pyfqmr/Simplify.pyx":54
+  /* "pyfqmr/Simplify.pyx":65
  *         self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
  *         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
  *         print('Faces and vertices passed')             # <<<<<<<<<<<<<<
  *         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
  *         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_Faces_and_vertices_passed) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_Faces_and_vertices_passed) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
 
-  /* "pyfqmr/Simplify.pyx":55
+  /* "pyfqmr/Simplify.pyx":66
  *         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
  *         print('Faces and vertices passed')
  *         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)             # <<<<<<<<<<<<<<
  *         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
  *         print('setting mesh from python extension')
  */
-  if (unlikely(!__pyx_v_self->faces_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 55, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->faces_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 66, __pyx_L1_error)}
   __pyx_v_self->triangles_cpp = __pyx_f_6pyfqmr_8Simplify_setFacesNogil(__pyx_v_self->faces_mv, __pyx_v_self->triangles_cpp);
 
-  /* "pyfqmr/Simplify.pyx":56
+  /* "pyfqmr/Simplify.pyx":67
  *         print('Faces and vertices passed')
  *         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
  *         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)             # <<<<<<<<<<<<<<
  *         print('setting mesh from python extension')
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  */
-  if (unlikely(!__pyx_v_self->vertices_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 56, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->vertices_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 67, __pyx_L1_error)}
   __pyx_v_self->vertices_cpp = __pyx_f_6pyfqmr_8Simplify_setVerticesNogil(__pyx_v_self->vertices_mv, __pyx_v_self->vertices_cpp);
 
-  /* "pyfqmr/Simplify.pyx":57
+  /* "pyfqmr/Simplify.pyx":68
  *         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
  *         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
  *         print('setting mesh from python extension')             # <<<<<<<<<<<<<<
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  * 
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_setting_mesh_from_python_extensi) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_setting_mesh_from_python_extensi) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
 
-  /* "pyfqmr/Simplify.pyx":58
+  /* "pyfqmr/Simplify.pyx":69
  *         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
  *         print('setting mesh from python extension')
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)             # <<<<<<<<<<<<<<
@@ -2939,7 +2940,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_setMesh(struct __pyx_obj_6pyfqmr
  */
   Simplify::setMeshFromExt(__pyx_v_self->vertices_cpp, __pyx_v_self->triangles_cpp);
 
-  /* "pyfqmr/Simplify.pyx":50
+  /* "pyfqmr/Simplify.pyx":61
  *         return verts, faces, norms
  * 
  *     cpdef void setMesh(self, vertices, faces, face_colors=None):             # <<<<<<<<<<<<<<
@@ -3000,7 +3001,7 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_5setMesh(PyObject *__pyx_v
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_faces)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setMesh", 0, 2, 3, 1); __PYX_ERR(0, 50, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setMesh", 0, 2, 3, 1); __PYX_ERR(0, 61, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -3010,7 +3011,7 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_5setMesh(PyObject *__pyx_v
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setMesh") < 0)) __PYX_ERR(0, 50, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setMesh") < 0)) __PYX_ERR(0, 61, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3028,7 +3029,7 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_5setMesh(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setMesh", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 50, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("setMesh", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 61, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyfqmr.Simplify.Simplify.setMesh", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3054,7 +3055,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_4setMesh(struct __pyx_obj_
   __pyx_t_1.__pyx_n = 1;
   __pyx_t_1.face_colors = __pyx_v_face_colors;
   __pyx_vtabptr_6pyfqmr_8Simplify_Simplify->setMesh(__pyx_v_self, __pyx_v_vertices, __pyx_v_faces, 1, &__pyx_t_1); 
-  __pyx_t_2 = __Pyx_void_to_None(NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_void_to_None(NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -3071,7 +3072,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_4setMesh(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "pyfqmr/Simplify.pyx":60
+/* "pyfqmr/Simplify.pyx":71
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,             # <<<<<<<<<<<<<<
@@ -3086,7 +3087,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   double __pyx_v_aggressiveness = ((double)7.);
   PyObject *__pyx_v_max_iterations = ((PyObject *)__pyx_int_100);
 
-  /* "pyfqmr/Simplify.pyx":61
+  /* "pyfqmr/Simplify.pyx":72
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,
  *         double aggressiveness=7., max_iterations = 100, bool verbose=True,             # <<<<<<<<<<<<<<
@@ -3095,7 +3096,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
  */
   bool __pyx_v_verbose = ((bool)1);
 
-  /* "pyfqmr/Simplify.pyx":62
+  /* "pyfqmr/Simplify.pyx":73
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,
  *         double aggressiveness=7., max_iterations = 100, bool verbose=True,
  *         bool lossless = False, double threshold_lossless=1e-3, double alpha = 1e-9,             # <<<<<<<<<<<<<<
@@ -3107,7 +3108,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   double __pyx_v_alpha = ((double)1e-9);
   int __pyx_v_K = ((int)3);
 
-  /* "pyfqmr/Simplify.pyx":63
+  /* "pyfqmr/Simplify.pyx":74
  *         double aggressiveness=7., max_iterations = 100, bool verbose=True,
  *         bool lossless = False, double threshold_lossless=1e-3, double alpha = 1e-9,
  *         int K = 3, bool preserve_border = True):             # <<<<<<<<<<<<<<
@@ -3171,7 +3172,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
     }
   }
 
-  /* "pyfqmr/Simplify.pyx":60
+  /* "pyfqmr/Simplify.pyx":71
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,             # <<<<<<<<<<<<<<
@@ -3187,26 +3188,26 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_simplify_mesh); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_simplify_mesh); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh)) {
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_target_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_target_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_update_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_update_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_5 = PyFloat_FromDouble(__pyx_v_aggressiveness); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_5 = PyFloat_FromDouble(__pyx_v_aggressiveness); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_6 = __Pyx_PyBool_FromLong(__pyx_v_verbose); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyBool_FromLong(__pyx_v_verbose); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyBool_FromLong(__pyx_v_lossless); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyBool_FromLong(__pyx_v_lossless); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_8 = PyFloat_FromDouble(__pyx_v_threshold_lossless); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_8 = PyFloat_FromDouble(__pyx_v_threshold_lossless); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_9 = PyFloat_FromDouble(__pyx_v_alpha); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_9 = PyFloat_FromDouble(__pyx_v_alpha); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_10 = __Pyx_PyInt_From_int(__pyx_v_K); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyInt_From_int(__pyx_v_K); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_11 = __Pyx_PyBool_FromLong(__pyx_v_preserve_border); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyBool_FromLong(__pyx_v_preserve_border); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 71, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_12 = __pyx_t_1; __pyx_t_13 = NULL;
@@ -3224,7 +3225,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[11] = {__pyx_t_13, __pyx_t_3, __pyx_t_4, __pyx_t_5, __pyx_v_max_iterations, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11};
-          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_14, 10+__pyx_t_14); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_14, 10+__pyx_t_14); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3241,7 +3242,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
           PyObject *__pyx_temp[11] = {__pyx_t_13, __pyx_t_3, __pyx_t_4, __pyx_t_5, __pyx_v_max_iterations, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11};
-          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_14, 10+__pyx_t_14); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_14, 10+__pyx_t_14); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3256,7 +3257,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
         } else
         #endif
         {
-          __pyx_t_15 = PyTuple_New(10+__pyx_t_14); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 60, __pyx_L1_error)
+          __pyx_t_15 = PyTuple_New(10+__pyx_t_14); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 71, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
           if (__pyx_t_13) {
             __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_13); __pyx_t_13 = NULL;
@@ -3291,7 +3292,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
           __pyx_t_9 = 0;
           __pyx_t_10 = 0;
           __pyx_t_11 = 0;
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_15, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_15, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         }
@@ -3313,24 +3314,24 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
     #endif
   }
 
-  /* "pyfqmr/Simplify.pyx":96
+  /* "pyfqmr/Simplify.pyx":107
  *             threshold = alpha*pow( iteration + K, agressiveness)
  *         """
  *         N_start = self.faces_mv.shape[0]             # <<<<<<<<<<<<<<
  *         t_start = time()
  *         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
  */
-  if (unlikely(!__pyx_v_self->faces_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 96, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->faces_mv.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 107, __pyx_L1_error)}
   __pyx_v_N_start = (__pyx_v_self->faces_mv.shape[0]);
 
-  /* "pyfqmr/Simplify.pyx":97
+  /* "pyfqmr/Simplify.pyx":108
  *         """
  *         N_start = self.faces_mv.shape[0]
  *         t_start = time()             # <<<<<<<<<<<<<<
  *         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
  *                       lossless, threshold_lossless, preserve_border)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_12 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -3344,22 +3345,22 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   }
   __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_t_start = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pyfqmr/Simplify.pyx":98
+  /* "pyfqmr/Simplify.pyx":109
  *         N_start = self.faces_mv.shape[0]
  *         t_start = time()
  *         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,             # <<<<<<<<<<<<<<
  *                       lossless, threshold_lossless, preserve_border)
  *         t_end = time()
  */
-  __pyx_t_14 = __Pyx_PyInt_As_int(__pyx_v_max_iterations); if (unlikely((__pyx_t_14 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyInt_As_int(__pyx_v_max_iterations); if (unlikely((__pyx_t_14 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
 
-  /* "pyfqmr/Simplify.pyx":99
+  /* "pyfqmr/Simplify.pyx":110
  *         t_start = time()
  *         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
  *                       lossless, threshold_lossless, preserve_border)             # <<<<<<<<<<<<<<
@@ -3368,14 +3369,14 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
  */
   Simplify::simplify_mesh(__pyx_v_target_count, __pyx_v_update_rate, __pyx_v_aggressiveness, __pyx_v_verbose, __pyx_t_14, __pyx_v_alpha, __pyx_v_K, __pyx_v_lossless, __pyx_v_threshold_lossless, __pyx_v_preserve_border);
 
-  /* "pyfqmr/Simplify.pyx":100
+  /* "pyfqmr/Simplify.pyx":111
  *         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
  *                       lossless, threshold_lossless, preserve_border)
  *         t_end = time()             # <<<<<<<<<<<<<<
  *         print('simplified mesh in {} seconds '.format(round(t_end-t_start,4), N_start, target_count))
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_12 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -3389,24 +3390,24 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   }
   __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_t_end = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pyfqmr/Simplify.pyx":101
+  /* "pyfqmr/Simplify.pyx":112
  *                       lossless, threshold_lossless, preserve_border)
  *         t_end = time()
  *         print('simplified mesh in {} seconds '.format(round(t_end-t_start,4), N_start, target_count))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_simplified_mesh_in_seconds, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_simplified_mesh_in_seconds, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_12 = PyNumber_Subtract(__pyx_v_t_end, __pyx_v_t_start); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_12 = PyNumber_Subtract(__pyx_v_t_end, __pyx_v_t_start); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_GIVEREF(__pyx_t_12);
   PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_12);
@@ -3414,12 +3415,12 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   __Pyx_GIVEREF(__pyx_int_4);
   PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_int_4);
   __pyx_t_12 = 0;
-  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_15, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_15, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-  __pyx_t_15 = PyInt_FromSsize_t(__pyx_v_N_start); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_15 = PyInt_FromSsize_t(__pyx_v_N_start); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_target_count); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_target_count); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __pyx_t_10 = NULL;
   __pyx_t_14 = 0;
@@ -3436,7 +3437,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_10, __pyx_t_12, __pyx_t_15, __pyx_t_11};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_14, 3+__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_14, 3+__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -3447,7 +3448,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_10, __pyx_t_12, __pyx_t_15, __pyx_t_11};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_14, 3+__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_14, 3+__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -3456,7 +3457,7 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
   } else
   #endif
   {
-    __pyx_t_9 = PyTuple_New(3+__pyx_t_14); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(3+__pyx_t_14); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     if (__pyx_t_10) {
       __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -3470,15 +3471,15 @@ static void __pyx_f_6pyfqmr_8Simplify_8Simplify_simplify_mesh(struct __pyx_obj_6
     __pyx_t_12 = 0;
     __pyx_t_15 = 0;
     __pyx_t_11 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyfqmr/Simplify.pyx":60
+  /* "pyfqmr/Simplify.pyx":71
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,             # <<<<<<<<<<<<<<
@@ -3624,7 +3625,7 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "simplify_mesh") < 0)) __PYX_ERR(0, 60, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "simplify_mesh") < 0)) __PYX_ERR(0, 71, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3653,26 +3654,26 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh(PyObject *_
       }
     }
     if (values[0]) {
-      __pyx_v_target_count = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_target_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L3_error)
+      __pyx_v_target_count = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_target_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L3_error)
     } else {
       __pyx_v_target_count = ((int)0x64);
     }
     if (values[1]) {
-      __pyx_v_update_rate = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_update_rate == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L3_error)
+      __pyx_v_update_rate = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_update_rate == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L3_error)
     } else {
       __pyx_v_update_rate = ((int)5);
     }
     if (values[2]) {
-      __pyx_v_aggressiveness = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_aggressiveness == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L3_error)
+      __pyx_v_aggressiveness = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_aggressiveness == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
     } else {
       __pyx_v_aggressiveness = ((double)7.);
     }
     __pyx_v_max_iterations = values[3];
     if (values[4]) {
-      __pyx_v_verbose = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_verbose == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L3_error)
+      __pyx_v_verbose = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_verbose == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
     } else {
 
-      /* "pyfqmr/Simplify.pyx":61
+      /* "pyfqmr/Simplify.pyx":72
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,
  *         double aggressiveness=7., max_iterations = 100, bool verbose=True,             # <<<<<<<<<<<<<<
@@ -3682,10 +3683,10 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh(PyObject *_
       __pyx_v_verbose = ((bool)1);
     }
     if (values[5]) {
-      __pyx_v_lossless = __Pyx_PyObject_IsTrue(values[5]); if (unlikely((__pyx_v_lossless == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L3_error)
+      __pyx_v_lossless = __Pyx_PyObject_IsTrue(values[5]); if (unlikely((__pyx_v_lossless == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L3_error)
     } else {
 
-      /* "pyfqmr/Simplify.pyx":62
+      /* "pyfqmr/Simplify.pyx":73
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,
  *         double aggressiveness=7., max_iterations = 100, bool verbose=True,
  *         bool lossless = False, double threshold_lossless=1e-3, double alpha = 1e-9,             # <<<<<<<<<<<<<<
@@ -3695,25 +3696,25 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh(PyObject *_
       __pyx_v_lossless = ((bool)0);
     }
     if (values[6]) {
-      __pyx_v_threshold_lossless = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_threshold_lossless == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L3_error)
+      __pyx_v_threshold_lossless = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_threshold_lossless == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L3_error)
     } else {
       __pyx_v_threshold_lossless = ((double)1e-3);
     }
     if (values[7]) {
-      __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L3_error)
+      __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L3_error)
     } else {
       __pyx_v_alpha = ((double)1e-9);
     }
     if (values[8]) {
-      __pyx_v_K = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_K == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L3_error)
+      __pyx_v_K = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_K == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 74, __pyx_L3_error)
     } else {
       __pyx_v_K = ((int)3);
     }
     if (values[9]) {
-      __pyx_v_preserve_border = __Pyx_PyObject_IsTrue(values[9]); if (unlikely((__pyx_v_preserve_border == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L3_error)
+      __pyx_v_preserve_border = __Pyx_PyObject_IsTrue(values[9]); if (unlikely((__pyx_v_preserve_border == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 74, __pyx_L3_error)
     } else {
 
-      /* "pyfqmr/Simplify.pyx":63
+      /* "pyfqmr/Simplify.pyx":74
  *         double aggressiveness=7., max_iterations = 100, bool verbose=True,
  *         bool lossless = False, double threshold_lossless=1e-3, double alpha = 1e-9,
  *         int K = 3, bool preserve_border = True):             # <<<<<<<<<<<<<<
@@ -3725,7 +3726,7 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("simplify_mesh", 0, 0, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 60, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("simplify_mesh", 0, 0, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 71, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyfqmr.Simplify.Simplify.simplify_mesh", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3733,7 +3734,7 @@ static PyObject *__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh(PyObject *_
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6pyfqmr_8Simplify_8Simplify_6simplify_mesh(((struct __pyx_obj_6pyfqmr_8Simplify_Simplify *)__pyx_v_self), __pyx_v_target_count, __pyx_v_update_rate, __pyx_v_aggressiveness, __pyx_v_max_iterations, __pyx_v_verbose, __pyx_v_lossless, __pyx_v_threshold_lossless, __pyx_v_alpha, __pyx_v_K, __pyx_v_preserve_border);
 
-  /* "pyfqmr/Simplify.pyx":60
+  /* "pyfqmr/Simplify.pyx":71
  *         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
  * 
  *     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5,             # <<<<<<<<<<<<<<
@@ -3768,7 +3769,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_6simplify_mesh(struct __py
   __pyx_t_1.K = __pyx_v_K;
   __pyx_t_1.preserve_border = __pyx_v_preserve_border;
   __pyx_vtabptr_6pyfqmr_8Simplify_Simplify->simplify_mesh(__pyx_v_self, 1, &__pyx_t_1); 
-  __pyx_t_2 = __Pyx_void_to_None(NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_void_to_None(NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -3898,7 +3899,7 @@ static PyObject *__pyx_pf_6pyfqmr_8Simplify_8Simplify_10__setstate_cython__(CYTH
   return __pyx_r;
 }
 
-/* "pyfqmr/Simplify.pyx":104
+/* "pyfqmr/Simplify.pyx":115
  * 
  * 
  * cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil:             # <<<<<<<<<<<<<<
@@ -3922,7 +3923,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "pyfqmr/Simplify.pyx":109
+  /* "pyfqmr/Simplify.pyx":120
  *     """
  *     cdef vector[double] vertex
  *     for i in range(vertices.shape[0]):             # <<<<<<<<<<<<<<
@@ -3934,7 +3935,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pyfqmr/Simplify.pyx":110
+    /* "pyfqmr/Simplify.pyx":121
  *     cdef vector[double] vertex
  *     for i in range(vertices.shape[0]):
  *         vertex.clear()             # <<<<<<<<<<<<<<
@@ -3943,7 +3944,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
  */
     __pyx_v_vertex.clear();
 
-    /* "pyfqmr/Simplify.pyx":111
+    /* "pyfqmr/Simplify.pyx":122
  *     for i in range(vertices.shape[0]):
  *         vertex.clear()
  *         for j in range(3):             # <<<<<<<<<<<<<<
@@ -3953,7 +3954,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
     for (__pyx_t_4 = 0; __pyx_t_4 < 3; __pyx_t_4+=1) {
       __pyx_v_j = __pyx_t_4;
 
-      /* "pyfqmr/Simplify.pyx":112
+      /* "pyfqmr/Simplify.pyx":123
  *         vertex.clear()
  *         for j in range(3):
  *             vertex.push_back(vertices[i,j])             # <<<<<<<<<<<<<<
@@ -3973,7 +3974,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
       } else if (unlikely(__pyx_t_6 >= __pyx_v_vertices.shape[1])) __pyx_t_7 = 1;
       if (unlikely(__pyx_t_7 != -1)) {
         __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_7);
-        __PYX_ERR(0, 112, __pyx_L1_error)
+        __PYX_ERR(0, 123, __pyx_L1_error)
       }
       try {
         __pyx_v_vertex.push_back((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_vertices.data + __pyx_t_5 * __pyx_v_vertices.strides[0]) ) + __pyx_t_6 * __pyx_v_vertices.strides[1]) ))));
@@ -3985,11 +3986,11 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 112, __pyx_L1_error)
+        __PYX_ERR(0, 123, __pyx_L1_error)
       }
     }
 
-    /* "pyfqmr/Simplify.pyx":113
+    /* "pyfqmr/Simplify.pyx":124
  *         for j in range(3):
  *             vertex.push_back(vertices[i,j])
  *         vector_vertices.push_back(vertex)             # <<<<<<<<<<<<<<
@@ -4006,11 +4007,11 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 113, __pyx_L1_error)
+      __PYX_ERR(0, 124, __pyx_L1_error)
     }
   }
 
-  /* "pyfqmr/Simplify.pyx":114
+  /* "pyfqmr/Simplify.pyx":125
  *             vertex.push_back(vertices[i,j])
  *         vector_vertices.push_back(vertex)
  *     return vector_vertices             # <<<<<<<<<<<<<<
@@ -4020,7 +4021,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
   __pyx_r = __pyx_v_vector_vertices;
   goto __pyx_L0;
 
-  /* "pyfqmr/Simplify.pyx":104
+  /* "pyfqmr/Simplify.pyx":115
  * 
  * 
  * cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil:             # <<<<<<<<<<<<<<
@@ -4036,7 +4037,7 @@ static std::vector<std::vector<double> >  __pyx_f_6pyfqmr_8Simplify_setVerticesN
   return __pyx_r;
 }
 
-/* "pyfqmr/Simplify.pyx":116
+/* "pyfqmr/Simplify.pyx":127
  *     return vector_vertices
  * 
  * cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil:             # <<<<<<<<<<<<<<
@@ -4060,7 +4061,7 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "pyfqmr/Simplify.pyx":121
+  /* "pyfqmr/Simplify.pyx":132
  *     """
  *     cdef vector[int] triangle
  *     for i in range(faces.shape[0]):             # <<<<<<<<<<<<<<
@@ -4072,7 +4073,7 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pyfqmr/Simplify.pyx":122
+    /* "pyfqmr/Simplify.pyx":133
  *     cdef vector[int] triangle
  *     for i in range(faces.shape[0]):
  *         triangle.clear()             # <<<<<<<<<<<<<<
@@ -4081,7 +4082,7 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
  */
     __pyx_v_triangle.clear();
 
-    /* "pyfqmr/Simplify.pyx":123
+    /* "pyfqmr/Simplify.pyx":134
  *     for i in range(faces.shape[0]):
  *         triangle.clear()
  *         for j in range(3):             # <<<<<<<<<<<<<<
@@ -4091,7 +4092,7 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
     for (__pyx_t_4 = 0; __pyx_t_4 < 3; __pyx_t_4+=1) {
       __pyx_v_j = __pyx_t_4;
 
-      /* "pyfqmr/Simplify.pyx":124
+      /* "pyfqmr/Simplify.pyx":135
  *         triangle.clear()
  *         for j in range(3):
  *             triangle.push_back(faces[i,j])             # <<<<<<<<<<<<<<
@@ -4111,7 +4112,7 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
       } else if (unlikely(__pyx_t_6 >= __pyx_v_faces.shape[1])) __pyx_t_7 = 1;
       if (unlikely(__pyx_t_7 != -1)) {
         __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_7);
-        __PYX_ERR(0, 124, __pyx_L1_error)
+        __PYX_ERR(0, 135, __pyx_L1_error)
       }
       try {
         __pyx_v_triangle.push_back((*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_faces.data + __pyx_t_5 * __pyx_v_faces.strides[0]) ) + __pyx_t_6 * __pyx_v_faces.strides[1]) ))));
@@ -4123,11 +4124,11 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 124, __pyx_L1_error)
+        __PYX_ERR(0, 135, __pyx_L1_error)
       }
     }
 
-    /* "pyfqmr/Simplify.pyx":125
+    /* "pyfqmr/Simplify.pyx":136
  *         for j in range(3):
  *             triangle.push_back(faces[i,j])
  *         vector_faces.push_back(triangle)             # <<<<<<<<<<<<<<
@@ -4144,11 +4145,11 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 125, __pyx_L1_error)
+      __PYX_ERR(0, 136, __pyx_L1_error)
     }
   }
 
-  /* "pyfqmr/Simplify.pyx":126
+  /* "pyfqmr/Simplify.pyx":137
  *             triangle.push_back(faces[i,j])
  *         vector_faces.push_back(triangle)
  *     return vector_faces             # <<<<<<<<<<<<<<
@@ -4158,7 +4159,7 @@ static std::vector<std::vector<int> >  __pyx_f_6pyfqmr_8Simplify_setFacesNogil(_
   __pyx_r = __pyx_v_vector_faces;
   goto __pyx_L0;
 
-  /* "pyfqmr/Simplify.pyx":116
+  /* "pyfqmr/Simplify.pyx":127
  *     return vector_vertices
  * 
  * cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil:             # <<<<<<<<<<<<<<
@@ -17237,7 +17238,7 @@ static void __pyx_tp_dealloc_6pyfqmr_8Simplify_Simplify(PyObject *o) {
 }
 
 static PyMethodDef __pyx_methods_6pyfqmr_8Simplify_Simplify[] = {
-  {"getMesh", (PyCFunction)__pyx_pw_6pyfqmr_8Simplify_8Simplify_3getMesh, METH_NOARGS, 0},
+  {"getMesh", (PyCFunction)__pyx_pw_6pyfqmr_8Simplify_8Simplify_3getMesh, METH_NOARGS, __pyx_doc_6pyfqmr_8Simplify_8Simplify_2getMesh},
   {"setMesh", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pyfqmr_8Simplify_8Simplify_5setMesh, METH_VARARGS|METH_KEYWORDS, 0},
   {"simplify_mesh", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6pyfqmr_8Simplify_8Simplify_7simplify_mesh, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pyfqmr_8Simplify_8Simplify_6simplify_mesh},
   {"__reduce_cython__", (PyCFunction)__pyx_pw_6pyfqmr_8Simplify_8Simplify_9__reduce_cython__, METH_NOARGS, 0},
@@ -18194,8 +18195,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 41, __pyx_L1_error)
-  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 112, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 133, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 148, __pyx_L1_error)

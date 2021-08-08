@@ -36,9 +36,9 @@ cdef class Simplify :
         verts : numpy.ndarray
             array of vertices of shape (n_vertices,3)
         faces : numpy.ndarray
-            array of vertices of shape (n_faces,3)
+            array of faces of shape (n_faces,3)
         norms : numpy.ndarray
-            array of vertices of shape (n_faces,3)
+            array of normals of shape (n_faces,3)
         """
         self.triangles_cpp = getFaces()
         self.vertices_cpp = getVertices()
@@ -59,6 +59,18 @@ cdef class Simplify :
         return verts, faces, norms
 
     cpdef void setMesh(self, vertices, faces, face_colors=None):
+        """Method to set the mesh of the simplifier object.
+        
+        Arguments
+        ---------
+        vertices : numpy.ndarray
+            array of vertices of shape (n_vertices,3)
+        faces : numpy.ndarray
+            array of faces of shape (n_faces,3)
+        face_colors : numpy.ndarray
+            array of face_colors of shape (n_faces,3)
+            this is not yet implemented
+        """
         # Here we will need some checks, just to make sure the right objets are passed
         self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
@@ -141,9 +153,15 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
 
 """Example:
 
-import trimesh as tr
+#We assume you have a numpy based mesh processing software
+#Where you can get the vertices and faces of the mesh as numpy arrays.
+#For example Trimesh or meshio
 import pyfqmr
+import trimesh as tr
 bunny = tr.load_mesh('Stanford_Bunny_sample.stl')
+#Simplify object
 simp = pyfqmr.Simplify()
 simp.setMesh(bunny.vertices, bunny.faces)
+simp.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
+vertices, faces, normals = simp.getMesh()
 """
