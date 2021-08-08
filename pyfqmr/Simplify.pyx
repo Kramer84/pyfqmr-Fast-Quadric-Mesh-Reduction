@@ -3,12 +3,8 @@
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
-import cython
-from cython.parallel cimport prange
-
 import numpy as np 
 cimport numpy as np
-from numpy import int32,float64, signedinteger, unsignedinteger
 
 from time import time
 
@@ -54,12 +50,14 @@ cdef class Simplify :
                 norms[i,j] = self.normals_cpp[i][j]
         return verts, faces, norms
 
-    cpdef void setMesh(self, vertices, faces, face_colors = None):
+    cpdef void setMesh(self, vertices, faces, face_colors=None):
         # Here we will need some checks, just to make sure the right objets are passed
-        self.faces_mv = faces.astype(dtype=int, subok=True, copy=False)
-        self.vertices_mv = vertices.astype(dtype=float, subok=True, copy=False) 
+        self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
+        self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
+        print('Faces and vertices passed')
         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
+        print('setting mesh from python extension')
         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
 
     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5, 
@@ -133,15 +131,11 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
 
 
 
-#if hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'triangles'):
-        #    trimeshMesh=tr.Trimesh(**tr.triangles.to_kwargs(trimeshMesh.triangles))
-        #elif hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'faces'):
-        #    pass 
-        #else :
-        #    try :
-        #        trimeshMesh = list(trimeshMesh.geometry.values())[0]
-        #        trimeshMesh.merge_vertices()
-        #    except :
-        #        print('You have to pass a Trimesh object having either faces and vertices or triangles')
-        #        print('not',trimeshMesh.__class__.__name__)
-        #        raise TypeError
+"""Example:
+
+import trimesh as tr
+import pyfqmr
+bunny = tr.load_mesh('Stanford_Bunny_sample.stl')
+simp = pyfqmr.Simplify()
+simp.setMesh(bunny.vertices, bunny.faces)
+"""
