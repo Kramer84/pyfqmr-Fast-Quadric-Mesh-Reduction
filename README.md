@@ -3,8 +3,6 @@
 Cython wrapper around [sp4acerat's quadrics mesh reduction algorithm](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification). 
 
 ### Requirements: 
-- *Numpy*
-- *Trimesh*
 - *Cython*
 
 ### Compilation and installation :
@@ -14,13 +12,15 @@ python setup.py install
 ```
 ### Usage:
 ```
+>>> #We assume you have a numpy based mesh processing software
+>>> #Where you can get the vertices and faces of the mesh as numpy arrays.
+>>> #For example Trimesh or meshio
 >>> from pyFMR import Simplify
 >>> import trimesh as tr
->>> bunny = tr.load_mesh('Stanford_Bunny_sample.stl)
->>> bunny
-<trimesh.Trimesh(vertices.shape=(56203, 3), faces.shape=(112402, 3))>
+>>> bunny = tr.load_mesh('example/Stanford_Bunny_sample.stl)
+>>> #Simplify object
 >>> simplify = Simplify()
->>> simplify.setMesh(bunny)
+>>> simplify.setMesh(bunny.vertices, bunny.faces)
 >>> simplify.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
 iteration 0 - triangles 112402 threshold 2.187e-06
 iteration 5 - triangles 62674 threshold 0.00209715
@@ -31,9 +31,7 @@ iteration 25 - triangles 2796 threshold 13.4929
 iteration 30 - triangles 1812 threshold 42.6184
 iteration 35 - triangles 1262 threshold 114.416
 simplified mesh in 0.2254 seconds from 112402 to 1000 triangles
->>> smallBunny = simplify.getMesh()
->>> smallBunny
-<trimesh.Trimesh(vertices.shape=(502, 3), faces.shape=(1000, 3))>
+>>> vertices, faces, normals = simplify.getMesh()
 ```
 
 ### Controlling the reduction algorithm
@@ -65,7 +63,7 @@ Parameters of the '''simplify_mesh''' method that can be tuned.
 This is only true when not in lossless mode. 
 - **threshold = alpha * (iteration + K)\*\*agressiveness** 
 
-### Sp4acerat's comments :
+### Sp4acerat's README :
 
 Mesh triangle reduction using quadrics - for Windows, OSX and Linux (thx Chris Rorden)
 
