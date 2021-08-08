@@ -124,6 +124,9 @@ cdef class Simplify :
 
 
 cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil:
+    """nogil function for filling the vector of vertices, "vector_vertices",
+    with the data found in the memory view of the array "vertices" 
+    """
     cdef vector[double] vertex 
     for i in range(vertices.shape[0]):
         vertex.clear()
@@ -133,6 +136,9 @@ cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector
     return vector_vertices
 
 cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil:
+    """nogil function for filling the vector of faces, "vector_faces",
+    with the data found in the memory view of the array "faces"
+    """
     cdef vector[int] triangle 
     for i in range(faces.shape[0]):
         triangle.clear()
@@ -140,18 +146,3 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
             triangle.push_back(faces[i,j])
         vector_faces.push_back(triangle)
     return vector_faces
-
-
-
-'''
-from Simplify import Simplify
-import trimesh as tr 
-mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
-
-simplify = pySimplify()
-simplify.setMesh(mesh)
-simplify.simplify_mesh(100, preserve_border=True)
-mesh_simple = simplify.getMesh()
-
-'''
-
