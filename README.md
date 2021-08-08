@@ -11,13 +11,13 @@ Run:
 python setup.py install
 ```
 ### Usage:
-```
+```python
 >>> #We assume you have a numpy based mesh processing software
 >>> #Where you can get the vertices and faces of the mesh as numpy arrays.
 >>> #For example Trimesh or meshio
 >>> from pyFMR import Simplify
 >>> import trimesh as tr
->>> bunny = tr.load_mesh('example/Stanford_Bunny_sample.stl)
+>>> bunny = tr.load_mesh('example/Stanford_Bunny_sample.stl')
 >>> #Simplify object
 >>> simplify = Simplify()
 >>> simplify.setMesh(bunny.vertices, bunny.faces)
