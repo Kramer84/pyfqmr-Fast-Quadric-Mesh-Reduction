@@ -1,4 +1,4 @@
-# pyFMR : Python Fast quadric Mesh Reduction 
+# pyFMR : Python Fast (quadric) Mesh Reduction 
 
 Cython wrapper around [sp4acerat's quadrics mesh reduction algorithm](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification). 
 
@@ -7,14 +7,14 @@ Cython wrapper around [sp4acerat's quadrics mesh reduction algorithm](https://gi
 - *Trimesh*
 - *Cython*
 
-### Compilation :
-Run inside of the pySimplify folder 
+### Compilation and installation :
+Run:
 ``` 
-python setup.py build_ext --inplace
+python setup.py install
 ```
 ### Usage:
 ```
->>> from pySimplify import pySimplify
+>>> from pyFMR import Simplify
 >>> import trimesh as tr
 >>> bunny = tr.load_mesh('Stanford_Bunny_sample.stl)
 >>> bunny

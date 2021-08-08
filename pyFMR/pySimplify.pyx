@@ -24,7 +24,7 @@ cdef extern from "Simplify.h" namespace "Simplify" :
     vector[vector[double]] getNormals()
 
 
-cdef class pySimplify : 
+cdef class Simplify : 
 
     cdef int[:,:] faces_mv
     cdef double[:,:] vertices_mv
@@ -144,7 +144,7 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
 
 
 '''
-from pySimplify import pySimplify
+from Simplify import Simplify
 import trimesh as tr 
 mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
 
