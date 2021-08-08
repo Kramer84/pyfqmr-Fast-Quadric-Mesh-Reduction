@@ -16,23 +16,23 @@ with open('README.md') as f_read:
 
 extensions = [
     Extension(
-    name         = "pyFMR.Simplify",        # name/path of generated .so file
-    sources      = ["pyFMR/Simplify.pyx"],  # cython generated cpp file
+    name         = "pyfqmr.Simplify",        # name/path of generated .so file
+    sources      = ["pyfqmr/Simplify.pyx"],  # cython generated cpp file
     include_dirs = [numpy.get_include()],   # gives access to numpy funcs inside cython code 
     language     = "c++"),                  # tells python that the language of the extension is c++
     ]
 
 setup(
-    name        = "pyFMR",
+    name        = "pyfqmr",
     version     = version,
     description = "cython wrapper around C++ library for fast triangular mesh reduction",
     author      = "kramer84",
-    url         = "https://github.com/Kramer84/pyFMR-Fast-quadric-Mesh-Reduction-",
+    url         = "https://github.com/Kramer84/pyfqmr-Fast-quadric-Mesh-Reduction",
     license     = 'MIT',
     include_package_data = True,
     packages = 
         [
-        'pyFMR'
+        'pyfqmr'
         ],
     ext_modules      = extensions,
     long_description = readme,
