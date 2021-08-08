@@ -3,9 +3,6 @@
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
-import numpy as np 
-cimport numpy as np
-
 from time import time
 
 cdef extern from "Simplify.h" namespace "Simplify" :
@@ -32,15 +29,26 @@ cdef class Simplify :
         pass
 
     def getMesh(self):
+        """Gets the mesh from the simplify object once the simplification is done
+
+        Returns
+        -------
+        verts : numpy.ndarray
+            array of vertices of shape (n_vertices,3)
+        faces : numpy.ndarray
+            array of vertices of shape (n_faces,3)
+        norms : numpy.ndarray
+            array of vertices of shape (n_faces,3)
+        """
         self.triangles_cpp = getFaces()
         self.vertices_cpp = getVertices()
         self.normals_cpp = getNormals()
         N_t = self.triangles_cpp.size()
         N_v = self.vertices_cpp.size()
         N_n = self.normals_cpp.size()
-        faces = np.zeros((N_t,3), dtype=int32)
-        verts = np.zeros((N_v,3), dtype=float64)
-        norms = np.zeros((N_n,3), dtype=float64)
+        faces = self.faces_mv.copy()[:N_t, :] 
+        verts = self.vertices_mv.copy()[:N_v, :] 
+        norms = self.vertices_mv.copy()[:N_n, :] 
         for i in range(N_v):
             for j in range(3):
                 verts[i,j] = self.vertices_cpp[i][j]
