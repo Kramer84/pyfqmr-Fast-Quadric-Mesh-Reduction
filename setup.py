@@ -38,7 +38,7 @@ setup(
     long_description = readme,
     install_requires = 
         [
-        'cython','numpy','trimesh'
+        'cython','numpy'
         ],
     classifiers = 
         [

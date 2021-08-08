@@ -12,8 +12,6 @@ from numpy import int32,float64, signedinteger, unsignedinteger
 
 from time import time
 
-import trimesh as tr
-
 cdef extern from "Simplify.h" namespace "Simplify" :
     void simplify_mesh( int target_count, int update_rate, double aggressiveness, 
                         bool verbose, int max_iterations,double alpha, int K, 
@@ -54,27 +52,12 @@ cdef class Simplify :
             for j in range(3):
                 faces[i,j] = self.triangles_cpp[i][j]
                 norms[i,j] = self.normals_cpp[i][j]
+        return verts, faces, norms
 
-        mesh=tr.Trimesh(vertices=verts, faces=faces, face_normals=norms)
-        return mesh
-
-    cpdef void setMesh(self, trimeshMesh):
-        cdef vector[int] triangle
-        cdef vector[double] vertex 
-        if hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'triangles'):
-            trimeshMesh=tr.Trimesh(**tr.triangles.to_kwargs(trimeshMesh.triangles))
-        elif hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'faces'):
-            pass 
-        else :
-            try :
-                trimeshMesh = list(trimeshMesh.geometry.values())[0]
-                trimeshMesh.merge_vertices()
-            except :
-                print('You have to pass a Trimesh object having either faces and vertices or triangles')
-                print('not',trimeshMesh.__class__.__name__)
-                raise TypeError
-        self.faces_mv = np.array(trimeshMesh.faces, copy=True, subok= False, dtype=int32)
-        self.vertices_mv = np.array(trimeshMesh.vertices, copy=True, subok= False, dtype=float64) 
+    cpdef void setMesh(self, vertices, faces, face_colors = None):
+        # Here we will need some checks, just to make sure the right objets are passed
+        self.faces_mv = faces.astype(dtype=int, subok=True, copy=False)
+        self.vertices_mv = vertices.astype(dtype=float, subok=True, copy=False) 
         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
@@ -146,3 +129,19 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
             triangle.push_back(faces[i,j])
         vector_faces.push_back(triangle)
     return vector_faces
+
+
+
+
+#if hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'triangles'):
+        #    trimeshMesh=tr.Trimesh(**tr.triangles.to_kwargs(trimeshMesh.triangles))
+        #elif hasattr(trimeshMesh,'vertrices')==False and hasattr(trimeshMesh,'faces'):
+        #    pass 
+        #else :
+        #    try :
+        #        trimeshMesh = list(trimeshMesh.geometry.values())[0]
+        #        trimeshMesh.merge_vertices()
+        #    except :
+        #        print('You have to pass a Trimesh object having either faces and vertices or triangles')
+        #        print('not',trimeshMesh.__class__.__name__)
+        #        raise TypeError
