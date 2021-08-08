@@ -14,8 +14,8 @@ with open('README.md') as f:
 
 extensions = [
     Extension(
-    name="pyFMR.pySimplify", # name/path of generated .so file
-    sources=["pyFMR/pySimplify.pyx"], # cython generated cpp file
+    name="pyFMR.Simplify", # name/path of generated .so file
+    sources=["pyFMR/Simplify.pyx"], # cython generated cpp file
     include_dirs = [numpy.get_include()], # gives access to numpy funcs inside cython code 
     language="c++"), # tells python that the language of the extension is c++
     ]

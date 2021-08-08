@@ -19,7 +19,7 @@ python setup.py install
 >>> bunny = tr.load_mesh('Stanford_Bunny_sample.stl)
 >>> bunny
 <trimesh.Trimesh(vertices.shape=(56203, 3), faces.shape=(112402, 3))>
->>> simplify = pySimplifyy()
+>>> simplify = Simplify()
 >>> simplify.setMesh(bunny)
 >>> simplify.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
 iteration 0 - triangles 112402 threshold 2.187e-06

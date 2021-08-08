@@ -1,1 +1,1 @@
-from .pySimplify import *
+from .Simplify import *
