@@ -1,6 +1,5 @@
 from setuptools import setup
 from setuptools.extension import Extension
-import numpy
 
 # setup file based on:  
 # https://github.com/AshleySetter/HowToPackageCythonAndCppFuncs
