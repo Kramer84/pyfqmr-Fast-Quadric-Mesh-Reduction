@@ -34,7 +34,7 @@ setup(
         ],
     ext_modules      = extensions,
     long_description = readme,
-    install_requires = ['cython'],
+    install_requires = [],
     classifiers = 
         [
         "Development Status :: 2 - Pre-Alpha",
