@@ -55,6 +55,8 @@ cdef class Simplify :
         for i in range(N_t):
             for j in range(3):
                 faces[i,j] = self.triangles_cpp[i][j]
+        for i in range(N_n):
+            for j in range(3):
                 norms[i,j] = self.normals_cpp[i][j]
         return verts, faces, norms
 
@@ -71,11 +73,16 @@ cdef class Simplify :
             array of face_colors of shape (n_faces,3)
             this is not yet implemented
         """
+        # We have to clear the vectors to avoid overflow when using the simplify object
+        # multiple times
+        self.triangles_cpp.clear()
+        self.vertices_cpp.clear()
+        self.normals_cpp.clear()
         # Here we will need some checks, just to make sure the right objets are passed
-        self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
-        self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
+        self.faces_mv      = faces.astype(dtype="int32", subok=False, copy=False)
+        self.vertices_mv   = vertices.astype(dtype="float64", subok=False, copy=False)
         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
-        self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
+        self.vertices_cpp  = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
 
     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5, 
