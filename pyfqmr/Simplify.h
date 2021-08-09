@@ -363,7 +363,7 @@ namespace Simplify
       if(triangle_count-deleted_triangles<=target_count)break;
 
       // update mesh once in a while
-      if((iteration%update_rate==0) or lossless)
+      if((iteration%update_rate==0) || lossless)
       {
         update_mesh(iteration);
       }
