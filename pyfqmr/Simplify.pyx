@@ -74,10 +74,8 @@ cdef class Simplify :
         # Here we will need some checks, just to make sure the right objets are passed
         self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
-        print('Faces and vertices passed')
         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
-        print('setting mesh from python extension')
         setMeshFromExt(self.vertices_cpp, self.triangles_cpp)
 
     cpdef void simplify_mesh(self, int target_count = 100, int update_rate = 5, 

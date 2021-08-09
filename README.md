@@ -21,8 +21,6 @@ python setup.py install
 >>> #Simplify object
 >>> mesh_simplifier = pyfqmr.Simplify()
 >>> mesh_simplifier.setMesh(bunny.vertices, bunny.faces)
-Faces and vertices passed
-setting mesh from python extension
 >>> mesh_simplifier.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
 iteration 0 - triangles 112402 threshold 2.187e-06
 iteration 5 - triangles 62674 threshold 0.00209715
