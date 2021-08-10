@@ -3,7 +3,16 @@
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
-from time import time
+from time import time as _time
+
+class _hidden_ref(object):
+    """Hidden Python object to keep a reference to our numpy arrays
+    """
+    def __init__(self):
+        self.faces = None
+        self.verts = None
+
+_REF = _hidden_ref() 
 
 cdef extern from "Simplify.h" namespace "Simplify" :
     void simplify_mesh( int target_count, int update_rate, double aggressiveness, 
@@ -13,7 +22,6 @@ cdef extern from "Simplify.h" namespace "Simplify" :
     vector[vector[int]] getFaces()
     vector[vector[double]] getVertices()
     vector[vector[double]] getNormals()
-
 
 cdef class Simplify : 
 
@@ -46,9 +54,9 @@ cdef class Simplify :
         N_t = self.triangles_cpp.size()
         N_v = self.vertices_cpp.size()
         N_n = self.normals_cpp.size()
-        faces = self.faces_mv.copy()[:N_t, :] 
-        verts = self.vertices_mv.copy()[:N_v, :] 
-        norms = self.vertices_mv.copy()[:N_n, :] 
+        faces = _REF.faces.astype(dtype="int32", subok=False, copy=True)[:N_t, :] 
+        verts = _REF.verts.astype(dtype="float64", subok=False, copy=True)[:N_v, :] 
+        norms = _REF.faces.astype(dtype="float64", subok=False, copy=True)[:N_n, :] 
         for i in range(N_v):
             for j in range(3):
                 verts[i,j] = self.vertices_cpp[i][j]
@@ -73,6 +81,8 @@ cdef class Simplify :
             array of face_colors of shape (n_faces,3)
             this is not yet implemented
         """
+        _REF.faces = faces 
+        _REF.verts = vertices
         # We have to clear the vectors to avoid overflow when using the simplify object
         # multiple times
         self.triangles_cpp.clear()
@@ -122,11 +132,12 @@ cdef class Simplify :
             threshold = alpha*pow( iteration + K, agressiveness)
         """
         N_start = self.faces_mv.shape[0]
-        t_start = time()
+        t_start = _time()
         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
                       lossless, threshold_lossless, preserve_border)
-        t_end = time()
-        print('simplified mesh in {} seconds '.format(round(t_end-t_start,4), N_start, target_count))
+        t_end = _time()
+        N_end = getFaces().size()
+        print('simplified mesh in {} seconds from {} to {} triangles'.format(round(t_end-t_start,4), N_start, N_end))
 
 
 cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil:
@@ -156,6 +167,7 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
 
 
 
+
 """Example:
 
 #We assume you have a numpy based mesh processing software
@@ -169,4 +181,15 @@ simp = pyfqmr.Simplify()
 simp.setMesh(bunny.vertices, bunny.faces)
 simp.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
 vertices, faces, normals = simp.getMesh()
+"""
+
+"""Example2:
+import trimesh as tr
+import pyfqmr as fmr
+mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
+simpl = fmr.Simplify()
+verts, faces = mesh.vertices, mesh.faces
+simpl.setMesh(verts, faces)
+simpl.getMesh()
+faces.shape
 """
