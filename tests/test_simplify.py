@@ -13,8 +13,7 @@ def test_example():
     simp.setMesh(bunny.vertices, bunny.faces)
     simp.simplify_mesh(len(bunny.faces) // 2)
     vertices, faces, normals = simp.getMesh()
-    print(vertices)
-
+    
     assert len(faces) / len(bunny.faces) == pytest.approx(.5, rel=.05)
     simplified = tr.Trimesh(vertices, faces, normals)
     assert simplified.area == pytest.approx(simplified.area, rel=.05)
