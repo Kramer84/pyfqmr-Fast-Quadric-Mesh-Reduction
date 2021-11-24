@@ -61,19 +61,19 @@ cdef class Simplify :
         cdef size_t N_t = self.triangles_cpp.size()
         cdef size_t N_v = self.vertices_cpp.size()
         cdef size_t N_n = self.normals_cpp.size()
-        cdef np.ndarray[int, ndim=2] faces = _REF.faces.astype(dtype=np.int32, subok=False, copy=True)[:N_t, :] 
-        cdef np.ndarray[double, ndim=2] verts = _REF.verts.astype(dtype=np.float64, subok=False, copy=True)[:N_v, :] 
+        cdef np.ndarray[int, ndim=2] faces = np.zeros((N_t, 3), dtype=np.int32)
+        cdef np.ndarray[double, ndim=2] verts = np.zeros((N_v, 3), dtype=np.float64)
         cdef np.ndarray[double, ndim=2] norms = np.zeros((N_n, 3), dtype=np.float64)
 
         cdef size_t i = 0
         cdef size_t j = 0
 
-        for i in range(N_v):
-            for j in range(3):
-                verts[i,j] = self.vertices_cpp[i][j]
         for i in range(N_t):
             for j in range(3):
                 faces[i,j] = self.triangles_cpp[i][j]
+        for i in range(N_v):
+            for j in range(3):
+                verts[i,j] = self.vertices_cpp[i][j]
         for i in range(N_n):
             for j in range(3):
                 norms[i,j] = self.normals_cpp[i][j]
