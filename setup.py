@@ -1,6 +1,8 @@
 from setuptools import setup
 from setuptools.extension import Extension
 
+import numpy as np
+
 # setup file based on:  
 # https://github.com/AshleySetter/HowToPackageCythonAndCppFuncs
 
@@ -32,6 +34,7 @@ setup(
         [
         'pyfqmr'
         ],
+    include_dirs=[ np.get_include() ],
     ext_modules      = extensions,
     long_description = readme,
     install_requires = [],

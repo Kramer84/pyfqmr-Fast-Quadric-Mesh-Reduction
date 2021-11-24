@@ -1,9 +1,14 @@
 # distutils: language = c++
 
+cimport cython
+
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
 from time import time as _time
+
+cimport numpy as np
+import numpy as np
 
 class _hidden_ref(object):
     """Hidden Python object to keep a reference to our numpy arrays
@@ -36,6 +41,7 @@ cdef class Simplify :
     def __cinit__(self):
         pass
 
+    @cython.boundscheck(False)
     def getMesh(self):
         """Gets the mesh from the simplify object once the simplification is done
 
@@ -51,12 +57,17 @@ cdef class Simplify :
         self.triangles_cpp = getFaces()
         self.vertices_cpp = getVertices()
         self.normals_cpp = getNormals()
-        N_t = self.triangles_cpp.size()
-        N_v = self.vertices_cpp.size()
-        N_n = self.normals_cpp.size()
-        faces = _REF.faces.astype(dtype="int32", subok=False, copy=True)[:N_t, :] 
-        verts = _REF.verts.astype(dtype="float64", subok=False, copy=True)[:N_v, :] 
-        norms = _REF.faces.astype(dtype="float64", subok=False, copy=True)[:N_n, :] 
+
+        cdef size_t N_t = self.triangles_cpp.size()
+        cdef size_t N_v = self.vertices_cpp.size()
+        cdef size_t N_n = self.normals_cpp.size()
+        cdef np.ndarray[int, ndim=2] faces = _REF.faces.astype(dtype=np.int32, subok=False, copy=True)[:N_t, :] 
+        cdef np.ndarray[double, ndim=2] verts = _REF.verts.astype(dtype=np.float64, subok=False, copy=True)[:N_v, :] 
+        cdef np.ndarray[double, ndim=2] norms = _REF.faces.astype(dtype=np.float64, subok=False, copy=True)[:N_n, :] 
+
+        cdef size_t i = 0
+        cdef size_t j = 0
+
         for i in range(N_v):
             for j in range(3):
                 verts[i,j] = self.vertices_cpp[i][j]
@@ -66,6 +77,7 @@ cdef class Simplify :
         for i in range(N_n):
             for j in range(3):
                 norms[i,j] = self.normals_cpp[i][j]
+
         return verts, faces, norms
 
     cpdef void setMesh(self, vertices, faces, face_colors=None):
