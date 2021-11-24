@@ -44,7 +44,8 @@ setup(
         "Topic :: Scientific/Engineering",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English"
-        ]
+        ],
+    long_description_content_type='text/markdown',
     )
 
 
