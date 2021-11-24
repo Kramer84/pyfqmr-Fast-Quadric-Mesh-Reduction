@@ -1,1 +1,4 @@
- recursive-include pyFMR * 
+include VERSION
+include LICENSE
+include pyfqmr/Simplify.h
+include pyfqmr/Simplify.pyx
