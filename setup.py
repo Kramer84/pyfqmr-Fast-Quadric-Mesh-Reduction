@@ -19,6 +19,7 @@ extensions = [
     Extension(
     name         = "pyfqmr.Simplify",        # name/path of generated .so file
     sources      = ["pyfqmr/Simplify.pyx"],  # cython generated cpp file
+    include_dirs = [ np.get_include() ],    # ensure numpy can find headers
     language     = "c++"),                  # tells python that the language of the extension is c++
     ]
 
@@ -34,7 +35,6 @@ setup(
         [
         'pyfqmr'
         ],
-    include_dirs=[ np.get_include() ],
     ext_modules      = extensions,
     long_description = readme,
     install_requires = [],
