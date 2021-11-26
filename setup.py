@@ -10,7 +10,7 @@ with open("VERSION", 'r') as f_vers:
     version = f_vers.read()
 
 # load readme
-with open('README.md') as f_read:
+with open('README.rst') as f_read:
     readme = f_read.read()
 
 extensions = [
@@ -45,7 +45,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English"
         ],
-    long_description_content_type='text/markdown',
     )
 
 
