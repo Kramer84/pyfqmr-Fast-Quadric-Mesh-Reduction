@@ -1,5 +1,7 @@
 # distutils: language = c++
 
+cimport cython
+
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
@@ -143,11 +145,18 @@ cdef class Simplify :
                 round(t_end-t_start,4), N_start, N_end)
             )
 
+@cython.boundscheck(False)
+@cython.wraparound(False)  # turn off negative index wrapping for entire function
+@cython.nonecheck(False)
 cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil:
     """nogil function for filling the vector of vertices, "vector_vertices",
     with the data found in the memory view of the array "vertices" 
     """
     cdef vector[double] vertex 
+    vector_vertices.reserve(vertices.shape[0])
+
+    cdef size_t i = 0
+    cdef size_t j = 0
     for i in range(vertices.shape[0]):
         vertex.clear()
         for j in range(3):  
@@ -155,11 +164,18 @@ cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector
         vector_vertices.push_back(vertex)
     return vector_vertices
 
+@cython.boundscheck(False)
+@cython.wraparound(False)  # turn off negative index wrapping for entire function
+@cython.nonecheck(False)
 cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil:
     """nogil function for filling the vector of faces, "vector_faces",
     with the data found in the memory view of the array "faces"
     """
     cdef vector[int] triangle 
+    vector_faces.reserve(faces.shape[0]);
+
+    cdef size_t i = 0
+    cdef size_t j = 0
     for i in range(faces.shape[0]):
         triangle.clear()
         for j in range(3):  
