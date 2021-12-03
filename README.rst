@@ -12,7 +12,7 @@ Requirements:
 
 Installation :
 ~~~~~~~~~~~~~~
-pyfqmr can be installed via  `pip <https://pypi.org/project/pyfqmr/0.1.0/>`_ :
+pyfqmr can be installed via  `pip <https://pypi.org/project/pyfqmr/0.1.1/>`_ :
 
 
 .. code:: bash
@@ -39,7 +39,7 @@ Usage:
     >>> #For example Trimesh or meshio
     >>> import pyfqmr
     >>> import trimesh as tr
-    >>> bunny = tr.load_mesh('Stanford_Bunny_sample.stl')
+    >>> bunny = tr.load_mesh('example/Stanford_Bunny_sample.stl')
     >>> #Simplify object
     >>> mesh_simplifier = pyfqmr.Simplify()
     >>> mesh_simplifier.setMesh(bunny.vertices, bunny.faces)
