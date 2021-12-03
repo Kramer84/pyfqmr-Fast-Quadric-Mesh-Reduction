@@ -7,9 +7,20 @@ algorithm <https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification>`__.
 Requirements:
 ~~~~~~~~~~~~~
 
--  *Cython*
+-  *Numpy*
+-  *Cython* (only for compilation, but not needed if installed from PyPI)
 
-Compilation and installation :
+Installation :
+~~~~~~~~~~~~~~
+pyfqmr can be installed via  `pip <https://pypi.org/project/pyfqmr/0.1.0/>`_ :
+
+
+.. code:: bash
+
+    pip install pyfqmr
+
+
+Compilation :
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Run:
