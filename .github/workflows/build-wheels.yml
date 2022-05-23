@@ -32,7 +32,7 @@ jobs:
         env:
           # Platform options
           CIBW_ARCHS_MACOS: "x86_64 arm64"
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6,<3.10"
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6,<3.11"
           CIBW_SKIP: "pp*"  # Skip PyPy.
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux2014"
           # Testing
