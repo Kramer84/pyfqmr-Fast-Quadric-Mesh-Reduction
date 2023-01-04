@@ -69,11 +69,11 @@ Parameters of the '''simplify\_mesh''' method that can be tuned.
 -  **aggressiveness**
     Parameter controlling the growth rate of the threshold at each iteration when lossless is False.
 -  **preserve\_border**
-    Flag for preserving the vertices situated on open borders. Applies the method descriped in `this issue <https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification/issues/14>`__.
+    Flag for preserving the vertices situated on open borders. Applies the method described in `this issue <https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification/issues/14>`__.
 -  **alpha**
     Parameter for controlling the threshold growth. Exact implication described below.
 -  **K**
-    Parameter for controlling the thresold growth. Exact implication described below.
+    Parameter for controlling the threshold growth. Exact implication described below.
 -  **lossless**
     Flag for using the lossless simplification method. Sets the update rate to 1 .
 -  **threshold\_lossless**
@@ -81,11 +81,12 @@ Parameters of the '''simplify\_mesh''' method that can be tuned.
 -  **verbose**
     Controls verbosity
 
-Implications of the parameters of the threshold growth rate
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Implications of the parameters of the threshold growth rate (when not in lossless mode) :
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+$$threshold = alpha \* (iteration + K) \* agressiveness$$
 
-This is only true when not in lossless mode. - **threshold = alpha \* (iteration + K)\*\*agressiveness**
+\
 
-More information is to be found on Sp4cerat's repo : `Fast-Quadric-Mesh-Simplification <https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification>`__
+More information is to be found on Sp4cerat's repository : `Fast-Quadric-Mesh-Simplification <https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification>`__
 
 Huge thanks to Sp4cerat for making his code available!
