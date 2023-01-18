@@ -83,7 +83,7 @@ Parameters of the '''simplify\_mesh''' method that can be tuned.
 
 Implications of the parameters of the threshold growth rate (when not in lossless mode) :
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-$$threshold = alpha \* (iteration + K) \* agressiveness$$
+$$threshold = alpha \* (iteration + K)^{agressiveness}$$
 
 \
 
