@@ -23,6 +23,7 @@ cdef extern from "Simplify.h" namespace "Simplify" :
     void simplify_mesh( int target_count, int update_rate, double aggressiveness, 
                         bool verbose, int max_iterations,double alpha, int K, 
                         bool lossless, double threshold_lossless, bool preserve_border)
+    void simplify_mesh_lossless(bool verbose, double epsilon, int max_iterations, bool preserve_border)
     void setMeshFromExt(vector[vector[double]] vertices, vector[vector[int]] faces)
     vector[vector[int]] getFaces()
     vector[vector[double]] getVertices()
@@ -147,6 +148,31 @@ cdef class Simplify :
         t_start = _time()
         simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
                       lossless, threshold_lossless, preserve_border)
+        t_end = _time()
+        N_end = getFaces().size()
+
+        if verbose:
+            print('simplified mesh in {} seconds from {} to {} triangles'.format(
+                round(t_end-t_start,4), N_start, N_end)
+            )
+
+    cpdef void simplify_mesh_lossless(self, bool verbose=false, double epsilon=1e-3, int max_iterations = 9999, bool preserve_border = True):
+        """Simplify mesh lossless
+
+            Parameters
+            ----------
+            verbose : bool
+                control verbosity
+            epsilon : float
+                Maximal error after which a vertex is not deleted
+            max_iterations : int
+                Maximal number of iterations 
+            preserve_border : Bool
+                Flag for preserving vertices on open border
+        """
+        N_start = self.faces_mv.shape[0]
+        t_start = _time()
+        simplify_mesh(verbose, epsilon, max_iterations, preserve_border)
         t_end = _time()
         N_end = getFaces().size()
 
