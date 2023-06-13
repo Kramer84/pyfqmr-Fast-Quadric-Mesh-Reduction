@@ -27,8 +27,8 @@ setup(
     name        = "pyfqmr",
     version     = version,
     description = "cython wrapper around C++ library for fast triangular mesh reduction",
-    author      = "kramer84",
-    url         = "https://github.com/Kramer84/pyfqmr-Fast-quadric-Mesh-Reduction",
+    author      = "FeodorVolguineLuxolis",
+    url         = "https://github.com/FeodorVolguineLuxolis/pyfqmr-Fast-quadric-Mesh-Reduction",
     license     = 'MIT',
     include_package_data = True,
     packages = 
