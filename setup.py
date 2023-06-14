@@ -33,7 +33,7 @@ setup(
     include_package_data = True,
     packages = 
         [
-        'pyfqmr'
+        'pyfqmr_modified'
         ],
     ext_modules      = extensions,
     long_description = readme,
