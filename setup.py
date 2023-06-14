@@ -24,7 +24,7 @@ extensions = [
     ]
 
 setup(
-    name        = "pyfqmr_modified",
+    name        = "pyfqmr",
     version     = version,
     description = "modified cython wrapper around C++ library for fast triangular mesh reduction",
     author      = "FeodorVolguineLuxolis",
@@ -33,7 +33,7 @@ setup(
     include_package_data = True,
     packages = 
         [
-        'pyfqmr_modified'
+        'pyfqmr'
         ],
     ext_modules      = extensions,
     long_description = readme,
