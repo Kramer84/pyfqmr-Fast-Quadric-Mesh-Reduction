@@ -156,7 +156,7 @@ cdef class Simplify :
                 round(t_end-t_start,4), N_start, N_end)
             )
 
-    cpdef void simplify_mesh_lossless(self, bool verbose=false, double epsilon=1e-3, int max_iterations = 9999, bool preserve_border = True):
+    cpdef void simplify_mesh_lossless(self, bool verbose=False, double epsilon=1e-3, int max_iterations = 9999, bool preserve_border = True):
         """Simplify mesh lossless
 
             Parameters
@@ -172,7 +172,7 @@ cdef class Simplify :
         """
         N_start = self.faces_mv.shape[0]
         t_start = _time()
-        simplify_mesh(verbose, epsilon, max_iterations, preserve_border)
+        simplify_mesh_lossless(verbose, epsilon, max_iterations, preserve_border)
         t_end = _time()
         N_end = getFaces().size()
 

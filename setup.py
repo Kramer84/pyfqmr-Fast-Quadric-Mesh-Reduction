@@ -26,7 +26,7 @@ extensions = [
 setup(
     name        = "pyfqmr",
     version     = version,
-    description = "cython wrapper around C++ library for fast triangular mesh reduction",
+    description = "modified cython wrapper around C++ library for fast triangular mesh reduction",
     author      = "FeodorVolguineLuxolis",
     url         = "https://github.com/FeodorVolguineLuxolis/pyfqmr-Fast-quadric-Mesh-Reduction",
     license     = 'MIT',
