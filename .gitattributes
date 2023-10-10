@@ -1,0 +1,3 @@
+*.py linguist-detectable=true
+*.pyx linguist-detectable=true
+*.h linguist-detectable=false
