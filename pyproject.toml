@@ -3,5 +3,8 @@ requires = [
   "setuptools",
   "wheel",
   "cython",
-  "oldest-supported-numpy",
+  # NumPy must be locked in order to support 1.x and 2.x
+  "numpy==2.0; python_version >= '3.9'",
+  # Unless building for a Python version that NumPy 2.x doesn't support
+  "oldest-supported-numpy; python_version <= '3.8'",
 ]

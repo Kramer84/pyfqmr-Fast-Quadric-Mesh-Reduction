@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-python@v3
 
       - name: Install cibuildwheel
-        run: python -m pip install cibuildwheel==2.16.2
+        run: python -m pip install cibuildwheel
 
       # We need docker's cross architecture emulation to build ARM wheels.
       - if: startsWith(matrix.os, 'ubuntu')
