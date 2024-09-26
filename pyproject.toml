@@ -1,10 +1,43 @@
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
-  "setuptools",
+  "setuptools >= 61.0",
   "cython",
   # NumPy must be locked in order to support 1.x and 2.x
   "numpy==2.0; python_version >= '3.9'",
   # Unless building for a Python version that NumPy 2.x doesn't support
   "oldest-supported-numpy; python_version <= '3.8'",
 ]
+
+[project]
+name = "pyfqmr"
+authors = [
+  { name = "kramer84" },
+]
+description = "cython wrapper around C++ library for fast triangular mesh reduction"
+readme = "README.rst"
+license = { text = "MIT" }
+
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Topic :: Scientific/Engineering",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+]
+
+dependencies = ["numpy"]
+
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Kramer84/pyfqmr-Fast-quadric-Mesh-Reduction"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["pyfqmr"]
+
+[tool.setuptools.dynamic]
+version = { file = "VERSION" }
