@@ -1,7 +1,7 @@
 [build-system]
+build-backend = "setuptools.build_meta"
 requires = [
   "setuptools",
-  "wheel",
   "cython",
   # NumPy must be locked in order to support 1.x and 2.x
   "numpy==2.0; python_version >= '3.9'",
