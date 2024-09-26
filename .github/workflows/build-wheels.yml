@@ -33,7 +33,7 @@ jobs:
           # Platform options
           CIBW_ARCHS_MACOS: "x86_64 arm64"
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7,<3.13"
-          CIBW_SKIP: "pp* *-musllinux_*"  # Skip PyPy and musl.
+          CIBW_SKIP: "pp*"  # Skip PyPy.
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux2014"
           CIBW_ARCHS_LINUX: x86_64 aarch64
           # Testing
