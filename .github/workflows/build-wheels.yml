@@ -1,7 +1,13 @@
 
 name: Build
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Also publish version
+        type: boolean
+        required: false
 
 jobs:
   build_wheels:
@@ -42,4 +48,23 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: python-package-distributions
           path: ./wheelhouse/*.whl
+
+  release:
+    runs-on: ubuntu-latest
+    if: inputs.publish  # only publish to PyPI on tag pushes
+    needs:
+      - build_wheels
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pyfqmr
+    permissions:
+      id-token: write
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution
+      uses: pypa/gh-action-pypi-publish@release/v1
