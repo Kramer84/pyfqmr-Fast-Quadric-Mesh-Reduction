@@ -27,7 +27,7 @@ Run:
 
 .. code:: bash
 
-    python setup.py install
+    pip install .
 
 Usage:
 ~~~~~~
