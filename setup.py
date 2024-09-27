@@ -37,7 +37,9 @@ setup(
         ],
     ext_modules      = extensions,
     long_description = readme,
-    install_requires = [],
+    install_requires = [
+        "numpy",
+    ],
     classifiers = 
         [
         "Development Status :: 2 - Pre-Alpha",
