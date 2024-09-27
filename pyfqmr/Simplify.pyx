@@ -6,7 +6,6 @@ from libcpp.vector cimport vector
 from libcpp cimport bool
 
 from time import time as _time
-from logging import getLogger
 
 cimport numpy as np
 import numpy as np
@@ -152,6 +151,8 @@ cdef class Simplify :
         N_end = getFaces().size()
 
         if verbose:
+            from logging import getLogger
+
             logger = getLogger("pyfqmr")
             logger.debug('simplified mesh in {} seconds from {} to {} triangles'.format(
                 round(t_end-t_start,4), N_start, N_end)
