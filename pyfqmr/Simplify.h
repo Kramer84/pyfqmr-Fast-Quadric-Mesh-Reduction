@@ -342,7 +342,7 @@ namespace Simplify
   //
 
   void simplify_mesh(int target_count, int update_rate=5, double agressiveness=7, 
-                     bool verbose=false, int max_iterations=100, double alpha = 0.000000001, 
+                     void (*log)(char*, int)=NULL, int max_iterations=100, double alpha = 0.000000001,
                      int K = 3, bool lossless=false, double threshold_lossless = 0.0001,
                      bool preserve_border = false)
   {
@@ -381,8 +381,10 @@ namespace Simplify
       if(lossless) threshold = threshold_lossless ;
 
       // target number of triangles reached ? Then break
-      if ((verbose) && (iteration%5==0)) {
-        printf("iteration %d - triangles %d threshold %g\n",iteration,triangle_count-deleted_triangles, threshold);
+      if ((log) && (iteration%5==0)) {
+        char message[128];
+        snprintf(message, 127, "iteration %d - triangles %d threshold %g",iteration,triangle_count-deleted_triangles, threshold);
+        log(message, 128);
       }
 
       // remove vertices & mark deleted triangles

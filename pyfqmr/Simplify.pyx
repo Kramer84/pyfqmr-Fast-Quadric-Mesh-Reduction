@@ -5,10 +5,13 @@ cimport cython
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
+from logging import getLogger
 from time import time as _time
 
 cimport numpy as np
 import numpy as np
+
+logger = getLogger("pyfqmr")
 
 class _hidden_ref(object):
     """Hidden Python object to keep a reference to our numpy arrays
@@ -21,12 +24,16 @@ _REF = _hidden_ref()
 
 cdef extern from "Simplify.h" namespace "Simplify" :
     void simplify_mesh( int target_count, int update_rate, double aggressiveness, 
-                        bool verbose, int max_iterations,double alpha, int K, 
+                        void (*log)(char*, int), int max_iterations,double alpha, int K,
                         bool lossless, double threshold_lossless, bool preserve_border)
     void setMeshFromExt(vector[vector[double]] vertices, vector[vector[int]] faces)
     vector[vector[int]] getFaces()
     vector[vector[double]] getVertices()
     vector[vector[double]] getNormals()
+
+cdef void log_message(char* message, int length) noexcept:
+    if message is not NULL:
+        logger.debug(message.decode("utf-8"))
 
 cdef class Simplify : 
 
@@ -143,17 +150,21 @@ cdef class Simplify :
             ----
             threshold = alpha*pow( iteration + K, agressiveness)
         """
+
+        cdef void (*log)(char*, int) noexcept
+
+        log = NULL
+        if verbose:
+            log = log_message
+
         N_start = self.faces_mv.shape[0]
         t_start = _time()
-        simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
+        simplify_mesh(target_count, update_rate, aggressiveness, log, max_iterations, alpha, K,
                       lossless, threshold_lossless, preserve_border)
         t_end = _time()
         N_end = getFaces().size()
 
         if verbose:
-            from logging import getLogger
-
-            logger = getLogger("pyfqmr")
             logger.debug('simplified mesh in {} seconds from {} to {} triangles'.format(
                 round(t_end-t_start,4), N_start, N_end)
             )
