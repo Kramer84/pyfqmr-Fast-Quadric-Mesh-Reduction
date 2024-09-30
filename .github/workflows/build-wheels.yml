@@ -5,12 +5,16 @@ on: [workflow_dispatch]
 
 jobs:
   build_wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }}${{ matrix.musl && ' for musl' || '' }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
+        musl: [false]
+        include:
+          - os: ubuntu-latest
+            musl: true
 
     steps:
       - uses: actions/checkout@v3
@@ -33,7 +37,9 @@ jobs:
           # Platform options
           CIBW_ARCHS_MACOS: "x86_64 arm64"
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7,<3.13"
-          CIBW_SKIP: "pp* *-musllinux_*"  # Skip PyPy and musl.
+          CIBW_BUILD: ${{ matrix.musl && '*-musllinux_*' || null }}
+          # musl: skip unsupported by NumPy; not musl: skip PyPy and musl
+          CIBW_SKIP: ${{ matrix.musl && 'cp37-musllinux_* cp38-musllinux_*' || 'pp* *-musllinux_*' }}
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux2014"
           CIBW_ARCHS_LINUX: x86_64 aarch64
           # Testing
