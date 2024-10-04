@@ -5,13 +5,10 @@ cimport cython
 from libcpp.vector cimport vector
 from libcpp cimport bool
 
-from logging import getLogger
 from time import time as _time
 
 cimport numpy as np
 import numpy as np
-
-logger = getLogger("pyfqmr")
 
 class _hidden_ref(object):
     """Hidden Python object to keep a reference to our numpy arrays
@@ -33,7 +30,9 @@ cdef extern from "Simplify.h" namespace "Simplify" :
 
 cdef void log_message(char* message, int length) noexcept:
     if message is not NULL:
-        logger.debug(message.decode("utf-8"))
+        from logging import getLogger
+
+        getLogger("pyfqmr").debug(message.decode("utf-8"))
 
 cdef class Simplify : 
 
@@ -165,7 +164,9 @@ cdef class Simplify :
         N_end = getFaces().size()
 
         if verbose:
-            logger.debug('simplified mesh in {} seconds from {} to {} triangles'.format(
+            from logging import getLogger
+
+            getLogger("pyfqmr").debug('simplified mesh in {} seconds from {} to {} triangles'.format(
                 round(t_end-t_start,4), N_start, N_end)
             )
 
