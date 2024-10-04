@@ -216,33 +216,3 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
             triangle.push_back(faces[i,j])
         vector_faces.push_back(triangle)
     return vector_faces
-
-
-
-
-
-"""Example:
-
-#We assume you have a numpy based mesh processing software
-#Where you can get the vertices and faces of the mesh as numpy arrays.
-#For example Trimesh or meshio
-import pyfqmr
-import trimesh as tr
-bunny = tr.load_mesh('Stanford_Bunny_sample.stl')
-#Simplify object
-simp = pyfqmr.Simplify()
-simp.setMesh(bunny.vertices, bunny.faces)
-simp.simplify_mesh(target_count = 1000, aggressiveness=7, preserve_border=True, verbose=10)
-vertices, faces, normals = simp.getMesh()
-"""
-
-"""Example2:
-import trimesh as tr
-import pyfqmr as fmr
-mesh = tr.load_mesh('Stanford_Bunny_sample.stl')
-simpl = fmr.Simplify()
-verts, faces = mesh.vertices, mesh.faces
-simpl.setMesh(verts, faces)
-simpl.getMesh()
-faces.shape
-"""
