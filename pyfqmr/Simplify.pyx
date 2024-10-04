@@ -164,17 +164,9 @@ cdef class Simplify :
             verbose : bool
                 Control verbosity
             epsilon : float
-                Maximal error after which a vertex is not deleted, controlling the precision
-                of the lossless simplification.
+                Maximal error after which a vertex is not deleted
             max_iterations : int
-                Maximum number of iterations to perform the simplification.
-
-            Note
-            ----
-            This function simplifies the mesh while preserving vertex positions
-            within the specified error tolerance (`epsilon`). The process continues
-            until either the `max_iterations` is reached or no further simplifications
-            can be made within the specified tolerance.
+                Maximum number of iterations
         """
         N_start = self.faces_mv.shape[0]
         t_start = _time()
