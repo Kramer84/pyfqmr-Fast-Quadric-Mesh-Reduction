@@ -1,9 +1,12 @@
+from logging import root as root_logger, DEBUG
 from pathlib import Path
 
 import pytest
 import pyfqmr
 
 import numpy as np
+
+root_logger.setLevel(DEBUG)
 
 # Get the /example folder at the root of this repo
 EXAMPLES_DIR = Path(__file__, "..", "..", "example").resolve()
