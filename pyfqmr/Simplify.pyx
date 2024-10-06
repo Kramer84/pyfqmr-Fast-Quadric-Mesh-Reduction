@@ -21,13 +21,19 @@ _REF = _hidden_ref()
 
 cdef extern from "Simplify.h" namespace "Simplify" :
     void simplify_mesh( int target_count, int update_rate, double aggressiveness,
-                        bool verbose, int max_iterations,double alpha, int K,
+                        void (*log)(char*, int), int max_iterations,double alpha, int K,
                         bool lossless, double threshold_lossless, bool preserve_border)
-    void simplify_mesh_lossless(bool verbose, double epsilon, int max_iterations)
+    void simplify_mesh_lossless(void (*log)(char*, int), double epsilon, int max_iterations)
     void setMeshFromExt(vector[vector[double]] vertices, vector[vector[int]] faces)
     vector[vector[int]] getFaces()
     vector[vector[double]] getVertices()
     vector[vector[double]] getNormals()
+
+cdef void log_message(char* message, int length) noexcept:
+    if message is not NULL:
+        from logging import getLogger
+
+        getLogger("pyfqmr").debug(message.decode("utf-8"))
 
 cdef class Simplify :
 
@@ -144,15 +150,24 @@ cdef class Simplify :
             ----
             threshold = alpha*pow( iteration + K, agressiveness)
         """
+
+        cdef void (*log)(char*, int) noexcept
+
+        log = NULL
+        if verbose:
+            log = log_message
+
         N_start = self.faces_mv.shape[0]
         t_start = _time()
-        simplify_mesh(target_count, update_rate, aggressiveness, verbose, max_iterations, alpha, K,
+        simplify_mesh(target_count, update_rate, aggressiveness, log, max_iterations, alpha, K,
                       lossless, threshold_lossless, preserve_border)
         t_end = _time()
         N_end = getFaces().size()
 
         if verbose:
-            print('simplified mesh in {} seconds from {} to {} triangles'.format(
+            from logging import getLogger
+
+            getLogger("pyfqmr").debug('simplified mesh in {} seconds from {} to {} triangles'.format(
                 round(t_end-t_start,4), N_start, N_end)
             )
 
@@ -168,14 +183,22 @@ cdef class Simplify :
             max_iterations : int
                 Maximum number of iterations
         """
+        cdef void (*log)(char*, int) noexcept
+
+        log = NULL
+        if verbose:
+            log = log_message
+
         N_start = self.faces_mv.shape[0]
         t_start = _time()
-        simplify_mesh_lossless(verbose, epsilon, max_iterations)
+        simplify_mesh_lossless(log, epsilon, max_iterations)
         t_end = _time()
         N_end = getFaces().size()
 
         if verbose:
-            print('simplified mesh in {} seconds from {} to {} triangles'.format(
+            from logging import getLogger
+
+            getLogger("pyfqmr").debug('simplified mesh in {} seconds from {} to {} triangles'.format(
                 round(t_end-t_start,4), N_start, N_end)
             )
 

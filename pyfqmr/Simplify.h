@@ -7,7 +7,7 @@
 // License : MIT
 // http://opensource.org/licenses/MIT
 //
-//https://github.com/sp4cerat/Fast-Quadric-Mesh-S; 
+//https://github.com/sp4cerat/Fast-Quadric-Mesh-S;
 // 5/2016: Chris Rorden created minimal version for OSX/Linux/Windows compile
 
 //#include <iostream>
@@ -341,8 +341,8 @@ namespace Simplify
   //                 more iterations yield higher quality
   //
 
-  void simplify_mesh(int target_count, int update_rate=5, double agressiveness=7, 
-                     bool verbose=false, int max_iterations=100, double alpha = 0.000000001, 
+  void simplify_mesh(int target_count, int update_rate=5, double agressiveness=7,
+                     void (*log)(char*, int)=NULL, int max_iterations=100, double alpha = 0.000000001,
                      int K = 3, bool lossless=false, double threshold_lossless = 0.0001,
                      bool preserve_border = false)
   {
@@ -381,8 +381,10 @@ namespace Simplify
       if(lossless) threshold = threshold_lossless ;
 
       // target number of triangles reached ? Then break
-      if ((verbose) && (iteration%5==0)) {
-        printf("iteration %d - triangles %d threshold %g\n",iteration,triangle_count-deleted_triangles, threshold);
+      if ((log) && (iteration%5==0)) {
+        char message[128];
+        snprintf(message, 127, "iteration %d - triangles %d threshold %g",iteration,triangle_count-deleted_triangles, threshold);
+        log(message, 128);
       }
 
       // remove vertices & mark deleted triangles
@@ -397,7 +399,7 @@ namespace Simplify
         {
           int i0=t.v[ j     ]; Vertex &v0 = vertices[i0];
           int i1=t.v[(j+1)%3]; Vertex &v1 = vertices[i1];
-          // Border check //Added preserve_border method from issue 14 
+          // Border check //Added preserve_border method from issue 14
           if(preserve_border){
             if (v0.border || v1.border) continue; // should keep border vertices
           }
@@ -442,9 +444,9 @@ namespace Simplify
           break;
         }
         // done?
-        if (lossless && (deleted_triangles<=0)){ break; 
+        if (lossless && (deleted_triangles<=0)){ break;
         } else if (!lossless && (triangle_count-deleted_triangles<=target_count)){break;}
-        
+
         if (lossless) deleted_triangles = 0;
       }
     }
@@ -452,10 +454,10 @@ namespace Simplify
     compact_mesh();
   } //simplify_mesh()
 
-  void simplify_mesh_lossless(bool verbose=false, double epsilon=1e-3, int max_iterations = 9999)
+  void simplify_mesh_lossless(void (*log)(char*, int)=NULL, double epsilon=1e-3, int max_iterations = 9999)
   {
     // init
-    loopi(0,triangles.size()) 
+    loopi(0,triangles.size())
         {
             triangles[i].deleted=0;
         }
@@ -478,8 +480,10 @@ namespace Simplify
       // If it does not, try to adjust the 3 parameters
       //
       double threshold = epsilon; //1.0E-3 EPS;
-      if (verbose) {
-        printf("lossless iteration %d\n", iteration);
+      if (log) {
+        char message[128];
+        snprintf(message, 127, "lossless iteration %d\n", iteration);
+        log(message, 128);
       }
 
       // remove vertices & mark deleted triangles
