@@ -23,7 +23,7 @@ cdef extern from "Simplify.h" namespace "Simplify" :
     void simplify_mesh( int target_count, int update_rate, double aggressiveness,
                         void (*log)(char*, int), int max_iterations,double alpha, int K,
                         bool lossless, double threshold_lossless, bool preserve_border)
-    void simplify_mesh_lossless(void (*log)(char*, int), double epsilon, int max_iterations)
+    void simplify_mesh_lossless(void (*log)(char*, int), double epsilon, int max_iterations, bool preserve_border)
     void setMeshFromExt(vector[vector[double]] vertices, vector[vector[int]] faces)
     vector[vector[int]] getFaces()
     vector[vector[double]] getVertices()
@@ -171,7 +171,7 @@ cdef class Simplify :
                 round(t_end-t_start,4), N_start, N_end)
             )
 
-    cpdef void simplify_mesh_lossless(self, bool verbose = True, double epsilon=1e-3, int max_iterations=9999):
+    cpdef void simplify_mesh_lossless(self, bool verbose = True, double epsilon=1e-3, int max_iterations=9999, bool preserve_border = False):
         """Simplify mesh using lossless method
 
             Parameters
@@ -191,7 +191,7 @@ cdef class Simplify :
 
         N_start = self.faces_mv.shape[0]
         t_start = _time()
-        simplify_mesh_lossless(log, epsilon, max_iterations)
+        simplify_mesh_lossless(log, epsilon, max_iterations, preserve_border)
         t_end = _time()
         N_end = getFaces().size()
 
