@@ -256,7 +256,7 @@ def is_integer_array(arr):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
-def is_integer_array_cython(double[:, :] arr):
+def is_integer_array_cython(np.ndarray arr):
     cdef Py_ssize_t i, j
     cdef Py_ssize_t n_rows = arr.shape[0]
     cdef Py_ssize_t n_cols = arr.shape[1]
