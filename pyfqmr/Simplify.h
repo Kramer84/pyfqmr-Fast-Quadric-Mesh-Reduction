@@ -454,7 +454,7 @@ namespace Simplify
     compact_mesh();
   } //simplify_mesh()
 
-  void simplify_mesh_lossless(void (*log)(char*, int)=NULL, double epsilon=1e-3, int max_iterations = 9999)
+  void simplify_mesh_lossless(void (*log)(char*, int)=NULL, double epsilon=1e-3, int max_iterations = 9999, bool preserve_border = false)
   {
     // init
     loopi(0,triangles.size())
@@ -499,8 +499,12 @@ namespace Simplify
           int i0=t.v[ j     ]; Vertex &v0 = vertices[i0];
           int i1=t.v[(j+1)%3]; Vertex &v1 = vertices[i1];
 
-          // Border check
-          if(v0.border != v1.border)  continue;
+          // Border check //Added preserve_border method from issue 14 for lossless
+          if(preserve_border){
+            if (v0.border || v1.border) continue; // should keep border vertices
+          }
+          else
+            if (v0.border != v1.border)  continue; // base behaviour
 
           // Compute vertex to collapse to
           vec3f p;

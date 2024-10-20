@@ -98,13 +98,14 @@ Parameters of the **`simplify\_mesh\_lossless`** method that can be tuned.
     Maximal error after which a vertex is not deleted.
 -  **max\_iterations**
     Maximum number of iterations.
+-  **preserve\_border**
+    Flag for preserving the vertices situated on open borders. Applies the method described in `this issue <https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification/issues/14>`__.
 
 Note
 ~~~~
 
 - The **`simplify\_mesh\_lossless`** method is different from the **`simplify\_mesh`** method with the lossless flag enabled, and should be prefered when quality is the aim and not a precise number of target triangles.
 - Tests have shown that the **threshold\_lossless** argument has little to no influence on the reduction of the meshes.
-- On the other hand, only the basic algorithm has the option (yet) to preserve open borders.
 
 
 Implications of the parameters for the threshold growth rate :
