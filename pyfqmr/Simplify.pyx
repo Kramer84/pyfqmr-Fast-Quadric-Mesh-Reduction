@@ -107,7 +107,12 @@ cdef class Simplify :
         self.triangles_cpp.clear()
         self.vertices_cpp.clear()
         self.normals_cpp.clear()
+
         # Here we will need some checks, just to make sure the right objets are passed
+        # Only checks on the faces is possible, as they are necessarily integers.
+        # Maybe other checks like max(faces)==len(vertices) could be added
+        assert is_integer_array(faces), "Faces must contain only integers, check function argument order"
+
         self.faces_mv = faces.astype(dtype="int32", subok=False, copy=False)
         self.vertices_mv = vertices.astype(dtype="float64", subok=False, copy=False)
         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
@@ -205,7 +210,7 @@ cdef class Simplify :
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 @cython.nonecheck(False)
-cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil:
+cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil noexcept:
     """nogil function for filling the vector of vertices, "vector_vertices",
     with the data found in the memory view of the array "vertices"
     """
@@ -224,7 +229,7 @@ cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 @cython.nonecheck(False)
-cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil:
+cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil noexcept:
     """nogil function for filling the vector of faces, "vector_faces",
     with the data found in the memory view of the array "faces"
     """
@@ -239,3 +244,25 @@ cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vecto
             triangle.push_back(faces[i,j])
         vector_faces.push_back(triangle)
     return vector_faces
+
+
+# For faster type checking
+def is_integer_array(arr):
+    # Check if the dtype is integer before calling Cython function
+    if np.issubdtype(arr.dtype, np.integer):
+        return True
+    return is_integer_array_cython(arr)
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.nonecheck(False)
+def is_integer_array_cython(double[:, :] arr):
+    cdef Py_ssize_t i, j
+    cdef Py_ssize_t n_rows = arr.shape[0]
+    cdef Py_ssize_t n_cols = arr.shape[1]
+
+    for i in range(n_rows):
+        for j in range(n_cols):
+            if arr[i, j] % 1 != 0:
+                return False
+    return True
