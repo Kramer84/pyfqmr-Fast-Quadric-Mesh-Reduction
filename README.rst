@@ -98,6 +98,8 @@ Parameters of the **`simplify\_mesh\_lossless`** method that can be tuned.
     Maximal error after which a vertex is not deleted.
 -  **max\_iterations**
     Maximum number of iterations.
+-  **preserve\_border**
+    Flag for preserving the vertices situated on open borders. *needs more validation*
 
 Note
 ~~~~
