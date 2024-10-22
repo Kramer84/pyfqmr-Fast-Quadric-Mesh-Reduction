@@ -25,7 +25,7 @@ def test_example():
 
 def test_empty():
     verts = np.zeros((0,3), dtype=np.float32)
-    faces = np.zeros((0,3), dtype=np.float32)
+    faces = np.zeros((0,3), dtype=np.int32)
 
     simp = pyfqmr.Simplify()
     simp.setMesh(verts, faces)
@@ -50,7 +50,7 @@ def test_example_lossless():
 
 def test_empty_lossless():
     verts = np.zeros((0,3), dtype=np.float32)
-    faces = np.zeros((0,3), dtype=np.float32)
+    faces = np.zeros((0,3), dtype=np.int32)
 
     simp = pyfqmr.Simplify()
     simp.setMesh(verts, faces)
