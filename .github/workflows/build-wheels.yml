@@ -36,7 +36,7 @@ jobs:
         env:
           # Platform options
           CIBW_ARCHS_MACOS: "x86_64 arm64"
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7,<3.13"
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7,<3.14"
           CIBW_BUILD: ${{ matrix.musl && '*-musllinux_*' || null }}
           # musl: skip unsupported by NumPy; not musl: skip PyPy and musl
           CIBW_SKIP: ${{ matrix.musl && 'cp37-musllinux_* cp38-musllinux_*' || 'pp* *-musllinux_*' }}

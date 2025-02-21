@@ -1,4 +1,5 @@
 # distutils: language = c++
+# cython: freethreading_compatible=True
 
 cimport cython
 
