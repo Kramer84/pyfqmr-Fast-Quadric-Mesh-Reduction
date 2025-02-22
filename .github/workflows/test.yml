@@ -13,6 +13,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-13, windows-latest]
         python-version: [3.7, 3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
+        exclude:
+          - os: ubuntu-latest
+            python-version: 3.7
+        include:
+          - os: ubuntu-22.04
+            python-version: 3.7
       fail-fast: false
 
     steps:
