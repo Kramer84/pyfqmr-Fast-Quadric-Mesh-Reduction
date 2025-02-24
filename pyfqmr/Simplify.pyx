@@ -1,4 +1,5 @@
 # distutils: language = c++
+# cython: freethreading_compatible=True
 
 cimport cython
 
@@ -210,7 +211,7 @@ cdef class Simplify :
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 @cython.nonecheck(False)
-cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )nogil noexcept:
+cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector[double]] vector_vertices )noexcept nogil:
     """nogil function for filling the vector of vertices, "vector_vertices",
     with the data found in the memory view of the array "vertices"
     """
@@ -229,7 +230,7 @@ cdef vector[vector[double]] setVerticesNogil(double[:,:] vertices, vector[vector
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 @cython.nonecheck(False)
-cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )nogil noexcept:
+cdef vector[vector[int]] setFacesNogil(int[:,:] faces, vector[vector[int]] vector_faces )noexcept nogil:
     """nogil function for filling the vector of faces, "vector_faces",
     with the data found in the memory view of the array "faces"
     """
