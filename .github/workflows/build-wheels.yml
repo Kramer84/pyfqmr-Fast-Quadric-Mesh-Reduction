@@ -42,6 +42,7 @@ jobs:
           CIBW_SKIP: ${{ matrix.musl && 'cp37-musllinux_* cp38-musllinux_*' || 'pp* *-musllinux_*' }}
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux2014"
           CIBW_ARCHS_LINUX: x86_64 aarch64
+          CIBW_ENABLE: cpython-freethreading
           # Testing
           CIBW_TEST_REQUIRES: "-r tests/requirements.txt"
           CIBW_TEST_COMMAND: pytest {package}/tests
