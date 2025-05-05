@@ -109,12 +109,11 @@ Note
 
 
 Implications of the parameters for the threshold growth rate :
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-*(`simplify\_mesh` method when not in lossless mode)*
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+(``simplify_mesh()`` method when not in lossless mode)
 
 $$threshold = alpha \* (iteration + K)^{agressiveness}$$
 
-\
 
 More information is to be found on Sp4cerat's repository :
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
