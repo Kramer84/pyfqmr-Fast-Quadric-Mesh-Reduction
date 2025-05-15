@@ -902,6 +902,19 @@ namespace Simplify
 
 ///////////// Functions to include face colors (made with mistral) /////////////////////////////////////////////////
 
+ bool hasUVs() {
+     if (triangles.empty()) {
+         return false;
+     }
+
+     for (const auto& triangle : triangles) {
+         if ((triangle.attr & TEXCOORD) == TEXCOORD) {
+             return true;
+         }
+     }
+     return false;
+ }
+
  std::vector< std::vector<double> > getUVs(){
    std::vector< std::vector<double> > uvs;
    int N_faces = triangles.size();
@@ -957,18 +970,6 @@ namespace Simplify
    }
  }
 
- bool hasUVs() {
-     if (triangles.empty()) {
-         return false;
-     }
-
-     for (const auto& triangle : triangles) {
-         if ((triangle.attr & TEXCOORD) == TEXCOORD) {
-             return true;
-         }
-     }
-     return false;
- }
 
 };
 ///////////////////////////////////////////
