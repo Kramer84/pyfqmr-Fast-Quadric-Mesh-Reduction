@@ -13,7 +13,7 @@ EXAMPLES_DIR = Path(__file__, "..", "..", "example").resolve()
 
 def test_example():
     import trimesh as tr
-    bunny = tr.load_mesh(EXAMPLES_DIR / 'Stanford_Bunny_sample.stl')
+    bunny = tr.load_mesh(EXAMPLES_DIR / 'StanfordBunny.stl')
     simp = pyfqmr.Simplify()
     simp.setMesh(bunny.vertices, bunny.faces)
     simp.simplify_mesh(len(bunny.faces) // 2)
@@ -38,7 +38,7 @@ def test_empty():
 
 def test_example_lossless():
     import trimesh as tr
-    bunny = tr.load_mesh(EXAMPLES_DIR / 'Stanford_Bunny_sample.stl')
+    bunny = tr.load_mesh(EXAMPLES_DIR / 'StanfordBunny.stl')
     simp = pyfqmr.Simplify()
     simp.setMesh(bunny.vertices, bunny.faces)
     simp.simplify_mesh_lossless()
