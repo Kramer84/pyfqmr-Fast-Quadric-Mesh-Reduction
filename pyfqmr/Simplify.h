@@ -827,29 +827,204 @@ namespace Simplify
     return error;
   }
 
-  char *trimwhitespace(char *str)
-  {
-    char *end;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////// Functions to interface with cython and initialize/ get meshes ////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Trim leading space
-    while(isspace((unsigned char)*str)) str++;
+  void setMeshFromExt(std::vector< std::vector<double> > verts, std::vector< std::vector<int> > faces){
+    vertices.clear();
+    triangles.clear();
 
-    if(*str == 0)  // All spaces?
-    return str;
-
-    // Trim trailing space
-    end = str + strlen(str) - 1;
-    while(end > str && isspace((unsigned char)*end)) end--;
-
-    // Write new null terminator
-    *(end+1) = 0;
-
-    return str;
+    int N_faces = faces.size();
+    int N_vertices = verts.size();
+    loopi(0,N_vertices)
+    {
+      Vertex v;
+      v.p.x = verts[i][0];
+      v.p.y = verts[i][1];
+      v.p.z = verts[i][2];
+      vertices.push_back(v);
+    }
+    loopi(0,N_faces)
+    {
+      Triangle t;
+      t.v[0] = faces[i][0];
+      t.v[1] = faces[i][1];
+      t.v[2] = faces[i][2];
+      t.attr = 0 ;
+      t.material = -1 ;
+      triangles.push_back(t);
+    }
   }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////// Not Useful for Trimesh wrapper, we rather need to directly assign vertices, faces colors etc. ////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  std::vector< std::vector<double> > getVertices(){
+    std::vector< std::vector<double> > verts;
+    int N_vertices = vertices.size();
+    loopi(0,N_vertices)
+    {
+      std::vector<double> v;
+      v.push_back(vertices[ i].p.x);
+      v.push_back(vertices[ i].p.y);
+      v.push_back(vertices[ i].p.z);
+      verts.push_back(v);
+    }
+    return verts ;
+  }
+
+  std::vector< std::vector<int> > getFaces(){
+    std::vector< std::vector<int> > faces;
+    int N_faces = triangles.size();
+    loopi(0,N_faces)
+    {
+      std::vector<int> t;
+      loopj(0,3)
+      {
+        t.push_back(triangles[ i ].v[ j ]);
+      }
+    faces.push_back(t);
+    }
+    return faces ;
+  }
+
+  std::vector< std::vector<double> > getNormals(){
+    std::vector< std::vector<double> > normals;
+    int N_faces = triangles.size();
+    loopi(0,N_faces)
+    {
+      std::vector<double> n;
+      n.push_back(triangles[ i ].n.x);
+      n.push_back(triangles[ i ].n.y);
+      n.push_back(triangles[ i ].n.z);
+      normals.push_back(n);
+    }
+    return normals ;
+  }
+
+///////////// Functions to include face colors (made with mistral) /////////////////////////////////////////////////
+
+ std::vector< std::vector<double> > getUVs(){
+   std::vector< std::vector<double> > uvs;
+   int N_faces = triangles.size();
+   bool has_uv = (triangles.size() && (triangles[0].attr & TEXCOORD) ==
+ TEXCOORD);
+
+   if (has_uv) {
+     loopi(0, N_faces) if(!triangles[i].deleted) {
+       loopj(0, 3) {
+         std::vector<double> uv;
+         uv.push_back(triangles[i].uvs[j].x);
+         uv.push_back(triangles[i].uvs[j].y);
+         uvs.push_back(uv);
+       }
+     }
+   }
+
+   return uvs;
+ }
+
+ void setMeshFromExtWithUVs(std::vector< std::vector<double> > verts,
+                           std::vector< std::vector<int> > faces,
+                           std::vector< std::vector<double> > uvs) {
+   vertices.clear();
+   triangles.clear();
+
+   int N_faces = faces.size();
+   int N_vertices = verts.size();
+
+   loopi(0, N_vertices) {
+     Vertex v;
+     v.p.x = verts[i][0];
+     v.p.y = verts[i][1];
+     v.p.z = verts[i][2];
+     vertices.push_back(v);
+   }
+
+   loopi(0, N_faces) {
+     Triangle t;
+     t.v[0] = faces[i][0];
+     t.v[1] = faces[i][1];
+     t.v[2] = faces[i][2];
+     t.attr = TEXCOORD; // Set the attribute to indicate that UVs are present
+
+     // Set the UVs for each vertex in the triangle
+     loopj(0, 3) {
+       t.uvs[j].x = uvs[i * 3 + j][0];
+       t.uvs[j].y = uvs[i * 3 + j][1];
+     }
+
+     t.material = -1;
+     triangles.push_back(t);
+   }
+ }
+
+ bool hasUVs() {
+     if (triangles.empty()) {
+         return false;
+     }
+
+     for (const auto& triangle : triangles) {
+         if ((triangle.attr & TEXCOORD) == TEXCOORD) {
+             return true;
+         }
+     }
+     return false;
+ }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////// Not Useful for Trimesh wrapper, we rather need to directly return vertices, faces colors etc. ////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  void write_obj(const char* filename)
+  {
+    FILE *file=fopen(filename, "w");
+    int cur_material = -1;
+    bool has_uv = (triangles.size() && (triangles[0].attr & TEXCOORD) == TEXCOORD);
+
+    if (!file)
+    {
+      printf("write_obj: can't write data file \"%s\".\n", filename);
+      exit(0);
+    }
+    if (!mtllib.empty())
+    {
+      fprintf(file, "mtllib %s\n", mtllib.c_str());
+    }
+    loopi(0,vertices.size())
+    {
+      //fprintf(file, "v %lf %lf %lf\n", vertices[i].p.x,vertices[i].p.y,vertices[i].p.z);
+      fprintf(file, "v %g %g %g\n", vertices[i].p.x,vertices[i].p.y,vertices[i].p.z); //more compact: remove trailing zeros
+    }
+    if (has_uv)
+    {
+      loopi(0,triangles.size()) if(!triangles[i].deleted)
+      {
+        fprintf(file, "vt %g %g\n", triangles[i].uvs[0].x, triangles[i].uvs[0].y);
+        fprintf(file, "vt %g %g\n", triangles[i].uvs[1].x, triangles[i].uvs[1].y);
+        fprintf(file, "vt %g %g\n", triangles[i].uvs[2].x, triangles[i].uvs[2].y);
+      }
+    }
+    int uv = 1;
+    loopi(0,triangles.size()) if(!triangles[i].deleted)
+    {
+      if (triangles[i].material != cur_material)
+      {
+        cur_material = triangles[i].material;
+        fprintf(file, "usemtl %s\n", materials[triangles[i].material].c_str());
+      }
+      if (has_uv)
+      {
+        fprintf(file, "f %d/%d %d/%d %d/%d\n", triangles[i].v[0]+1, uv, triangles[i].v[1]+1, uv+1, triangles[i].v[2]+1, uv+2);
+        uv += 3;
+      }
+      else
+      {
+        fprintf(file, "f %d %d %d\n", triangles[i].v[0]+1, triangles[i].v[1]+1, triangles[i].v[2]+1);
+      }
+      //fprintf(file, "f %d// %d// %d//\n", triangles[i].v[0]+1, triangles[i].v[1]+1, triangles[i].v[2]+1); //more compact: remove trailing zeros
+    }
+    fclose(file);
+  }
+
 
   //Option : Load OBJ
   void load_obj(const char* filename, bool process_uv=false){
@@ -994,131 +1169,25 @@ namespace Simplify
     //printf("load_obj: vertices = %lu, triangles = %lu, uvs = %lu\n", vertices.size(), triangles.size(), uvs.size() );
   } // load_obj()
 
-
-
-  void setMeshFromExt(std::vector< std::vector<double> > verts, std::vector< std::vector<int> > faces){
-    vertices.clear();
-    triangles.clear();
-
-    int N_faces = faces.size();
-    int N_vertices = verts.size();
-    loopi(0,N_vertices)
-    {
-      Vertex v;
-      v.p.x = verts[i][0];
-      v.p.y = verts[i][1];
-      v.p.z = verts[i][2];
-      vertices.push_back(v);
-    }
-    loopi(0,N_faces)
-    {
-      Triangle t;
-      t.v[0] = faces[i][0];
-      t.v[1] = faces[i][1];
-      t.v[2] = faces[i][2];
-      t.attr = 0 ;
-      t.material = -1 ;
-      triangles.push_back(t);
-    }
-  }
-
-  std::vector< std::vector<double> > getVertices(){
-    std::vector< std::vector<double> > verts;
-    int N_vertices = vertices.size();
-    loopi(0,N_vertices)
-    {
-      std::vector<double> v;
-      v.push_back(vertices[ i].p.x);
-      v.push_back(vertices[ i].p.y);
-      v.push_back(vertices[ i].p.z);
-      verts.push_back(v);
-    }
-    return verts ;
-  }
-
-  std::vector< std::vector<int> > getFaces(){
-    std::vector< std::vector<int> > faces;
-    int N_faces = triangles.size();
-    loopi(0,N_faces)
-    {
-      std::vector<int> t;
-      loopj(0,3)
-      {
-        t.push_back(triangles[ i ].v[ j ]);
-      }
-    faces.push_back(t);
-    }
-    return faces ;
-  }
-
-
-  std::vector< std::vector<double> > getNormals(){
-    std::vector< std::vector<double> > normals;
-    int N_faces = triangles.size();
-    loopi(0,N_faces)
-    {
-      std::vector<double> n;
-      n.push_back(triangles[ i ].n.x);
-      n.push_back(triangles[ i ].n.y);
-      n.push_back(triangles[ i ].n.z);
-      normals.push_back(n);
-    }
-    return normals ;
-  }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////// Not Useful for Trimesh wrapper, we rather need to directly return vertices, faces colors etc. ////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  void write_obj(const char* filename)
+  char *trimwhitespace(char *str)
   {
-    FILE *file=fopen(filename, "w");
-    int cur_material = -1;
-    bool has_uv = (triangles.size() && (triangles[0].attr & TEXCOORD) == TEXCOORD);
+    char *end;
 
-    if (!file)
-    {
-      printf("write_obj: can't write data file \"%s\".\n", filename);
-      exit(0);
-    }
-    if (!mtllib.empty())
-    {
-      fprintf(file, "mtllib %s\n", mtllib.c_str());
-    }
-    loopi(0,vertices.size())
-    {
-      //fprintf(file, "v %lf %lf %lf\n", vertices[i].p.x,vertices[i].p.y,vertices[i].p.z);
-      fprintf(file, "v %g %g %g\n", vertices[i].p.x,vertices[i].p.y,vertices[i].p.z); //more compact: remove trailing zeros
-    }
-    if (has_uv)
-    {
-      loopi(0,triangles.size()) if(!triangles[i].deleted)
-      {
-        fprintf(file, "vt %g %g\n", triangles[i].uvs[0].x, triangles[i].uvs[0].y);
-        fprintf(file, "vt %g %g\n", triangles[i].uvs[1].x, triangles[i].uvs[1].y);
-        fprintf(file, "vt %g %g\n", triangles[i].uvs[2].x, triangles[i].uvs[2].y);
-      }
-    }
-    int uv = 1;
-    loopi(0,triangles.size()) if(!triangles[i].deleted)
-    {
-      if (triangles[i].material != cur_material)
-      {
-        cur_material = triangles[i].material;
-        fprintf(file, "usemtl %s\n", materials[triangles[i].material].c_str());
-      }
-      if (has_uv)
-      {
-        fprintf(file, "f %d/%d %d/%d %d/%d\n", triangles[i].v[0]+1, uv, triangles[i].v[1]+1, uv+1, triangles[i].v[2]+1, uv+2);
-        uv += 3;
-      }
-      else
-      {
-        fprintf(file, "f %d %d %d\n", triangles[i].v[0]+1, triangles[i].v[1]+1, triangles[i].v[2]+1);
-      }
-      //fprintf(file, "f %d// %d// %d//\n", triangles[i].v[0]+1, triangles[i].v[1]+1, triangles[i].v[2]+1); //more compact: remove trailing zeros
-    }
-    fclose(file);
+    // Trim leading space
+    while(isspace((unsigned char)*str)) str++;
+
+    if(*str == 0)  // All spaces?
+    return str;
+
+    // Trim trailing space
+    end = str + strlen(str) - 1;
+    while(end > str && isspace((unsigned char)*end)) end--;
+
+    // Write new null terminator
+    *(end+1) = 0;
+
+    return str;
   }
+
 };
 ///////////////////////////////////////////
