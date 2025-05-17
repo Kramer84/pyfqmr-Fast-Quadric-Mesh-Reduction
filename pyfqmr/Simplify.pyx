@@ -10,7 +10,6 @@ from time import time as _time
 
 cimport numpy as np
 import numpy as np
-from numpy cimport ndarray
 
 class _hidden_ref(object):
     """Hidden Python object to keep a reference to our numpy arrays
@@ -27,8 +26,7 @@ cdef extern from "Simplify.h" namespace "Simplify" :
                         void (*log)(char*, int), int max_iterations,double alpha, int K,
                         bool lossless, double threshold_lossless, bool preserve_border)
     void simplify_mesh_lossless(void (*log)(char*, int), double epsilon, int max_iterations, bool preserve_border)
-    void setMeshFromExt(vector[vector[double]] vertices,
-                        vector[vector[int]] faces)
+    void setMeshFromExt(vector[vector[double]] vertices, vector[vector[int]] faces)
     vector[vector[int]] getFaces()
     vector[vector[double]] getVertices()
     vector[vector[double]] getNormals()
@@ -82,9 +80,9 @@ cdef class Simplify :
         cdef size_t N_t = self.triangles_cpp.size()
         cdef size_t N_v = self.vertices_cpp.size()
         cdef size_t N_n = self.normals_cpp.size()
-        cdef ndarray[int, ndim=2] faces = np.zeros((N_t, 3), dtype=np.int32)
-        cdef ndarray[double, ndim=2] verts = np.zeros((N_v, 3), dtype=np.float64)
-        cdef ndarray[double, ndim=2] norms = np.zeros((N_n, 3), dtype=np.float64)
+        cdef np.ndarray[int, ndim=2] faces = np.zeros((N_t, 3), dtype=np.int32)
+        cdef np.ndarray[double, ndim=2] verts = np.zeros((N_v, 3), dtype=np.float64)
+        cdef np.ndarray[double, ndim=2] norms = np.zeros((N_n, 3), dtype=np.float64)
         # We have to define a uvs vector even if not present (not ideal...) to use cdef
         # N_v is equal to N_u if present so we'll use that
         cdef ndarray[double, ndim=2] uvs = np.zeros((N_v, 3), dtype=np.float64)
