@@ -32,7 +32,7 @@ def test_example_colored():
     vertices, faces, normals, uvs_new = simp.getMesh()
 
     assert len(faces) / len(bunny.faces) == pytest.approx(.5, rel=.05)
-    simplified = tr.Trimesh(vertices, faces, normals, visual=tr.visual.texture.TextureVisuals(uvs_new[:,:2], uvs.material))
+    simplified = tr.Trimesh(vertices, faces, normals, visual=tr.visual.texture.TextureVisuals(uvs_new[:,:2], bunny.visual.to_texture().material))
     # Some test is needed to check quality of coloring
     assert simplified.area == pytest.approx(bunny.area, rel=.05)
 
@@ -70,7 +70,7 @@ def test_example_lossless_colored():
     vertices, faces, normals, uvs_new = simp.getMesh()
 
     assert len(faces) / len(bunny.faces) == pytest.approx(.5334, rel=.05)
-    simplified = tr.Trimesh(vertices, faces, normals, visual=tr.visual.texture.TextureVisuals(uvs_new[:,:2], uvs.material))
+    simplified = tr.Trimesh(vertices, faces, normals, visual=tr.visual.texture.TextureVisuals(uvs_new[:,:2], bunny.visual.to_texture().material))
     # Some test is needed to check quality of coloring
     assert simplified.area == pytest.approx(bunny.area, rel=.05)
 
