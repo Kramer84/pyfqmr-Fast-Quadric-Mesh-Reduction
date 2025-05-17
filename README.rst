@@ -39,7 +39,7 @@ Usage:
     >>> # For example Trimesh or meshio
     >>> import pyfqmr
     >>> import trimesh as tr
-    >>> bunny = tr.load_mesh('example/Stanford_Bunny_sample.stl')
+    >>> bunny = tr.load_mesh('example/StanfordBunny.stl')
     >>> # Simplify object
     >>> mesh_simplifier = pyfqmr.Simplify()
     >>> mesh_simplifier.setMesh(bunny.vertices, bunny.faces)
@@ -58,7 +58,19 @@ Usage:
     >>>
     >>> # Now, when `simplify_mesh(verbose=True)` is called,
     >>> # messages will appear in the console or the log file
-
+    >>>
+    >>> # EXPERIMENTAL / BETA
+    >>> # If the mesh has colors defined they can be passed in the
+    >>> # form of a 2D or 3D uv map. In trimesh this can be done as :
+    >>>
+    >>> bunnyC = tr.load_mesh('example/StanfordBunnyColored.stl')
+    >>> mesh_simplifier.setMesh(bunnyC.vertices, bunnyC.faces, bunnyC.visual.to_texture().uv)
+    >>> vertices, faces, normals, uvs = mesh_simplifier.getMesh()
+    >>>
+    >>> # To create the new mesh:
+    >>> bunnyCSmall = tr.Trimesh(vertices=v, faces=f, normals=n,
+    >>>     visual=tr.visual.texture.TextureVisuals(uvs[:,:2],
+    >>>         bunnyC.visual.to_texture().material))
 
 
 Controlling the reduction algorithm
