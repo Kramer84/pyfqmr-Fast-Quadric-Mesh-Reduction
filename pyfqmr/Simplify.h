@@ -951,18 +951,20 @@ namespace Simplify
      v.p.z = verts[i][2];
      vertices.push_back(v);
    }
+   printf("Set vertices in cpp\n");
 
    loopi(0, N_faces) {
      Triangle t;
      t.v[0] = faces[i][0];
      t.v[1] = faces[i][1];
      t.v[2] = faces[i][2];
-     t.attr = TEXCOORD; // Set the attribute to indicate that UVs are present
+     t.attr |= TEXCOORD; // Set the attribute to indicate that UVs are present
 
      // Set the UVs for each vertex in the triangle
      loopj(0, 3) {
        t.uvs[j].x = uvs[i * 3 + j][0];
        t.uvs[j].y = uvs[i * 3 + j][1];
+       t.uvs[j].z = 0; // Maybe?
      }
 
      t.material = -1;

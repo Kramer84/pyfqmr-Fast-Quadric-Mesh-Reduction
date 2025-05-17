@@ -129,9 +129,10 @@ cdef class Simplify :
         self.triangles_cpp = setFacesNogil(self.faces_mv, self.triangles_cpp)
         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
 
-        if uvs :
+        if uvs is not None:
             self.uvs_mv = uvs.astype(dtype="float64", subok=False, copy=False)
             self.uvs_cpp = setUVsNogil(self.uvs_mv, self.uvs_cpp)
+            print('Set uvs_cpp')
             setMeshFromExtWithUVs(self.vertices_cpp, self.triangles_cpp, self.uvs_cpp)
 
         else :
