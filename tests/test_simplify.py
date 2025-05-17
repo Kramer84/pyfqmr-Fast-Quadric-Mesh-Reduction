@@ -23,7 +23,7 @@ def test_example():
     simplified = tr.Trimesh(vertices, faces, normals)
     assert simplified.area == pytest.approx(bunny.area, rel=.05)
 
-def test_example_colored()
+def test_example_colored():
     import trimesh as tr
     bunny = tr.load_mesh(EXAMPLES_DIR / 'StanfordBunnyColored.ply')
     simp = pyfqmr.Simplify()
@@ -61,7 +61,7 @@ def test_example_lossless():
     simplified = tr.Trimesh(vertices, faces, normals)
     assert simplified.area == pytest.approx(bunny.area, rel=.05)
 
-def test_example_lossless_colored()
+def test_example_lossless_colored():
     import trimesh as tr
     bunny = tr.load_mesh(EXAMPLES_DIR / 'StanfordBunnyColored.ply')
     simp = pyfqmr.Simplify()
