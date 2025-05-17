@@ -902,75 +902,81 @@ namespace Simplify
 
 ///////////// Functions to include face colors (made with mistral) /////////////////////////////////////////////////
 
- bool hasUVs() {
-     if (triangles.empty()) {
-         return false;
-     }
+  bool hasUVs() {
+      if (triangles.empty()) {
+          return false;
+      }
 
-     for (const auto& triangle : triangles) {
-         if ((triangle.attr & TEXCOORD) == TEXCOORD) {
-             return true;
-         }
-     }
-     return false;
- }
+      for (const auto& triangle : triangles) {
+          if ((triangle.attr & TEXCOORD) == TEXCOORD) {
+              return true;
+          }
+      }
+      return false;
+  }
 
- std::vector< std::vector<double> > getUVs(){
-   std::vector< std::vector<double> > uvs;
-   int N_faces = triangles.size();
-   bool has_uv = (triangles.size() && (triangles[0].attr & TEXCOORD) ==
- TEXCOORD);
+  // Simplify stores the UVs per face basis, and we want them on a vertex basis
+  // So we need to to create an empty vector of UVs of size [vertices.size(),3], and iterate
+  // over each triangle, iterate over each vertex index (idx = triangles[i].v[j]), and
+  // fill the UVs vector at idx with the values triangles[i].uvs[j].x .y and .z
+  // If the vertex has already a value than it should not be re-set i guess. But  maybe a check
+  // is needed to see if the values are the same?
+  std::vector< std::vector<double> > getUVs(){
+    std::vector<std::vector<double>> uvs(vertices.size(), std::vector<double>(3, -1));
+    int N_faces = triangles.size();
 
-   if (has_uv) {
-     loopi(0, N_faces) if(!triangles[i].deleted) {
-       loopj(0, 3) {
-         std::vector<double> uv;
-         uv.push_back(triangles[i].uvs[j].x);
-         uv.push_back(triangles[i].uvs[j].y);
-         uvs.push_back(uv);
-       }
-     }
-   }
+    if (hasUVs()) {
+      loopi(0, N_faces) {
+        loopj(0, 3) {
+          int idx = triangles[i].v[j];
+          uvs[idx][0] = triangles[i].uvs[j].x;
+          uvs[idx][1] = triangles[i].uvs[j].y;
+          uvs[idx][2] = triangles[i].uvs[j].z;
+        }
+      }
+    }
 
-   return uvs;
- }
+    return uvs;
+  }
 
- void setMeshFromExtWithUVs(std::vector< std::vector<double> > verts,
-                           std::vector< std::vector<int> > faces,
-                           std::vector< std::vector<double> > uvs) {
-   vertices.clear();
-   triangles.clear();
+  void setMeshFromExtWithUVs(std::vector< std::vector<double> > verts,
+                            std::vector< std::vector<int> > faces,
+                            std::vector< std::vector<double> > uvs) {
+    vertices.clear();
+    triangles.clear();
 
-   int N_faces = faces.size();
-   int N_vertices = verts.size();
+    int N_faces = faces.size();
+    int N_vertices = verts.size();
 
-   loopi(0, N_vertices) {
-     Vertex v;
-     v.p.x = verts[i][0];
-     v.p.y = verts[i][1];
-     v.p.z = verts[i][2];
-     vertices.push_back(v);
-   }
-   printf("Set vertices in cpp\n");
+    loopi(0, N_vertices) {
+      Vertex v;
+      v.p.x = verts[i][0];
+      v.p.y = verts[i][1];
+      v.p.z = verts[i][2];
+      vertices.push_back(v);
+    }
+    printf("Set vertices in cpp\n");
 
-   loopi(0, N_faces) {
-     Triangle t;
-     t.v[0] = faces[i][0];
-     t.v[1] = faces[i][1];
-     t.v[2] = faces[i][2];
-     t.attr |= TEXCOORD; // Set the attribute to indicate that UVs are present
+    loopi(0, N_faces) {
+      Triangle t;
+      t.v[0] = faces[i][0];
+      t.v[1] = faces[i][1];
+      t.v[2] = faces[i][2];
+      t.attr |= TEXCOORD; // Set the attribute to indicate that UVs are present
 
-     // Set the UVs for each vertex in the triangle
-     loopj(0, 3) {
-       t.uvs[j].x = uvs[i * 3 + j][0];
-       t.uvs[j].y = uvs[i * 3 + j][1];
-       t.uvs[j].z = 0; // Maybe?
-     }
+      // Set the UVs for each vertex in the triangle
+      loopj(0, 3) {
+        t.uvs[j].x = uvs[t.v[j]][0];
+        t.uvs[j].y = uvs[t.v[j]][1];
+        t.uvs[j].z = uvs[t.v[j]][2]; // Maybe?
 
-     t.material = -1;
-     triangles.push_back(t);
-   }
- }
+        //printf("UV for face %d, vertex %d: (%f, %f)\n", i, j, t.uvs.x, t.uvs.y);
+      }
+
+      t.material = -1;
+      triangles.push_back(t);
+    }
+  }
 
 
 };

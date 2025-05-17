@@ -75,15 +75,18 @@ cdef class Simplify :
         self.vertices_cpp = getVertices()
         self.normals_cpp = getNormals()
 
+        cdef size_t i = 0
+        cdef size_t j = 0
+
         cdef size_t N_t = self.triangles_cpp.size()
         cdef size_t N_v = self.vertices_cpp.size()
         cdef size_t N_n = self.normals_cpp.size()
         cdef np.ndarray[int, ndim=2] faces = np.zeros((N_t, 3), dtype=np.int32)
         cdef np.ndarray[double, ndim=2] verts = np.zeros((N_v, 3), dtype=np.float64)
         cdef np.ndarray[double, ndim=2] norms = np.zeros((N_n, 3), dtype=np.float64)
-
-        cdef size_t i = 0
-        cdef size_t j = 0
+        # We have to define a uvs vector even if not present (not ideal...) to use cdef
+        # N_v is equal to N_u if present so we'll use that
+        cdef np.ndarray[double, ndim=2] uvs = np.zeros((N_v, 3), dtype=np.float64)
 
         for i in range(N_t):
             for j in range(3):
@@ -94,6 +97,13 @@ cdef class Simplify :
         for i in range(N_n):
             for j in range(3):
                 norms[i,j] = self.normals_cpp[i][j]
+
+        if hasUVs():
+            self.uvs_cpp = getUVs()
+            for i in range(N_v):
+                for j in range(3):
+                    uvs[i,j] = self.uvs_cpp[i][j]
+            return verts, faces, norms, uvs
 
         return verts, faces, norms
 
@@ -130,6 +140,11 @@ cdef class Simplify :
         self.vertices_cpp = setVerticesNogil(self.vertices_mv, self.vertices_cpp)
 
         if uvs is not None:
+            uvs = np.array(uvs)
+            if uvs.shape[1] not in [2,3]:
+                raise ValueError("UVs array most be of shape [n_vertices, 2 or 3] ")
+            if uvs.shape[1] == 2:
+                uvs = np.hstack([uvs, np.zeros((uvs.shape[0],1))])
             self.uvs_mv = uvs.astype(dtype="float64", subok=False, copy=False)
             self.uvs_cpp = setUVsNogil(self.uvs_mv, self.uvs_cpp)
             print('Set uvs_cpp')
@@ -280,7 +295,7 @@ cdef vector[vector[double]] setUVsNogil(double[:,:] uvs, vector[vector[double]] 
     cdef size_t j = 0
     for i in range(uvs.shape[0]):
         vertex.clear()
-        for j in range(3):
+        for j in range(uvs.shape[1]):
             vertex.push_back(uvs[i,j])
         vector_uvs.push_back(vertex)
     return vector_uvs

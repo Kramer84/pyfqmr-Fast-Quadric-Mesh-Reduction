@@ -21,7 +21,20 @@ def test_example():
 
     assert len(faces) / len(bunny.faces) == pytest.approx(.5, rel=.05)
     simplified = tr.Trimesh(vertices, faces, normals)
-    assert simplified.area == pytest.approx(simplified.area, rel=.05)
+    assert simplified.area == pytest.approx(bunny.area, rel=.05)
+
+def test_example_colored()
+    import trimesh as tr
+    bunny = tr.load_mesh(EXAMPLES_DIR / 'StanfordBunnyColored.ply')
+    simp = pyfqmr.Simplify()
+    simp.setMesh(bunny.vertices, bunny.faces, bunny.visual.to_texture().uv)
+    simp.simplify_mesh(len(bunny.faces) // 2)
+    vertices, faces, normals, uvs_new = simp.getMesh()
+
+    assert len(faces) / len(bunny.faces) == pytest.approx(.5, rel=.05)
+    simplified = tr.Trimesh(vertices, faces, normals, visual=tr.visual.texture.TextureVisuals(uvs_new[:,:2], uvs.material))
+    # Some test is needed to check quality of coloring
+    assert simplified.area == pytest.approx(bunny.area, rel=.05)
 
 def test_empty():
     verts = np.zeros((0,3), dtype=np.float32)
@@ -46,7 +59,20 @@ def test_example_lossless():
 
     assert len(faces) / len(bunny.faces) == pytest.approx(.5334, rel=.05)
     simplified = tr.Trimesh(vertices, faces, normals)
-    assert simplified.area == pytest.approx(simplified.area, rel=.05)
+    assert simplified.area == pytest.approx(bunny.area, rel=.05)
+
+def test_example_lossless_colored()
+    import trimesh as tr
+    bunny = tr.load_mesh(EXAMPLES_DIR / 'StanfordBunnyColored.ply')
+    simp = pyfqmr.Simplify()
+    simp.setMesh(bunny.vertices, bunny.faces, bunny.visual.to_texture().uv)
+    simp.simplify_mesh_lossless()
+    vertices, faces, normals, uvs_new = simp.getMesh()
+
+    assert len(faces) / len(bunny.faces) == pytest.approx(.5334, rel=.05)
+    simplified = tr.Trimesh(vertices, faces, normals, visual=tr.visual.texture.TextureVisuals(uvs_new[:,:2], uvs.material))
+    # Some test is needed to check quality of coloring
+    assert simplified.area == pytest.approx(bunny.area, rel=.05)
 
 def test_empty_lossless():
     verts = np.zeros((0,3), dtype=np.float32)
