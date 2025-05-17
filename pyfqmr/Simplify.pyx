@@ -85,7 +85,7 @@ cdef class Simplify :
         cdef np.ndarray[double, ndim=2] norms = np.zeros((N_n, 3), dtype=np.float64)
         # We have to define a uvs vector even if not present (not ideal...) to use cdef
         # N_v is equal to N_u if present so we'll use that
-        cdef ndarray[double, ndim=2] uvs = np.zeros((N_v, 3), dtype=np.float64)
+        cdef np.ndarray[double, ndim=2] uvs = np.zeros((N_v, 3), dtype=np.float64)
 
         for i in range(N_t):
             for j in range(3):
