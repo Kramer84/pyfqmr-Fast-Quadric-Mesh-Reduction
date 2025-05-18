@@ -900,8 +900,6 @@ namespace Simplify
     return normals ;
   }
 
-///////////// Functions to include face colors (made with mistral) /////////////////////////////////////////////////
-
   bool hasUVs() {
       if (triangles.empty()) {
           return false;
@@ -915,12 +913,6 @@ namespace Simplify
       return false;
   }
 
-  // Simplify stores the UVs per face basis, and we want them on a vertex basis
-  // So we need to to create an empty vector of UVs of size [vertices.size(),3], and iterate
-  // over each triangle, iterate over each vertex index (idx = triangles[i].v[j]), and
-  // fill the UVs vector at idx with the values triangles[i].uvs[j].x .y and .z
-  // If the vertex has already a value than it should not be re-set i guess. But  maybe a check
-  // is needed to see if the values are the same?
   std::vector< std::vector<double> > getUVs(){
     std::vector< std::vector<double> > uvs(vertices.size(), std::vector<double>(3, -1));
     int N_faces = triangles.size();
@@ -977,7 +969,6 @@ namespace Simplify
       triangles.push_back(t);
     }
   }
-
 
 };
 ///////////////////////////////////////////
