@@ -8,8 +8,10 @@ from libcpp cimport bool
 
 from time import time as _time
 
-cimport numpy as np
 import numpy as np
+cimport numpy as np
+
+np.import_array()
 
 class _hidden_ref(object):
     """Hidden Python object to keep a reference to our numpy arrays
@@ -80,9 +82,9 @@ cdef class Simplify :
         cdef size_t N_t = self.triangles_cpp.size()
         cdef size_t N_v = self.vertices_cpp.size()
         cdef size_t N_n = self.normals_cpp.size()
-        cdef np.ndarray[int, ndim=2] faces = np.zeros((N_t, 3), dtype=np.int32)
-        cdef np.ndarray[double, ndim=2] verts = np.zeros((N_v, 3), dtype=np.float64)
-        cdef np.ndarray[double, ndim=2] norms = np.zeros((N_n, 3), dtype=np.float64)
+        faces = np.zeros((N_t, 3), dtype=np.int32) # cdef np.ndarray[int, ndim=2]
+        verts = np.zeros((N_v, 3), dtype=np.float64) # cdef np.ndarray[double, ndim=2]
+        norms = np.zeros((N_n, 3), dtype=np.float64) # cdef np.ndarray[double, ndim=2]
 
         for i in range(N_t):
             for j in range(3):
