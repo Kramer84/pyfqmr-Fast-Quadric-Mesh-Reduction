@@ -9,9 +9,7 @@ from libcpp cimport bool
 from time import time as _time
 
 import numpy as np
-cimport numpy as cnp
-
-cnp.import_array()
+cimport numpy as np
 
 class _hidden_ref(object):
     """Hidden Python object to keep a reference to our numpy arrays
