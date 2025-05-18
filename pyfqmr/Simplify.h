@@ -922,7 +922,7 @@ namespace Simplify
   // If the vertex has already a value than it should not be re-set i guess. But  maybe a check
   // is needed to see if the values are the same?
   std::vector< std::vector<double> > getUVs(){
-    std::vector<std::vector<double>> uvs(vertices.size(), std::vector<double>(3, -1));
+    std::vector< std::vector<double> > uvs(vertices.size(), std::vector<double>(3, -1));
     int N_faces = triangles.size();
 
     if (hasUVs()) {
