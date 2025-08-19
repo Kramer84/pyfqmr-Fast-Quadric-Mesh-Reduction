@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, windows-latest, windows-11-arm, macOS-latest]
         musl: [false]
         include:
           - os: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
         env:
           # Platform options
           CIBW_ARCHS_MACOS: "x86_64 arm64"
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7,<3.14"
+          CIBW_PROJECT_REQUIRES_PYTHON: ${{ matrix.os == 'windows-11-arm' && '>=3.11,<3.15' || '>=3.7,<3.15' }}
           CIBW_BUILD: ${{ matrix.musl && '*-musllinux_*' || null }}
           # musl: skip unsupported by NumPy; not musl: skip PyPy and musl
           CIBW_SKIP: ${{ matrix.musl && 'cp37-musllinux_* cp38-musllinux_*' || 'pp* *-musllinux_*' }}
