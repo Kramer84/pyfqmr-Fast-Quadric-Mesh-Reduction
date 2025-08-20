@@ -5,6 +5,8 @@ requires = [
   "cython",
   # Force (currently only prereleased) free threaded Python supporting Cython
   "cython >= 3.1.0a1; python_version >= '3.13'",
+  # New cython breaks with old numpy
+  "cython < 3; python_version < '3.9'",
   # NumPy must be locked in order to support 1.x and 2.x
   "numpy==2.0; python_version >= '3.9' and python_version < '3.13'",
   # Unless building for a Python version that NumPy 2.0 doesn't support
