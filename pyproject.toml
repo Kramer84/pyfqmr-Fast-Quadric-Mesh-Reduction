@@ -7,10 +7,10 @@ requires = [
   "cython >= 3.1.0a1; python_version >= '3.13'",
   # New cython breaks with old numpy
   "cython < 3; python_version < '3.9'",
-  # NumPy must be locked in order to support 1.x and 2.x
-  "numpy==2.0; python_version >= '3.9' and python_version < '3.13'",
-  # Unless building for a Python version that NumPy 2.0 doesn't support
-  "oldest-supported-numpy; python_version < '3.9' or python_version >= '3.13'",
+  # See https://github.com/scipy/oldest-supported-numpy/blob/687ffc2f57e29ec7c74a28c58c247d16d0f6bee1/README.rst#deprecation-notice-for-numpy-20
+  # although beware that most of the versions are wrong...
+  "numpy >= 2.0, <3; python_version >= '3.9'",
+  "oldest-supported-numpy; python_version < '3.9'",
 ]
 
 [project]
