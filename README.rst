@@ -65,7 +65,7 @@ Usage:
     >>>
     >>> bunnyC = tr.load_mesh('example/StanfordBunnyColored.stl')
     >>> mesh_simplifier.setMesh(bunnyC.vertices, bunnyC.faces, bunnyC.visual.to_texture().uv)
-    >>> vertices, faces, normals, uvs = mesh_simplifier.getMesh()
+    >>> v, f, n, uvs = mesh_simplifier.getMesh()
     >>>
     >>> # To create the new mesh:
     >>> bunnyCSmall = tr.Trimesh(vertices=v, faces=f, normals=n,
