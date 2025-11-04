@@ -63,7 +63,7 @@ Usage:
     >>> # If the mesh has colors defined they can be passed in the
     >>> # form of a 2D or 3D uv map. In trimesh this can be done as :
     >>>
-    >>> bunnyC = tr.load_mesh('example/StanfordBunnyColored.stl')
+    >>> bunnyC = tr.load_mesh('example/StanfordBunnyColored.ply')
     >>> mesh_simplifier.setMesh(bunnyC.vertices, bunnyC.faces, bunnyC.visual.to_texture().uv)
     >>> v, f, n, uvs = mesh_simplifier.getMesh()
     >>>
