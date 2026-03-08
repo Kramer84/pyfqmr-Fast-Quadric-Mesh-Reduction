@@ -10,14 +10,7 @@
 //https://github.com/sp4cerat/Fast-Quadric-Mesh-S;
 // 5/2016: Chris Rorden created minimal version for OSX/Linux/Windows compile
 
-//#include <iostream>
-//#include <stddef.h>
-//#include <functional>
-//#include <sys/stat.h>
-//#include <stdbool.h>
 #include <string.h>
-//#include <ctype.h>
-//#include <float.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <map>
@@ -27,26 +20,15 @@
 #include <float.h> //FLT_EPSILON, DBL_EPSILON
 
 #define loopi(start_l,end_l) for ( int i=start_l;i<end_l;++i )
-#define loopi(start_l,end_l) for ( int i=start_l;i<end_l;++i )
 #define loopj(start_l,end_l) for ( int j=start_l;j<end_l;++j )
 #define loopk(start_l,end_l) for ( int k=start_l;k<end_l;++k )
 
-struct vector3
-{
-double x, y, z;
-};
 
 struct vec3f
 {
     double x, y, z;
 
     inline vec3f( void ) {}
-
-    //inline vec3f operator =( vector3 a )
-  // { vec3f b ; b.x = a.x; b.y = a.y; b.z = a.z; return b;}
-
-    inline vec3f( vector3 a )
-   { x = a.x; y = a.y; z = a.z; }
 
     inline vec3f( const double X, const double Y, const double Z )
     { x = X; y = Y; z = Z; }
@@ -65,9 +47,6 @@ struct vec3f
 
     inline vec3f v3 () const
     { return vec3f( x , y, z ); }
-
-    inline vec3f operator = ( const vector3 a )
-    { x=a.x;y=a.y;z=a.z;return *this; }
 
     inline vec3f operator = ( const vec3f a )
     { x=a.x;y=a.y;z=a.z;return *this; }
@@ -244,15 +223,15 @@ double min(double v1, double v2) {
 }
 
 
-class SymetricMatrix {
+class SymmetricMatrix {
 
   public:
 
   // Constructor
 
-  SymetricMatrix(double c=0) { loopi(0,10) m[i] = c;  }
+  SymmetricMatrix(double c=0) { loopi(0,10) m[i] = c;  }
 
-  SymetricMatrix( double m11, double m12, double m13, double m14,
+  SymmetricMatrix( double m11, double m12, double m13, double m14,
                   double m22, double m23, double m24,
                               double m33, double m34,
                                           double m44) {
@@ -264,7 +243,7 @@ class SymetricMatrix {
 
   // Make plane
 
-  SymetricMatrix(double a,double b,double c,double d)
+  SymmetricMatrix(double a,double b,double c,double d)
   {
     m[0] = a*a;  m[1] = a*b;  m[2] = a*c;  m[3] = a*d;
                  m[4] = b*b;  m[5] = b*c;  m[6] = b*d;
@@ -285,15 +264,15 @@ class SymetricMatrix {
     return det;
   }
 
-  const SymetricMatrix operator+(const SymetricMatrix& n) const
+  const SymmetricMatrix operator+(const SymmetricMatrix& n) const
   {
-    return SymetricMatrix( m[0]+n[0],   m[1]+n[1],   m[2]+n[2],   m[3]+n[3],
+    return SymmetricMatrix( m[0]+n[0],   m[1]+n[1],   m[2]+n[2],   m[3]+n[3],
                                 m[4]+n[4],   m[5]+n[5],   m[6]+n[6],
                                              m[ 7]+n[ 7], m[ 8]+n[8 ],
                                                           m[ 9]+n[9 ]);
   }
 
-  SymetricMatrix& operator+=(const SymetricMatrix& n)
+  SymmetricMatrix& operator+=(const SymmetricMatrix& n)
   {
      m[0]+=n[0];   m[1]+=n[1];   m[2]+=n[2];   m[3]+=n[3];
      m[4]+=n[4];   m[5]+=n[5];   m[6]+=n[6];   m[7]+=n[7];
@@ -307,15 +286,15 @@ class SymetricMatrix {
 
 namespace Simplify
 {
-  // Global Variables & Strctures
+  // Global Variables & Structures
   enum Attributes {
-    NONE,
+    NONE = 0,
     NORMAL = 2,
     TEXCOORD = 4,
     COLOR = 8
   };
   struct Triangle { int v[3];double err[4];int deleted,dirty,attr;vec3f n;vec3f uvs[3];int material; };
-  struct Vertex { vec3f p;int tstart,tcount;SymetricMatrix q;int border;};
+  struct Vertex { vec3f p;int tstart,tcount;SymmetricMatrix q;int border;};
   struct Ref { int tid,tvertex; };
   std::vector<Triangle> triangles;
   std::vector<Vertex> vertices;
@@ -325,7 +304,7 @@ namespace Simplify
 
   // Helper functions
 
-  double vertex_error(SymetricMatrix q, double x, double y, double z);
+  double vertex_error(SymmetricMatrix q, double x, double y, double z);
   double calculate_error(int id_v1, int id_v2, vec3f &p_result);
   bool flipped(vec3f p,int i0,int i1,Vertex &v0,Vertex &v1,std::vector<int> &deleted);
   void update_uvs(int i0,const Vertex &v,const vec3f &p,std::vector<int> &deleted);
@@ -727,7 +706,7 @@ namespace Simplify
     if( iteration == 0 )
     {
       loopi(0,vertices.size())
-      vertices[i].q=SymetricMatrix(0.0);
+      vertices[i].q=SymmetricMatrix(0.0);
 
       loopi(0,triangles.size())
       {
@@ -738,7 +717,7 @@ namespace Simplify
         n.normalize();
         t.n=n;
         loopj(0,3) vertices[t.v[j]].q =
-          vertices[t.v[j]].q+SymetricMatrix(n.x,n.y,n.z,-n.dot(p[0]));
+          vertices[t.v[j]].q+SymmetricMatrix(n.x,n.y,n.z,-n.dot(p[0]));
       }
       loopi(0,triangles.size())
       {
@@ -786,7 +765,7 @@ namespace Simplify
 
   // Error between vertex and Quadric
 
-  double vertex_error(SymetricMatrix q, double x, double y, double z)
+  double vertex_error(SymmetricMatrix q, double x, double y, double z)
   {
     return   q[0]*x*x + 2*q[1]*x*y + 2*q[2]*x*z + 2*q[3]*x + q[4]*y*y
          + 2*q[5]*y*z + 2*q[6]*y + q[7]*z*z + 2*q[8]*z + q[9];
@@ -798,7 +777,7 @@ namespace Simplify
   {
     // compute interpolated vertex
 
-    SymetricMatrix q = vertices[id_v1].q + vertices[id_v2].q;
+    SymmetricMatrix q = vertices[id_v1].q + vertices[id_v2].q;
     bool   border = vertices[id_v1].border & vertices[id_v2].border;
     double error=0;
     double det = q.det(0, 1, 2, 1, 4, 5, 2, 5, 7);
@@ -950,9 +929,9 @@ namespace Simplify
         }
         else
         {
-          printf("unrecognized sequence\n");
+          printf("load_obj: unrecognized sequence\n");
           printf("%s\n",line);
-          while(1);
+          exit(0);
         }
         if ( tri_ok )
         {
@@ -1122,3 +1101,7 @@ namespace Simplify
   }
 };
 ///////////////////////////////////////////
+
+#undef loopi
+#undef loopj
+#undef loopk
