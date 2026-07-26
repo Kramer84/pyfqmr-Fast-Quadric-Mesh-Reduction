@@ -85,7 +85,7 @@ Parameters of the **`simplify\_mesh`** method that can be tuned.
 -  **threshold\_lossless**
     Maximal error after which a vertex is not deleted, only when the lossless flag is set to True.
 -  **verbose**
-    Falg controlling verbosity
+    Flag controlling verbosity
 
 Controlling the lossless reduction algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,7 +93,7 @@ Controlling the lossless reduction algorithm
 Parameters of the **`simplify\_mesh\_lossless`** method that can be tuned.
 
 -  **verbose**
-    Falg controlling verbosity
+    Flag controlling verbosity
 -  **epsilon**
     Maximal error after which a vertex is not deleted.
 -  **max\_iterations**
@@ -104,7 +104,7 @@ Parameters of the **`simplify\_mesh\_lossless`** method that can be tuned.
 Note
 ~~~~
 
-- The **`simplify\_mesh\_lossless`** method is different from the **`simplify\_mesh`** method with the lossless flag enabled, and should be prefered when quality is the aim and not a precise number of target triangles.
+- The **`simplify\_mesh\_lossless`** method is different from the **`simplify\_mesh`** method with the lossless flag enabled, and should be preferred when quality is the aim and not a precise number of target triangles.
 - Tests have shown that the **threshold\_lossless** argument has little to no influence on the reduction of the meshes.
 
 
